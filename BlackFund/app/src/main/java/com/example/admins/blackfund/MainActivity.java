@@ -14,11 +14,11 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        tvhell= (TextView) findViewById(R.id.tv_hel);
+        tvhell = (TextView) findViewById(R.id.tv_hel);
         tvhell.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent=new Intent(MainActivity.this,ThemGhiChu.class);
+                Intent intent = new Intent(MainActivity.this, ThemGhiChu.class);
                 startActivity(intent);
             }
         });
@@ -26,4 +26,4 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    }
+}

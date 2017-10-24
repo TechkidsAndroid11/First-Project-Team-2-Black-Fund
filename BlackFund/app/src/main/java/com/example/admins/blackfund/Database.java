@@ -16,32 +16,33 @@ import java.util.ArrayList;
 
 public class Database extends SQLiteOpenHelper {
     public static final String TABLE_NOTE = "TB_GHiCHU";
-    public static final String DATABASE_NAME="ghiChu.db";
+    public static final String DATABASE_NAME = "ghiChu.db";
 
     public static final int DATA_VERSION = 1;
     public static final String KEY_ID_GHICHU = "id";
     public static final String KEY_TIEN = "TIEN";
     public static final String KEY_GHICHU = "GHICHU";
     public static final String KEY_DATE = "DATE";
-    private static final String KEY_CHONNHOM="LYDO";
-
+    private static final String KEY_CHONNHOM = "LYDO";
 
 
     public static final String CREAT_TABLE_GHICHU = "CREATE TABLE " + TABLE_NOTE + "(" +
             KEY_ID_GHICHU + " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL" +
             ", " + KEY_TIEN + " TEXT NOT NULL" +
-            "," + KEY_CHONNHOM + " TEXT NOT NULL"+ "," + KEY_GHICHU + " TEXT NOT NULL "+ "," + KEY_DATE + " TEXT NOT NULL " + ")";
-    private static final String TAG = Database.class.toString() ;
+            "," + KEY_CHONNHOM + " TEXT NOT NULL" + "," + KEY_GHICHU + " TEXT NOT NULL " + "," + KEY_DATE + " TEXT NOT NULL " + ")";
+    private static final String TAG = Database.class.toString();
 
     private SQLiteDatabase db;
     public static Database database;
+
     public static Database getInstance(Context context) {
         if (database == null) {
-            database = new Database (context);
+            database = new Database(context);
         }
         return database;
     }
-    public Database (Context context) {
+
+    public Database(Context context) {
         super(context, DATABASE_NAME, null, DATA_VERSION);
     }
 
@@ -56,12 +57,11 @@ public class Database extends SQLiteOpenHelper {
     }
 
 
-
-
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
 
     }
+
     public ArrayList<GhiChu> getListGhiChu() {
         ArrayList<GhiChu> list = new ArrayList<>();
         getWritableDatabase();
@@ -76,7 +76,7 @@ public class Database extends SQLiteOpenHelper {
                 ghiChu.setGhiChu(cursor.getString(cursor.getColumnIndex(KEY_GHICHU)));
                 ghiChu.setDate(cursor.getString(cursor.getColumnIndex(KEY_DATE)));
 
-                Log.d(TAG, "getListNote: "+ghiChu.getId());
+                Log.d(TAG, "getListNote: " + ghiChu.getId());
 
                 list.add(ghiChu);
                 cursor.moveToNext();

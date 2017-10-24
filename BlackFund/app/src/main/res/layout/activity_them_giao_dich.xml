@@ -1,56 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-xmlns:app="http://schemas.android.com/apk/res-auto"
-xmlns:tools="http://schemas.android.com/tools"
-android:layout_width="match_parent"
-    android:orientation="vertical"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_weight="5"
+
     android:background="#e7e7e7"
 
+    android:orientation="vertical"
     android:padding="5dp"
-
-    android:layout_weight="5"
-android:layout_height="match_parent"
-tools:context="com.example.admins.blackfund.ThemGhiChu">
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:orientation="horizontal"
-        android:weightSum="6"
-        android:layout_weight="2"
-        android:background="#ffff"
-        android:layout_height="0dp">
-        <ImageView
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:src="@drawable/ic_arrow_back_black_24dp"
-            android:layout_gravity="center"
-            android:id="@+id/iv_back"
-            android:layout_height="wrap_content" />
-        <TextView
-            android:layout_width="0dp"
-            android:layout_weight="4"
-            android:layout_gravity="center"
-            android:text="Thêm Giao Dịch"
-            android:textSize="30dp"
-            android:textStyle="bold"
-            android:layout_height="wrap_content" />
-        <TextView
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:text="Lưu"
-            android:layout_gravity="center"
-            android:textSize="20dp"
-            android:textStyle="bold"
-            android:gravity="center"
-            android:layout_height="wrap_content"
-            android:id="@+id/tv_luu"/>
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_weight="3"
-        android:orientation="horizontal"
-        android:weightSum="6"
-        android:layout_height="0dp"></LinearLayout>
+    tools:context="com.example.admins.blackfund.ThemGhiChu">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -59,92 +19,147 @@ tools:context="com.example.admins.blackfund.ThemGhiChu">
         android:background="#ffff"
         android:orientation="horizontal"
         android:weightSum="6">
+
+        <ImageView
+            android:id="@+id/iv_back"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:src="@drawable/ic_arrow_back_black_24dp" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="4"
+            android:text="Thêm Giao Dịch"
+            android:textSize="30dp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tv_luu"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:gravity="center"
+
+            android:text="Lưu"
+            android:textSize="20dp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="3"
+        android:orientation="horizontal"
+        android:weightSum="6"></LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="2"
+        android:background="#ffff"
+        android:orientation="horizontal"
+        android:weightSum="6">
+
         <ImageView
             android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:layout_weight="1"
-            android:src="@drawable/ic_attach_money_black_24dp"
-            android:layout_gravity="center"
-            android:layout_height="wrap_content" />
+            android:src="@drawable/ic_attach_money_black_24dp" />
+
         <EditText
+            android:id="@+id/et_tien"
             android:layout_width="0dp"
-            android:layout_weight="4"
+            android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:textSize="30dp"
+            android:layout_weight="4"
             android:hint="$$"
-            android:layout_height="wrap_content" />
+            android:textSize="30dp" />
 
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:orientation="horizontal"
-        android:weightSum="6"
+        android:layout_height="0dp"
         android:layout_weight="2"
         android:background="#ffff"
-        android:layout_height="0dp">
+        android:orientation="horizontal"
+        android:weightSum="6">
+
         <ImageView
             android:layout_width="0dp"
-            android:layout_weight="1"
+            android:layout_height="wrap_content"
 
             android:layout_gravity="center"
-            android:layout_height="wrap_content" />
+            android:layout_weight="1" />
+
         <EditText
+            android:id="@+id/et_chonNhom"
             android:layout_width="0dp"
-            android:layout_weight="4"
+            android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:textSize="30dp"
+            android:layout_weight="4"
             android:hint="Chọn nhóm"
-            android:layout_height="wrap_content" />
+            android:textSize="30dp" />
 
     </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
-        android:orientation="horizontal"
-        android:weightSum="6"
+        android:layout_height="0dp"
         android:layout_weight="2"
         android:background="#ffff"
-        android:layout_height="0dp">
+        android:orientation="horizontal"
+        android:weightSum="6">
 
         <ImageView
             android:id="@+id/imageView"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_weight="1"
-            />
+            android:layout_weight="1" />
 
         <EditText
+            android:id="@+id/et_ghiChu"
             android:layout_width="0dp"
-            android:layout_weight="4"
+            android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:textSize="20dp"
+            android:layout_weight="4"
             android:hint="Ghi chú"
-            android:layout_height="wrap_content" />
+            android:textSize="20dp" />
 
 
     </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
-        android:orientation="horizontal"
-        android:weightSum="6"
+        android:layout_height="0dp"
         android:layout_weight="2"
         android:background="#ffff"
-        android:layout_height="0dp">
+        android:orientation="horizontal"
+        android:weightSum="6">
+
         <ImageView
             android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:layout_weight="1"
-            android:src="@drawable/ic_date_range_black_24dp"
-            android:layout_gravity="center"
-            android:layout_height="wrap_content" />
+            android:src="@drawable/ic_date_range_black_24dp" />
+
         <EditText
-            android:layout_width="0dp"
-            android:layout_weight="4"
-            android:layout_gravity="center"
-            android:textSize="20dp"
-            android:hint="Hôm nay"
             android:id="@+id/et_date"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="4"
+            android:hint="Hôm nay"
 
-            android:layout_height="wrap_content" />
+            android:textSize="20dp" />
 
-</LinearLayout>
+    </LinearLayout>
 </LinearLayout>
