@@ -9,7 +9,7 @@ import java.io.Serializable;
 public class GhiChu implements Serializable{
     private String ghiChu;
     private int id;
-    private float money;
+    private String money;
     private String date;
     private String chonNhom;
 
@@ -34,11 +34,11 @@ public class GhiChu implements Serializable{
         this.id = id;
     }
 
-    public float getMoney() {
+    public String getMoney() {
         return money;
     }
 
-    public void setMoney(float money) {
+    public void setMoney(String money) {
         this.money = money;
     }
 
@@ -58,9 +58,9 @@ public class GhiChu implements Serializable{
         this.chonNhom = chonNhom;
     }
 
-    public GhiChu(String ghiChu, int id, float money, String date, String chonNhom) {
+    public GhiChu(String ghiChu, String money, String date, String chonNhom) {
         this.ghiChu = ghiChu;
-        this.id = id;
+
         this.money = money;
         this.date = date;
         this.chonNhom = chonNhom;
