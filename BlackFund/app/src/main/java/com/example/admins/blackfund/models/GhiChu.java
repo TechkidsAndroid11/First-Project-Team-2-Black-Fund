@@ -1,4 +1,4 @@
-package com.example.admins.blackfund;
+package com.example.admins.blackfund.models;
 
 import java.io.Serializable;
 

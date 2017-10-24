@@ -1,4 +1,4 @@
-package com.example.admins.blackfund;
+package com.example.admins.blackfund.activities;
 
 import android.app.DatePickerDialog;
 import android.icu.util.Calendar;
@@ -8,6 +8,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.*;
 import android.widget.DatePicker;
+
+import com.example.admins.blackfund.R;
 
 public class ThemGhiChu extends AppCompatActivity {
     private EditText etDate;
