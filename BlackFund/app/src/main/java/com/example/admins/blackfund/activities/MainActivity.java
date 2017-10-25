@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setupUI() {
-        lvHistory = (ListView) findViewById(R.id.lv_history);
+        lvHistory = (ListView) findViewById(R.id.lv_recent_history);
         vpOverview = (ViewPager) findViewById(R.id.vp_overview);
         vpOverview.setAdapter(new OverviewPagerAdapter(getSupportFragmentManager()));
 
