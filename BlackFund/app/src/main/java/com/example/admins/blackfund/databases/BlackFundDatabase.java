@@ -25,17 +25,17 @@ public class BlackFundDatabase extends SQLiteOpenHelper {
     public static final String KEY_GHICHU = "GHICHU";
     public static final String KEY_DATE = "DATE";
     private static final String KEY_CHONNHOM = "LYDO";
-
-    public static final String CREAT_TABLE_GHICHU = "CREATE TABLE " +
-            TABLE_NOTE + "(" +
-            KEY_ID_GHICHU + " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL" + ", " +
-            KEY_TIEN + " TEXT NOT NULL" + "," +
-            KEY_CHONNHOM + " TEXT NOT NULL" + "," +
-            KEY_GHICHU + " TEXT NOT NULL " + "," +
-            KEY_DATE + " TEXT NOT NULL " + ")";
+    public static final String CREAT_TABLE_GHICHU = "CREATE TABLE `" +
+            TABLE_NOTE + "`(`" +
+            KEY_ID_GHICHU + "` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL" + ", `" +
+            KEY_TIEN + "` TEXT NOT NULL" + ",`" +
+            KEY_CHONNHOM + "` TEXT NOT NULL" + ",`" +
+            KEY_GHICHU + "` TEXT NOT NULL " + ",`" +
+            KEY_DATE + "` TEXT NOT NULL " + ")";
 
     private static final String TAG = BlackFundDatabase.class.toString();
     private SQLiteDatabase db;
+
     public static BlackFundDatabase blackFundDatabase;
 
     public static BlackFundDatabase getInstance(Context context) {
@@ -51,12 +51,12 @@ public class BlackFundDatabase extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
-        try {
+//        try {
             // tao blackFundDatabase
-            db.execSQL(CREAT_TABLE_GHICHU);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+            sqLiteDatabase.execSQL(CREAT_TABLE_GHICHU);
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        }
     }
 
     @Override
@@ -66,8 +66,8 @@ public class BlackFundDatabase extends SQLiteOpenHelper {
 
     public ArrayList<GhiChu> getListGhiChu() {
         ArrayList<GhiChu> list = new ArrayList<>();
-        getWritableDatabase();
-        Cursor cursor = db.rawQuery("select * from tb_note", null);
+        db = blackFundDatabase.getReadableDatabase();
+        Cursor cursor = db.rawQuery("select * from TB_GHiCHU", null);
         if (cursor != null) {
             cursor.moveToFirst();
             while (!cursor.isAfterLast()) {
@@ -89,11 +89,12 @@ public class BlackFundDatabase extends SQLiteOpenHelper {
     }
 
     public long addGhiChu(GhiChu note) {
+        db = blackFundDatabase.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(KEY_DATE, note.getDate());
         values.put(KEY_CHONNHOM, note.getChonNhom());
         values.put(KEY_GHICHU,note.getGhiChu());
-        values.put(KEY_DATE,note.getDate());
+//        values.put(KEY_DATE,note.getDate());
         values.put(KEY_TIEN, note.getMoney());
         long index = db.insert(TABLE_NOTE, null, values);
         close();
