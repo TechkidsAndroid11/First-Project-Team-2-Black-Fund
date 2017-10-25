@@ -2,7 +2,6 @@ package com.example.admins.blackfund.activities;
 
 import android.app.Activity;
 import android.app.DatePickerDialog;
-import android.icu.util.Calendar;
 import android.os.Build;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -17,6 +16,8 @@ import android.widget.DatePicker;
 import com.example.admins.blackfund.R;
 import com.example.admins.blackfund.databases.BlackFundDatabase;
 import com.example.admins.blackfund.models.GhiChu;
+
+import java.util.Calendar;
 
 public class ThemGhiChu extends AppCompatActivity implements View.OnClickListener {
     private static final String TAG = ThemGhiChu.class.toString();
@@ -49,7 +50,7 @@ public class ThemGhiChu extends AppCompatActivity implements View.OnClickListene
         setContentView(R.layout.activity_them_giao_dich);
 
         etDate = (EditText) findViewById(R.id.et_date);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             calendar = Calendar.getInstance();
             setupUI();
             addListner();
@@ -75,7 +76,7 @@ public class ThemGhiChu extends AppCompatActivity implements View.OnClickListene
 
                 }
             });
-        }
+//        }
     }
 
     private void addListner() {
@@ -131,28 +132,30 @@ public class ThemGhiChu extends AppCompatActivity implements View.OnClickListene
         Log.d(TAG, "onClick: ");
         switch (view.getId()) {
             case R.id.tv_luu: {
+                Log.d(TAG, "onClick: ");
                 String ghichu = etGhiChu.getText().toString();
                 String tien = etTien.getText().toString();
                 String date = etDate.getText().toString();
                 String chonNhom = etchonNhom.getText().toString();
-                if (TextUtils.isEmpty(tien)) {
-                    etTien.setError("Cannot be empty");
-                } else if (
-                        TextUtils.isEmpty(date)) {
-                    etDate.setError(" cannot be empty");
+//                if (TextUtils.isEmpty(tien)) {
+//                    etTien.setError("Cannot be empty");
+//                } else if (
+//                        TextUtils.isEmpty(date)) {
+//                    etDate.setError(" cannot be empty");
+//
+//                } else {
+                    GhiChu note = new GhiChu(ghichu, tien, date, chonNhom);
 
-                } else {
-                    GhiChu note = new GhiChu(tien, chonNhom, ghichu, date);
                     BlackFundDatabase.getInstance(this).addGhiChu(note);
-                    this.finish();
+                    ThemGhiChu.this.finish();
 
-                }
+//                }
 
 
                 break;
             }
             case R.id.iv_back: {
-
+                finish();
 
                 break;
             }
