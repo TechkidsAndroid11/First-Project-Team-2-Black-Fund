@@ -86,7 +86,13 @@ tools:context="com.example.admins.blackfund.activities.ThemGhiChu">
             android:layout_gravity="center"
             android:layout_weight="4"
             android:hint="$$"
+<<<<<<< HEAD
             android:textSize="30dp" />
+=======
+            android:layout_height="wrap_content"
+            android:id="@+id/et_tien"
+            android:inputType="number"/>
+>>>>>>> 02103c8e8c2ce485e90fa9d3b933df9c65869948
 
     </LinearLayout>
 
@@ -100,6 +106,7 @@ tools:context="com.example.admins.blackfund.activities.ThemGhiChu">
 
         <ImageView
             android:layout_width="0dp"
+<<<<<<< HEAD
             android:layout_height="wrap_content"
 
             android:layout_gravity="center"
@@ -107,12 +114,25 @@ tools:context="com.example.admins.blackfund.activities.ThemGhiChu">
 
         <EditText
             android:id="@+id/et_chonNhom"
+=======
+            android:layout_weight="1"
+            android:id="@+id/iv_chonNhom"
+            android:layout_gravity="center"
+            android:layout_height="wrap_content" />
+        <TextView
+>>>>>>> 02103c8e8c2ce485e90fa9d3b933df9c65869948
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_weight="4"
             android:hint="Chọn nhóm"
+<<<<<<< HEAD
             android:textSize="30dp" />
+=======
+            android:layout_margin="5dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/et_chonNhom"/>
+>>>>>>> 02103c8e8c2ce485e90fa9d3b933df9c65869948
 
     </LinearLayout>
 
@@ -138,7 +158,12 @@ tools:context="com.example.admins.blackfund.activities.ThemGhiChu">
             android:layout_gravity="center"
             android:layout_weight="4"
             android:hint="Ghi chú"
+<<<<<<< HEAD
             android:textSize="20dp" />
+=======
+            android:layout_height="wrap_content"
+            android:id="@+id/et_ghiChu"/>
+>>>>>>> 02103c8e8c2ce485e90fa9d3b933df9c65869948
 
 
     </LinearLayout>
@@ -165,8 +190,14 @@ tools:context="com.example.admins.blackfund.activities.ThemGhiChu">
             android:layout_gravity="center"
             android:layout_weight="4"
             android:hint="Hôm nay"
+<<<<<<< HEAD
 
             android:textSize="20dp" />
+=======
+            android:id="@+id/et_date"
+            android:inputType="date"
+            android:layout_height="wrap_content" />
+>>>>>>> 02103c8e8c2ce485e90fa9d3b933df9c65869948
 
     </LinearLayout>
 </LinearLayout>

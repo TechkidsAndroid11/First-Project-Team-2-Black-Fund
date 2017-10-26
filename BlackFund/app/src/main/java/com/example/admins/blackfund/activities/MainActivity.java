@@ -10,18 +10,22 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.admins.blackfund.R;
+import com.example.admins.blackfund.adapters.MainAdapter;
 import com.example.admins.blackfund.adapters.OverviewPagerAdapter;
+import com.example.admins.blackfund.databases.BlackFundDatabase;
+
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     private ImageView ivPlus;
     private ViewPager vpOverview;
     private ListView lvEvent;
+    private ListView lvHistory;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         setupUI();
         addListeners();
     }
@@ -37,11 +41,17 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setupUI() {
+        lvHistory = (ListView) findViewById(R.id.lv_recent_history);
         vpOverview = (ViewPager) findViewById(R.id.vp_overview);
         vpOverview.setAdapter(new OverviewPagerAdapter(getSupportFragmentManager()));
 
         ivPlus = (ImageView) findViewById(R.id.iv_plus);
     }
 
-
+    @Override
+    protected void onStart() {
+        super.onStart();
+        MainAdapter mainAdapter = new MainAdapter(this, R.layout.an_item, BlackFundDatabase.getInstance(this).getListGhiChu());
+        lvHistory.setAdapter(mainAdapter);
+    }
 }
