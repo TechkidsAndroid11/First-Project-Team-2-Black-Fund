@@ -10,7 +10,14 @@
 
     android:orientation="vertical"
     android:padding="5dp"
+<<<<<<< HEAD
     tools:context="com.example.admins.blackfund.ThemGhiChu">
+=======
+
+    android:layout_weight="5"
+android:layout_height="match_parent"
+tools:context="com.example.admins.blackfund.activities.ThemGhiChu">
+>>>>>>> 6883d7eae7d2e8a8068f6c65c563ae5d680e046c
 
     <LinearLayout
         android:layout_width="match_parent"

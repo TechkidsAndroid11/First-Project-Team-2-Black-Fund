@@ -1,4 +1,4 @@
-package com.example.admins.blackfund;
+package com.example.admins.blackfund.activities;
 
 import android.app.DatePickerDialog;
 import android.icu.util.Calendar;
@@ -10,9 +10,15 @@ import android.view.View;
 import android.widget.*;
 import android.widget.DatePicker;
 
+<<<<<<< HEAD:BlackFund/app/src/main/java/com/example/admins/blackfund/ThemGhiChu.java
 import java.util.Date;
 
 public class ThemGhiChu extends AppCompatActivity implements View.OnClickListener {
+=======
+import com.example.admins.blackfund.R;
+
+public class ThemGhiChu extends AppCompatActivity {
+>>>>>>> 6883d7eae7d2e8a8068f6c65c563ae5d680e046c:BlackFund/app/src/main/java/com/example/admins/blackfund/activities/ThemGhiChu.java
     private EditText etDate;
     int month, year, day;
     Calendar calendar;
