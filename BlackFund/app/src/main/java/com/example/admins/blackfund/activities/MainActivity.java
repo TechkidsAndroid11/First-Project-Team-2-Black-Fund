@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
     private ViewPager vpOverview;
     private ListView lvEvent;
     private ListView lvHistory;
-    private TextView tv_money;
+    private TextView tvMoney;
     private boolean addMoney;
     private ImageView ivMinus;
     public static String KEY = "KEY";
@@ -44,24 +44,22 @@ public class MainActivity extends AppCompatActivity {
         setupUI();
         addListeners();
 
-            dialogBuilder = new AlertDialog.Builder(this);
-            LayoutInflater layoutInflater = this.getLayoutInflater();
-            View dialogView = layoutInflater.inflate(R.layout.sh_item, null);
-            dialogBuilder.setView(dialogView);
-            alertDialog = dialogBuilder.create();
-            ;
-
-            SharedPreferences sharedPreferences=getSharedPreferences("my_data", MODE_PRIVATE);
-            boolean check= sharedPreferences.getBoolean("firstTime", true);
-            if( check){
-                alertDialog.show();
-                tv_money.setText(etValue.getText());
-            }
-            String beginningValue= sharedPreferences.getString("value", null);
-
-            SharedPreferences.Editor editor=sharedPreferences.edit();
-
-
+//        dialogBuilder = new AlertDialog.Builder(this);
+//        LayoutInflater layoutInflater = this.getLayoutInflater();
+//        View dialogView = layoutInflater.inflate(R.layout.sh_item, null);
+//        dialogBuilder.setView(dialogView);
+//        alertDialog = dialogBuilder.create();
+//        ;
+//
+//        SharedPreferences sharedPreferences = getSharedPreferences("my_data", MODE_PRIVATE);
+//        boolean check = sharedPreferences.getBoolean("firstTime", true);
+//        if (check) {
+//            alertDialog.show();
+//            tvMoney.setText(etValue.getText());
+//        }
+//        String beginningValue = sharedPreferences.getString("value", null);
+//
+//        SharedPreferences.Editor editor = sharedPreferences.edit();
 
 
 //            if(!check){
@@ -74,34 +72,27 @@ public class MainActivity extends AppCompatActivity {
 //        if(beginningValue!=null){
 //            alertDialog.show();
 
-        }
-
-
-
-
-
-
+    }
 
 
     private void addListeners() {
 
 
-
         ivPlus.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                addMoney=true;
-                Intent intent = new Intent(MainActivity.this, ThemGhiChu.class);
-                intent.putExtra(KEY, addMoney);
-                startActivity(intent);
+                                      @Override
+                                      public void onClick(View view) {
+                                          addMoney = true;
+                                          Intent intent = new Intent(MainActivity.this, ThemGhiChu.class);
+                                          intent.putExtra(KEY, addMoney);
+                                          startActivity(intent);
 
-            }
-        }
+                                      }
+                                  }
         );
         ivMinus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                addMoney=false;
+                addMoney = false;
                 Intent intent = new Intent(MainActivity.this, ThemGhiChu.class);
                 intent.putExtra(KEY, addMoney);
                 startActivity(intent);
@@ -110,15 +101,14 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-
     private void setupUI() {
         lvHistory = (ListView) findViewById(R.id.lv_recent_history);
         vpOverview = (ViewPager) findViewById(R.id.vp_overview);
         vpOverview.setAdapter(new OverviewPagerAdapter(getSupportFragmentManager()));
-        et_money = (EditText) findViewById(R.id.et_money);
+        tvMoney = (TextView) findViewById(R.id.tv_money);
         ivPlus = (ImageView) findViewById(R.id.iv_plus);
         ivMinus = (ImageView) findViewById(R.id.iv_minus);
-        etValue= (EditText) findViewById(R.id.et_value);
+        etValue = (EditText) findViewById(R.id.et_value);
     }
 
     @Override
