@@ -32,7 +32,7 @@
                 android:layout_below="@+id/iv_food"
                 android:layout_centerHorizontal="true"
                 android:layout_margin="4dp"
-                android:text="Ăn uống" />
+                android:text="FOODS" />
 
         </RelativeLayout>
 
@@ -55,7 +55,7 @@
                 android:layout_below="@+id/iv_friend"
                 android:layout_centerHorizontal="true"
                 android:layout_margin="4dp"
-                android:text="Bạn bè" />
+                android:text="FRIENDS" />
 
         </RelativeLayout>
 
@@ -78,7 +78,7 @@
                 android:layout_below="@+id/iv_shopping"
                 android:layout_centerHorizontal="true"
                 android:layout_margin="4dp"
-                android:text="Mua sắm" />
+                android:text="SHOPPING" />
 
         </RelativeLayout>
 
@@ -110,7 +110,7 @@
                 android:layout_below="@+id/iv_giaiTri"
                 android:layout_centerHorizontal="true"
                 android:layout_margin="4dp"
-                android:text="Giải trí" />
+                android:text="ENTERTAINMENT" />
 
         </RelativeLayout>
 
@@ -133,7 +133,7 @@
                 android:layout_below="@+id/iv_phuongTien"
                 android:layout_centerHorizontal="true"
                 android:layout_margin="4dp"
-                android:text="Phương tiện" />
+                android:text="TRANSPOTATION" />
 
         </RelativeLayout>
 
@@ -156,7 +156,7 @@
                 android:layout_below="@+id/iv_sinhHoat"
                 android:layout_centerHorizontal="true"
                 android:layout_margin="4dp"
-                android:text="Sinh Hoạt" />
+                android:text="Sub expenses" />
 
         </RelativeLayout>
 
@@ -211,7 +211,7 @@
                 android:layout_below="@+id/iv_viec"
                 android:layout_centerHorizontal="true"
                 android:layout_margin="4dp"
-                android:text="Công việc" />
+                android:text="WORKS" />
 
         </RelativeLayout>
 
@@ -234,7 +234,7 @@
                 android:layout_below="@+id/iv_others"
                 android:layout_centerHorizontal="true"
                 android:layout_margin="4dp"
-                android:text="Khác" />
+                android:text="OTHERS" />
 
         </RelativeLayout>
 

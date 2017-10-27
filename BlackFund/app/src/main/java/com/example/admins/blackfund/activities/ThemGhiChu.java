@@ -17,15 +17,18 @@ import com.example.admins.blackfund.R;
 import com.example.admins.blackfund.databases.BlackFundDatabase;
 import com.example.admins.blackfund.models.GhiChu;
 
+import java.sql.Date;
+import java.text.SimpleDateFormat;
+import java.time.DayOfWeek;
 import java.util.Calendar;
 
 public class ThemGhiChu extends AppCompatActivity implements View.OnClickListener {
     private static final String TAG = ThemGhiChu.class.toString();
     private EditText etDate;
-    int month, year, day;
+    int month, year, day,dayOfWeek;
     Calendar calendar;
 
-    private EditText etGhiChu;
+    private TextView etGhiChu;
     private EditText etTien;
     private TextView etchonNhom;
     private TextView tvLuu;
@@ -43,6 +46,9 @@ public class ThemGhiChu extends AppCompatActivity implements View.OnClickListene
     private ImageView ivAnUong;
     AlertDialog.Builder dialogBuilder;
     AlertDialog alertDialog;
+    private boolean addMoney;
+    private boolean modeSP;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,32 +57,41 @@ public class ThemGhiChu extends AppCompatActivity implements View.OnClickListene
 
         etDate = (EditText) findViewById(R.id.et_date);
 //        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            calendar = Calendar.getInstance();
-            setupUI();
-            addListner();
+        calendar = Calendar.getInstance();
+        setupUI();
+        addListner();
+        loadData();
 
-            day = calendar.get(Calendar.DAY_OF_MONTH);
-            month = calendar.get(Calendar.MONTH);
-            year = calendar.get(Calendar.YEAR);
-            month = month + 1;
-            etDate.setText(day + "/" + month + "/" + year);
-            etDate.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    DatePickerDialog datePickerDialog = new DatePickerDialog(ThemGhiChu.this, new DatePickerDialog.OnDateSetListener() {
-                        @Override
-                        public void onDateSet(DatePicker datePicker, int year, int monthofyear, int dayofmonth) {
-                            monthofyear = monthofyear + 1;
-                            etDate.setText(dayofmonth + "/" + monthofyear + "/" + year);
+        day = calendar.get(Calendar.DAY_OF_MONTH);
+        month = calendar.get(Calendar.MONTH);
+        year = calendar.get(Calendar.YEAR);
+        dayOfWeek= calendar.get(Calendar.DAY_OF_WEEK);
+        month = month + 1;
+        etDate.setText(dayOfWeek +" , "+day + "/" + month + "/" + year);
+        etDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DatePickerDialog datePickerDialog = new DatePickerDialog(ThemGhiChu.this, new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker datePicker, int year, int monthofyear, int dayofmonth) {
+                        monthofyear = monthofyear + 1;
+                        Calendar calendar = Calendar.getInstance();
+                        SimpleDateFormat sdf = new SimpleDateFormat("EEEE");
+                        Date d = new Date(year, monthofyear, dayofmonth);
+                        String dayOfTheWeek = sdf.format(d);
+                        etDate.setText(dayOfTheWeek+" , "+ dayofmonth+"/"+ monthofyear+"/"+ year);
+                    }
+                }, year, month, day );
+                datePickerDialog.show();
 
-                        }
-                    }, year, month, day);
-                    datePickerDialog.show();
 
-
-                }
-            });
+            }
+        });
 //        }
+    }
+
+    private void loadData() {
+        addMoney = getIntent().getBooleanExtra(MainActivity.KEY, true);
     }
 
     private void addListner() {
@@ -113,11 +128,11 @@ public class ThemGhiChu extends AppCompatActivity implements View.OnClickListene
             }
         });
         tvLuu.setOnClickListener(this);
-
+        ivBack.setOnClickListener(this);
     }
 
     private void setupUI() {
-        etGhiChu = (EditText) findViewById(R.id.et_ghiChu);
+        etGhiChu = (TextView) findViewById(R.id.et_ghiChu);
         etchonNhom = (TextView) findViewById(R.id.et_chonNhom);
         etTien = (EditText) findViewById(R.id.et_tien);
         tvLuu = (TextView) findViewById(R.id.tv_luu);
@@ -144,10 +159,10 @@ public class ThemGhiChu extends AppCompatActivity implements View.OnClickListene
 //                    etDate.setError(" cannot be empty");
 //
 //                } else {
-                    GhiChu note = new GhiChu(ghichu, tien, date, chonNhom);
+                GhiChu note = new GhiChu(ghichu, tien, date, chonNhom);
 
-                    BlackFundDatabase.getInstance(this).addGhiChu(note);
-                    ThemGhiChu.this.finish();
+                BlackFundDatabase.getInstance(this).addGhiChu(note);
+                ThemGhiChu.this.finish();
 
 //                }
 
@@ -155,7 +170,10 @@ public class ThemGhiChu extends AppCompatActivity implements View.OnClickListene
                 break;
             }
             case R.id.iv_back: {
-                finish();
+                Log.d(TAG, "onClick: bbb"
+                );
+                super.onBackPressed();
+
 
                 break;
             }

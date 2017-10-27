@@ -58,8 +58,8 @@ public class MainAdapter extends ArrayAdapter<GhiChu> {
 //        tvDate.setText(list.get(position).getDate());
 //        tvDay.setText(list.get(position).getDate());
 //        tvMonthAndYear.setText(list.get(position).getDate());
-        tvMoneyOn.setText(list.get(position).getMoney());
-        tvMoneyUnder.setText(list.get(position).getMoney());
+//        tvMoneyOn.setText(list.get(position).getMoney());
+//        tvMoneyUnder.setText(list.get(position).getMoney());
         return convertView;
     }
 }

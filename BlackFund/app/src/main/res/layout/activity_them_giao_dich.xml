@@ -30,14 +30,14 @@ tools:context="com.example.admins.blackfund.activities.ThemGhiChu">
             android:layout_width="0dp"
             android:layout_weight="4"
             android:layout_gravity="center"
-            android:text="Thêm Giao Dịch"
-            android:textSize="30dp"
+            android:text="   ADD TRANSACTION"
+            android:textSize="23dp"
             android:textStyle="bold"
             android:layout_height="wrap_content" />
         <TextView
             android:layout_width="0dp"
             android:layout_weight="1"
-            android:text="Lưu"
+            android:text="SAVE"
             android:layout_gravity="center"
             android:textSize="20dp"
             android:textStyle="bold"
@@ -90,15 +90,16 @@ tools:context="com.example.admins.blackfund.activities.ThemGhiChu">
             android:id="@+id/iv_chonNhom"
             android:layout_gravity="center"
             android:layout_height="wrap_content" />
+
         <TextView
+            android:id="@+id/et_chonNhom"
             android:layout_width="0dp"
-            android:layout_weight="4"
-            android:layout_gravity="center"
-            android:textSize="30dp"
-            android:hint="Chọn nhóm"
-            android:layout_margin="5dp"
             android:layout_height="wrap_content"
-            android:id="@+id/et_chonNhom"/>
+            android:layout_gravity="center"
+            android:layout_margin="5dp"
+            android:layout_weight="4"
+            android:hint="OPTIONS"
+            android:textSize="30dp" />
 
     </LinearLayout>
     <LinearLayout
@@ -117,12 +118,12 @@ tools:context="com.example.admins.blackfund.activities.ThemGhiChu">
             android:layout_weight="1"
             />
 
-        <EditText
+        <TextView
             android:layout_width="0dp"
             android:layout_weight="4"
             android:layout_gravity="center"
             android:textSize="20dp"
-            android:hint="Ghi chú"
+            android:hint="NOTE"
             android:layout_height="wrap_content"
             android:id="@+id/et_ghiChu"/>
 
@@ -146,7 +147,7 @@ tools:context="com.example.admins.blackfund.activities.ThemGhiChu">
             android:layout_weight="4"
             android:layout_gravity="center"
             android:textSize="20dp"
-            android:hint="Hôm nay"
+            android:hint="TODAY"
             android:id="@+id/et_date"
             android:inputType="date"
             android:layout_height="wrap_content" />
