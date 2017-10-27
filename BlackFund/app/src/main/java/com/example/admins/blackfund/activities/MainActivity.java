@@ -45,7 +45,8 @@ public class MainActivity extends AppCompatActivity {
         vpOverview = (ViewPager) findViewById(R.id.vp_overview);
         vpOverview.setAdapter(new OverviewPagerAdapter(getSupportFragmentManager()));
 
-        ivPlus = (ImageView) findViewById(R.id.iv_plus);
+
+        ivPlus = (ImageView) findViewById(R.id.iv_incomes);
     }
 
     @Override
