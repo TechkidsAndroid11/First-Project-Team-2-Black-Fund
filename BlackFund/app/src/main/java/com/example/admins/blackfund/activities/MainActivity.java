@@ -51,38 +51,35 @@ public class MainActivity extends AppCompatActivity {
         LayoutInflater layoutInflater = this.getLayoutInflater();
         View dialogView = layoutInflater.inflate(R.layout.sh_item, null);
         dialogBuilder.setView(dialogView);
-        alertDialog = dialogBuilder.create();
-        ;
 
-        SharedPreferences sharedPreferences = getSharedPreferences("my_data", MODE_PRIVATE);
-        boolean check = sharedPreferences.getBoolean("firstTime", true);
+        alertDialog = dialogBuilder.create();
+
+        final SharedPreferences sharedPreferences = getSharedPreferences("my_data", MODE_PRIVATE);
+        final boolean check = sharedPreferences.getBoolean("firstTime", true);
+        String beginningValue= sharedPreferences.getString("value", "");
+        tvMoney.setText(beginningValue);
         if (check) {
             alertDialog.show();
-//            String beginningValue = sharedPreferences.getString("value", etValue.getText().toString());
-////            tvMoney.getText(beginningValue);
+            etValue = dialogView.findViewById(R.id.et_value);
+            btOK = dialogView.findViewById(R.id.bt_ok);
 
+            btOK.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    String beginningValue = etValue.getText().toString();
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    editor.putString("value", beginningValue);
+                    editor.putBoolean("firstTime", false);
+                    editor.commit();
+                    tvMoney.setText(beginningValue);
+                    alertDialog.dismiss();
+                }
+            });
         }
-//        String beginningValue = sharedPreferences.getString("value", null);
-//
-//        SharedPreferences.Editor editor = sharedPreferences.edit();
-
-
-//            if(!check){
-//                editor.clear();
-//            } else
-//            {
-//                editor.putString("value", beginningValue);
-//            }
-//            editor.commit();
-//        if(beginningValue!=null){
-//            alertDialog.show();
-
     }
 
 
     private void addListeners() {
-
-
         ivPlus.setOnClickListener(new View.OnClickListener() {
                                       @Override
                                       public void onClick(View view) {
@@ -113,8 +110,6 @@ public class MainActivity extends AppCompatActivity {
         tvMoney = (TextView) findViewById(R.id.tv_money);
         ivPlus = (ImageView) findViewById(R.id.iv_plus);
         ivMinus = (ImageView) findViewById(R.id.iv_minus);
-        etValue = (EditText) findViewById(R.id.et_value);
-        btOK= (Button) findViewById(R.id.bt_ok);
     }
 
     @Override
