@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -18,6 +19,7 @@ import com.example.admins.blackfund.R;
 import com.example.admins.blackfund.adapters.MainAdapter;
 import com.example.admins.blackfund.adapters.OverviewPagerAdapter;
 import com.example.admins.blackfund.databases.BlackFundDatabase;
+import com.example.admins.blackfund.models.GhiChu;
 
 import java.util.List;
 
@@ -35,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
     private EditText etValue;
     private boolean beginning;
     CheckBox checkValue;
+    Button btOK;
 
 
     @Override
@@ -44,19 +47,21 @@ public class MainActivity extends AppCompatActivity {
         setupUI();
         addListeners();
 
-//        dialogBuilder = new AlertDialog.Builder(this);
-//        LayoutInflater layoutInflater = this.getLayoutInflater();
-//        View dialogView = layoutInflater.inflate(R.layout.sh_item, null);
-//        dialogBuilder.setView(dialogView);
-//        alertDialog = dialogBuilder.create();
-//        ;
-//
-//        SharedPreferences sharedPreferences = getSharedPreferences("my_data", MODE_PRIVATE);
-//        boolean check = sharedPreferences.getBoolean("firstTime", true);
-//        if (check) {
-//            alertDialog.show();
-//            tvMoney.setText(etValue.getText());
-//        }
+        dialogBuilder = new AlertDialog.Builder(this);
+        LayoutInflater layoutInflater = this.getLayoutInflater();
+        View dialogView = layoutInflater.inflate(R.layout.sh_item, null);
+        dialogBuilder.setView(dialogView);
+        alertDialog = dialogBuilder.create();
+        ;
+
+        SharedPreferences sharedPreferences = getSharedPreferences("my_data", MODE_PRIVATE);
+        boolean check = sharedPreferences.getBoolean("firstTime", true);
+        if (check) {
+            alertDialog.show();
+//            String beginningValue = sharedPreferences.getString("value", etValue.getText().toString());
+////            tvMoney.getText(beginningValue);
+
+        }
 //        String beginningValue = sharedPreferences.getString("value", null);
 //
 //        SharedPreferences.Editor editor = sharedPreferences.edit();
@@ -109,12 +114,16 @@ public class MainActivity extends AppCompatActivity {
         ivPlus = (ImageView) findViewById(R.id.iv_plus);
         ivMinus = (ImageView) findViewById(R.id.iv_minus);
         etValue = (EditText) findViewById(R.id.et_value);
+        btOK= (Button) findViewById(R.id.bt_ok);
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-        MainAdapter mainAdapter = new MainAdapter(this, R.layout.an_item, BlackFundDatabase.getInstance(this).getListGhiChu());
+        List<GhiChu> ghiChuList = BlackFundDatabase.getInstance(this).getListGhiChu();
+        MainAdapter mainAdapter = new MainAdapter(this, R.layout.an_item,
+                ghiChuList.subList(ghiChuList.size() - 2, ghiChuList.size()));
         lvHistory.setAdapter(mainAdapter);
     }
+
 }

@@ -180,44 +180,45 @@ public class ThemGhiChu extends AppCompatActivity implements View.OnClickListene
 
 
             case R.id.iv_viec: {
-                updateCategory(R.drawable.works, "Công Việc");
+                updateCategory(R.drawable.works, "WORKS");
                 Log.d(TAG, "onClick: ");
                 break;
             }
             case R.id.iv_food: {
-                updateCategory(R.drawable.food, "Ăn uống");
+                updateCategory(R.drawable.food, "FOODS");
                 break;
             }
             case R.id.iv_friend: {
-                updateCategory(R.drawable.banbe, "Bạn Bè");
+                updateCategory(R.drawable.banbe, "FRIENDS");
                 break;
             }
             case R.id.iv_love: {
-                updateCategory(R.drawable.love, "Love");
+                updateCategory(R.drawable.love, "LOVE");
                 break;
             }
             case R.id.iv_shopping: {
-                updateCategory(R.drawable.shopping, "Mua Sắm");
+                updateCategory(R.drawable.shopping, "SHOPPING");
                 break;
             }
             case R.id.iv_giaiTri: {
-                updateCategory(R.drawable.giaitri, "Giải Trí");
+                updateCategory(R.drawable.giaitri, "ENTERTAINMENT");
                 break;
             }
             case R.id.iv_others: {
-                updateCategory(R.drawable.others, "Khác");
+                updateCategory(R.drawable.others, "OTHERS");
                 break;
             }
             case R.id.iv_phuongTien: {
-                updateCategory(R.drawable.phuongtien, "Phương Tiện");
+                updateCategory(R.drawable.phuongtien, "TRANSPORTATIC");
                 break;
             }
             case R.id.iv_sinhHoat: {
-                updateCategory(R.drawable.sinhhoat, "Sinh Hoạt");
+                updateCategory(R.drawable.sinhhoat, "SUBEXPENSES");
                 break;
             }
         }
     }
+
 
     public void updateCategory(int drawable, String name) {
         ivChonNhom.setImageResource(drawable);
