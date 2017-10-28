@@ -126,7 +126,44 @@ public class ThemGhiChu extends AppCompatActivity implements View.OnClickListene
                         Calendar calendar = Calendar.getInstance();
                         SimpleDateFormat sdf = new SimpleDateFormat("EEEE");
                         Date d = new Date(year, monthofyear, dayofmonth);
-                        String dayOfTheWeek = sdf.format(d);
+                        String day = sdf.format(d);
+                        String dayOfTheWeek = "";
+                        switch (day){
+                            case "Monday": {
+                                    dayOfTheWeek = "2";
+                                    break;
+                            }
+
+                            case "Tuesday": {
+                                dayOfTheWeek = "3";
+                                break;
+                            }
+
+                            case "Wednesday": {
+                                dayOfTheWeek = "4";
+                                break;
+                            }
+
+                            case "Thursday": {
+                                dayOfTheWeek = "5";
+                                break;
+                            }
+
+                            case "Friday": {
+                                dayOfTheWeek = "6";
+                                break;
+                            }
+
+                            case "Saturday": {
+                                dayOfTheWeek = "7";
+                                break;
+                            }
+
+                            case "Sunday": {
+                                dayOfTheWeek = "1";
+                                break;
+                            }
+                        }
                         etDate.setText(dayOfTheWeek+" , "+ dayofmonth+"/"+ monthofyear+"/"+ year);
                     }
                 }, year, month, day );
