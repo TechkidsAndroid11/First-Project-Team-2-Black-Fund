@@ -69,12 +69,49 @@ public class ThemGhiChu extends AppCompatActivity implements View.OnClickListene
     }
 
     private void getCalendar() {
+        String textDayOfWeek = "";
         day = calendar.get(Calendar.DAY_OF_MONTH);
         month = calendar.get(Calendar.MONTH);
         year = calendar.get(Calendar.YEAR);
         dayOfWeek= calendar.get(Calendar.DAY_OF_WEEK);
         month = month + 1;
-        etDate.setText(dayOfWeek +" , "+day + "/" + month + "/" + year);
+        switch (dayOfWeek){
+            case 1:{
+                textDayOfWeek = "Sunday";
+                break;
+            }
+
+            case 2:{
+                textDayOfWeek = "Monday";
+                break;
+            }
+
+            case 3:{
+                textDayOfWeek = "Tuesday";
+                break;
+            }
+
+            case 4:{
+                textDayOfWeek = "Wednesday";
+                break;
+            }
+
+            case 5:{
+                textDayOfWeek = "Thursday";
+                break;
+            }
+
+            case 6:{
+                textDayOfWeek = "Friday";
+                break;
+            }
+
+            case 7:{
+                textDayOfWeek = "Saturday";
+                break;
+            }
+        }
+        etDate.setText(textDayOfWeek  +", "+day + "/" + month + "/" + year);
     }
 
     private void addListeners() {
@@ -126,44 +163,7 @@ public class ThemGhiChu extends AppCompatActivity implements View.OnClickListene
                         Calendar calendar = Calendar.getInstance();
                         SimpleDateFormat sdf = new SimpleDateFormat("EEEE");
                         Date d = new Date(year, monthofyear, dayofmonth);
-                        String day = sdf.format(d);
-                        String dayOfTheWeek = "";
-                        switch (day){
-                            case "Monday": {
-                                    dayOfTheWeek = "2";
-                                    break;
-                            }
-
-                            case "Tuesday": {
-                                dayOfTheWeek = "3";
-                                break;
-                            }
-
-                            case "Wednesday": {
-                                dayOfTheWeek = "4";
-                                break;
-                            }
-
-                            case "Thursday": {
-                                dayOfTheWeek = "5";
-                                break;
-                            }
-
-                            case "Friday": {
-                                dayOfTheWeek = "6";
-                                break;
-                            }
-
-                            case "Saturday": {
-                                dayOfTheWeek = "7";
-                                break;
-                            }
-
-                            case "Sunday": {
-                                dayOfTheWeek = "1";
-                                break;
-                            }
-                        }
+                        String dayOfTheWeek = sdf.format(d);
                         etDate.setText(dayOfTheWeek+" , "+ dayofmonth+"/"+ monthofyear+"/"+ year);
                     }
                 }, year, month, day );
