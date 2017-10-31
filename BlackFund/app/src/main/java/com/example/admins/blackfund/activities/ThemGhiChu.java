@@ -45,8 +45,8 @@ public class ThemGhiChu extends AppCompatActivity implements View.OnClickListene
     private ImageView ivAnUong;
     private AlertDialog.Builder dialogBuilder;
     private AlertDialog alertDialog;
-    private boolean addMoney;
-
+    private int addMoney;
+    private GhiChu editGhiChu;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,13 +58,65 @@ public class ThemGhiChu extends AppCompatActivity implements View.OnClickListene
     }
 
     private void loadData() {
-        addMoney = getIntent().getBooleanExtra(MainActivity.KEY, true);
-        if (addMoney){
+        addMoney = getIntent().getIntExtra(MainActivity.KEY, 0);
+        if (addMoney == 1){
             tvActName.setText("INCOMES");
-        } else {
-            tvActName.setText("EXPENSES");
+            getCalendar();
         }
-        getCalendar();
+        if (addMoney == 2){
+            tvActName.setText("EXPENSES");
+            getCalendar();
+        }
+
+        if (addMoney == 3){
+            tvActName.setText("EDIT");
+            editGhiChu = (GhiChu) getIntent().getSerializableExtra(MainActivity.KEY_EDIT);
+            tvChonNhom.setText(editGhiChu.getChonNhom());
+            tvDate.setText(editGhiChu.getDate());
+            etTien.setText(editGhiChu.getMoney());
+            etGhiChu.setText((editGhiChu.getGhiChu()));
+            switch (editGhiChu.getChonNhom()) {
+                case "FOODS": {
+                    ivChonNhom.setImageResource(R.drawable.food);
+                    break;
+                }
+                case "FRIENDS": {
+                    ivChonNhom.setImageResource(R.drawable.banbe);
+                    break;
+                }
+
+                case "SHOPPING": {
+                    ivChonNhom.setImageResource(R.drawable.shopping);
+                    break;
+                }
+
+                case "ENTERTAINMENT": {
+                    ivChonNhom.setImageResource(R.drawable.giaitri);
+                    break;
+                }
+
+                case "TRANSPORTATION": {
+                    ivChonNhom.setImageResource(R.drawable.phuongtien);
+                    break;
+                }
+
+                case "LOVE": {
+                    ivChonNhom.setImageResource(R.drawable.love);
+                    break;
+                }
+
+                case "WORKS": {
+                    ivChonNhom.setImageResource(R.drawable.works);
+                    break;
+                }
+
+                case "OTHERS": {
+                    ivChonNhom.setImageResource(R.drawable.others);
+                    break;
+                }
+            }
+        }
+
 
     }
 
@@ -188,16 +240,20 @@ public class ThemGhiChu extends AppCompatActivity implements View.OnClickListene
         }
     }
 
-    private void addIncome(boolean addMoney) {
+    private void addIncome(int addMoney) {
         String ghichu = etGhiChu.getText().toString();
         String tien = etTien.getText().toString();
         String date = tvDate.getText().toString();
         String chonNhom = tvChonNhom.getText().toString();
         GhiChu note = new GhiChu(ghichu, tien, date, chonNhom);
-        if (addMoney) {
+        if (addMoney == 1) {
             BlackFundDatabase.getInstance(this).addGhiChu(note, true);
-        } else {
+        }
+        if (addMoney == 2){
             BlackFundDatabase.getInstance(this).addGhiChu(note, false);
+        }
+        if (addMoney == 3){
+            BlackFundDatabase.getInstance(this).updateNote(note, editGhiChu.getId());
         }
         ThemGhiChu.this.finish();
     }
