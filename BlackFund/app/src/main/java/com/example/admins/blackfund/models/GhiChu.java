@@ -1,5 +1,7 @@
 package com.example.admins.blackfund.models;
 
+import android.util.Log;
+
 import java.io.Serializable;
 
 /**
@@ -7,14 +9,24 @@ import java.io.Serializable;
  */
 
 public class GhiChu implements Serializable{
+    private static final String TAG = GhiChu.class.toString();
     private String ghiChu;
     private int id;
     private String money;
     private String date;
     private String chonNhom;
+    private boolean isIncome;
 
-    public GhiChu() {
+    public boolean isIncome() {
+        return isIncome;
+    }
 
+    public boolean setIsIncome(int setIsIncome) {
+        if (setIsIncome == 1){
+            return isIncome = true;
+        } else {
+            return isIncome = false;
+        }
     }
 
 
@@ -60,10 +72,11 @@ public class GhiChu implements Serializable{
 
     public GhiChu(String ghiChu, String money, String date, String chonNhom) {
         this.ghiChu = ghiChu;
-
         this.money = money;
         this.date = date;
         this.chonNhom = chonNhom;
+    }
 
+    public GhiChu() {
     }
 }

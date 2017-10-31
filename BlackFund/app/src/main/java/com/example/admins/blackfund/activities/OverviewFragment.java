@@ -22,6 +22,8 @@ public class OverviewFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View overviewTab = inflater.inflate(R.layout.overview_fragment_tab, container, false);
+
+
         return overviewTab;
     }
 }

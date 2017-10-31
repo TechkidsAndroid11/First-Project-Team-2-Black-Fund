@@ -43,9 +43,4 @@ public class OverviewPagerAdapter extends FragmentPagerAdapter {
     public int getCount() {
         return PAGE_COUNT;
     }
-//
-//    @Override
-//    public CharSequence getPageTitle(int position) {
-//        return tabTitles[position];
-//    }
 }

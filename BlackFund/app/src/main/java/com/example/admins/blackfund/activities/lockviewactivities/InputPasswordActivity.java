@@ -1,4 +1,4 @@
-package com.example.admins.blackfund.LockViewActivity;
+package com.example.admins.blackfund.activities.lockviewactivities;
 
 import android.content.Intent;
 import android.content.SharedPreferences;

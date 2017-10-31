@@ -1,9 +1,8 @@
-package com.example.admins.blackfund.LockViewActivity;
+package com.example.admins.blackfund.activities.lockviewactivities;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
@@ -11,7 +10,6 @@ import com.andrognito.patternlockview.PatternLockView;
 import com.andrognito.patternlockview.listener.PatternLockViewListener;
 import com.andrognito.patternlockview.utils.PatternLockUtils;
 import com.example.admins.blackfund.R;
-import com.example.admins.blackfund.activities.MainActivity;
 
 import java.util.List;
 

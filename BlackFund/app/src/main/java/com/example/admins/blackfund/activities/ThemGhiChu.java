@@ -25,16 +25,15 @@ import java.util.Calendar;
 public class ThemGhiChu extends AppCompatActivity implements View.OnClickListener {
     private static final String TAG = ThemGhiChu.class.toString();
     private TextView etDate;
-    int month, year, day,dayOfWeek;
-    Calendar calendar;
-
+    private int month, year, day,dayOfWeek;
+    private Calendar calendar;
+    private TextView tvActName;
     private TextView etGhiChu;
     private EditText etTien;
-    private TextView etchonNhom;
+    private TextView tvChonNhom;
     private ImageView ivLuu;
     private ImageView ivBack;
     private ImageView ivChonNhom;
-    GhiChu ghichu;
     private ImageView ivShopping;
     private ImageView ivGiaiTri;
     private ImageView ivBanbe;
@@ -47,7 +46,6 @@ public class ThemGhiChu extends AppCompatActivity implements View.OnClickListene
     AlertDialog.Builder dialogBuilder;
     AlertDialog alertDialog;
     private boolean addMoney;
-    private boolean modeSP;
 
 
     @Override
@@ -58,12 +56,15 @@ public class ThemGhiChu extends AppCompatActivity implements View.OnClickListene
         addListeners();
         loadData();
 
-
-//        }
     }
 
     private void loadData() {
         addMoney = getIntent().getBooleanExtra(MainActivity.KEY, true);
+        if (addMoney){
+            tvActName.setText("INCOMES");
+        } else {
+            tvActName.setText("EXPENSES");
+        }
         getCalendar();
 
     }
@@ -116,7 +117,7 @@ public class ThemGhiChu extends AppCompatActivity implements View.OnClickListene
 
     private void addListeners() {
         //chon ly do
-        etchonNhom.setOnClickListener(new View.OnClickListener() {
+        tvChonNhom.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 dialogBuilder = new AlertDialog.Builder(ThemGhiChu.this);
@@ -173,8 +174,9 @@ public class ThemGhiChu extends AppCompatActivity implements View.OnClickListene
     }
 
     private void setupUI() {
+        tvActName = findViewById(R.id.tv_add_transaction);
         etGhiChu = (TextView) findViewById(R.id.et_ghiChu);
-        etchonNhom = (TextView) findViewById(R.id.et_chonNhom);
+        tvChonNhom = (TextView) findViewById(R.id.tv_chonNhom);
         etTien = (EditText) findViewById(R.id.et_tien);
         ivLuu = (ImageView) findViewById(R.id.iv_luu);
         ivBack = (ImageView) findViewById(R.id.iv_back);
@@ -185,44 +187,42 @@ public class ThemGhiChu extends AppCompatActivity implements View.OnClickListene
 
     @Override
     public void onClick(View view) {
-        Log.d(TAG, "onClick: ");
         switch (view.getId()) {
             case R.id.iv_luu: {
-                Log.d(TAG, "onClick: ");
-                String ghichu = etGhiChu.getText().toString();
-                String tien = etTien.getText().toString();
-                String date = etDate.getText().toString();
-                String chonNhom = etchonNhom.getText().toString();
-//                if (TextUtils.isEmpty(tien)) {
-//                    etTien.setError("Cannot be empty");
-//                } else if (
-//                        TextUtils.isEmpty(date)) {
-//                    etDate.setError(" cannot be empty");
-//
-//                } else {
-                GhiChu note = new GhiChu(ghichu, tien, date, chonNhom);
+                //save income
+                if (addMoney) {
+                    String ghichu = etGhiChu.getText().toString();
+                    String tien = etTien.getText().toString();
+                    String date = etDate.getText().toString();
+                    String chonNhom = tvChonNhom.getText().toString();
+                    GhiChu note = new GhiChu(ghichu, tien, date, chonNhom);
 
-                BlackFundDatabase.getInstance(this).addGhiChu(note);
-                ThemGhiChu.this.finish();
+                    BlackFundDatabase.getInstance(this).addGhiChu(note, true);
+                    ThemGhiChu.this.finish();
+                    break;
+                }
 
-//                }
+                //save expenses
+                else {
+                    String ghichu = etGhiChu.getText().toString();
+                    String tien = etTien.getText().toString();
+                    String date = etDate.getText().toString();
+                    String chonNhom = tvChonNhom.getText().toString();
+                    GhiChu note = new GhiChu(ghichu, tien, date, chonNhom);
 
-
-                break;
+                    BlackFundDatabase.getInstance(this).addGhiChu(note, false);
+                    ThemGhiChu.this.finish();
+                    break;
+                }
             }
+
             case R.id.iv_back: {
-                Log.d(TAG, "onClick: bbb"
-                );
                 super.onBackPressed();
-
-
                 break;
             }
-
 
             case R.id.iv_viec: {
                 updateCategory(R.drawable.works, "WORKS");
-                Log.d(TAG, "onClick: ");
                 break;
             }
             case R.id.iv_food: {
@@ -250,7 +250,7 @@ public class ThemGhiChu extends AppCompatActivity implements View.OnClickListene
                 break;
             }
             case R.id.iv_phuongTien: {
-                updateCategory(R.drawable.phuongtien, "TRANSPORTATIC");
+                updateCategory(R.drawable.phuongtien, "TRANSPORTATION");
                 break;
             }
             case R.id.iv_sinhHoat: {
@@ -263,7 +263,7 @@ public class ThemGhiChu extends AppCompatActivity implements View.OnClickListene
 
     public void updateCategory(int drawable, String name) {
         ivChonNhom.setImageResource(drawable);
-        etchonNhom.setText(name);
+        tvChonNhom.setText(name);
         alertDialog.dismiss();
     }
 }

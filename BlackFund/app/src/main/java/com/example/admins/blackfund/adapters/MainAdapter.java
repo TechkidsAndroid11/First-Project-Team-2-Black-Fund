@@ -2,9 +2,11 @@ package com.example.admins.blackfund.adapters;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.graphics.Color;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,13 +25,13 @@ import java.util.List;
  */
 
 public class MainAdapter extends ArrayAdapter<GhiChu> {
+    private static final String TAG = MainAdapter.class.toString();
     private List<GhiChu> list;
     private Context context;
     private int resource;
 
 
     public MainAdapter(@NonNull Context context, @LayoutRes int resource, @NonNull List<GhiChu> objects) {
-
         super(context, resource, objects);
         list = new ArrayList<>();
         this.context = context;
@@ -50,7 +52,6 @@ public class MainAdapter extends ArrayAdapter<GhiChu> {
         ImageView ivReason = convertView.findViewById((R.id.iv_reason));
         TextView tvReason = convertView.findViewById(R.id.tv_ly_do);
         TextView tvMoneyOn = convertView.findViewById(R.id.tv_money_on);
-        TextView tvMoneyUnder = convertView.findViewById(R.id.tv_money_under);
 
         tvDate.setText(list.get(position).getDate().substring(list.get(position).getDate().lastIndexOf(" ") + 1 , list.get(position).getDate().lastIndexOf(" ") + 3));
         String monthAndYear = "";
@@ -159,9 +160,13 @@ public class MainAdapter extends ArrayAdapter<GhiChu> {
         }
         tvReason.setText(list.get(position).getChonNhom());
         tvMonthAndYear.setText(monthAndYear + ", " + list.get(position).getDate().substring(list.get(position).getDate().lastIndexOf("/") + 1));
-        //tvMonthAndYear.setText(list.get(position).getDate().substring(list.get(position).getDate().lastIndexOf(",") + 1));
+
         tvMoneyOn.setText(list.get(position).getMoney());
-        tvMoneyUnder.setText(list.get(position).getMoney());
+        if (list.get(position).isIncome()){
+            tvMoneyOn.setTextColor(Color.parseColor("#008f24"));
+        } else {
+            tvMoneyOn.setTextColor(Color.parseColor("#dc000d"));
+        }
         return convertView;
     }
 }

@@ -2,7 +2,6 @@ package com.example.admins.blackfund.activities;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.os.Handler;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -16,8 +15,8 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.example.admins.blackfund.LockViewActivity.CreatPasswordActivity;
-import com.example.admins.blackfund.LockViewActivity.InputPasswordActivity;
+import com.example.admins.blackfund.activities.lockviewactivities.CreatPasswordActivity;
+import com.example.admins.blackfund.activities.lockviewactivities.InputPasswordActivity;
 import com.example.admins.blackfund.R;
 import com.example.admins.blackfund.adapters.MainAdapter;
 import com.example.admins.blackfund.adapters.OverviewPagerAdapter;
@@ -29,46 +28,40 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
     private ImageView ivPlus;
     private ViewPager vpOverview;
-    private ListView lvEvent;
     private ListView lvHistory;
     private TextView tvMoney;
-    private boolean addMoney;
     private ImageView ivMinus;
     public static String KEY = "KEY";
     private AlertDialog.Builder dialogBuilder;
     private AlertDialog alertDialog;
     private EditText etValue;
-    private boolean beginning;
-    private CheckBox checkValue;
     private Button btOK;
     public static boolean checkPass= true;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
-        if(checkPass){
-        SharedPreferences msharedPreferences = getSharedPreferences("PRESS", 0);
-        String password = msharedPreferences.getString("password", "0");
-        if (password.equals("0")) {
-            Intent intent = new Intent(getApplicationContext(), CreatPasswordActivity.class);
-            startActivity(intent);
-            finish();
-        } else {
-            Intent intent = new Intent(getApplicationContext(), InputPasswordActivity.class);
-            startActivity(intent);
-            finish();
-        }}
-
-
+        checkPassword();
         setupUI();
         addListeners();
         onFirstTime();
+    }
 
-
+    private void checkPassword() {
+        if(checkPass){
+            SharedPreferences msharedPreferences = getSharedPreferences("PRESS", 0);
+            String password = msharedPreferences.getString("password", "0");
+            if (password.equals("0")) {
+                Intent intent = new Intent(getApplicationContext(), CreatPasswordActivity.class);
+                startActivity(intent);
+                finish();
+            } else {
+                Intent intent = new Intent(getApplicationContext(), InputPasswordActivity.class);
+                startActivity(intent);
+                finish();
+            }}
     }
 
     private void onFirstTime() {
@@ -108,20 +101,17 @@ public class MainActivity extends AppCompatActivity {
         ivPlus.setOnClickListener(new View.OnClickListener() {
                                       @Override
                                       public void onClick(View view) {
-                                          addMoney = true;
                                           Intent intent = new Intent(MainActivity.this, ThemGhiChu.class);
-                                          intent.putExtra(KEY, addMoney);
+                                          intent.putExtra(KEY, true);
                                           startActivity(intent);
-
                                       }
-                                  }
-        );
+                                  });
+
         ivMinus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                addMoney = false;
                 Intent intent = new Intent(MainActivity.this, ThemGhiChu.class);
-                intent.putExtra(KEY, addMoney);
+                intent.putExtra(KEY, false);
                 startActivity(intent);
             }
         });
@@ -141,10 +131,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         List<GhiChu> ghiChuList = BlackFundDatabase.getInstance(this).getListGhiChu();
-        MainAdapter mainAdapter = new MainAdapter(this, R.layout.an_item,
-                ghiChuList.subList(ghiChuList.size() - 2, ghiChuList.size()));
-
-        lvHistory.setAdapter(mainAdapter);
+        lvHistory.setAdapter(new MainAdapter(this, R.layout.an_item, ghiChuList));
     }
-
 }
