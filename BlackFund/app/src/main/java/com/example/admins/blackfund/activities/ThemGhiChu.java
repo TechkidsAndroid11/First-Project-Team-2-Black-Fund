@@ -31,7 +31,7 @@ public class ThemGhiChu extends AppCompatActivity implements View.OnClickListene
     private TextView etGhiChu;
     private EditText etTien;
     private TextView etchonNhom;
-    private TextView tvLuu;
+    private ImageView ivLuu;
     private ImageView ivBack;
     private ImageView ivChonNhom;
     GhiChu ghichu;
@@ -148,7 +148,7 @@ public class ThemGhiChu extends AppCompatActivity implements View.OnClickListene
                 alertDialog.show();
             }
         });
-        tvLuu.setOnClickListener(this);
+        ivLuu.setOnClickListener(this);
         ivBack.setOnClickListener(this);
 
 
@@ -176,9 +176,9 @@ public class ThemGhiChu extends AppCompatActivity implements View.OnClickListene
         etGhiChu = (TextView) findViewById(R.id.et_ghiChu);
         etchonNhom = (TextView) findViewById(R.id.et_chonNhom);
         etTien = (EditText) findViewById(R.id.et_tien);
-        tvLuu = (TextView) findViewById(R.id.tv_luu);
+        ivLuu = (ImageView) findViewById(R.id.iv_luu);
         ivBack = (ImageView) findViewById(R.id.iv_back);
-        ivChonNhom = (ImageView) findViewById(R.id.iv_chonNhom);
+        ivChonNhom = (ImageView) findViewById(R.id.iv_category_logo);
         etDate = (TextView) findViewById(R.id.et_date);
         calendar = Calendar.getInstance();
     }
@@ -187,7 +187,7 @@ public class ThemGhiChu extends AppCompatActivity implements View.OnClickListene
     public void onClick(View view) {
         Log.d(TAG, "onClick: ");
         switch (view.getId()) {
-            case R.id.tv_luu: {
+            case R.id.iv_luu: {
                 Log.d(TAG, "onClick: ");
                 String ghichu = etGhiChu.getText().toString();
                 String tien = etTien.getText().toString();

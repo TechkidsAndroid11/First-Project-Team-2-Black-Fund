@@ -63,7 +63,7 @@ public class BlackFundDatabase extends SQLiteOpenHelper {
     public ArrayList<GhiChu> getListGhiChu() {
         ArrayList<GhiChu> list = new ArrayList<>();
         db = getWritableDatabase();
-        Cursor cursor = db.rawQuery("select * from TB_GHiCHU order by id desc limit 2", null);
+        Cursor cursor = db.rawQuery("select * from TB_GHiCHU order by id desc limit 3", null);
         if (cursor != null) {
             cursor.moveToFirst();
             while (!cursor.isAfterLast()) {
