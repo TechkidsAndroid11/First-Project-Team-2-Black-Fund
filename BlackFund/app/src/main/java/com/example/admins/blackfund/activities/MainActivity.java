@@ -35,12 +35,12 @@ public class MainActivity extends AppCompatActivity {
     private boolean addMoney;
     private ImageView ivMinus;
     public static String KEY = "KEY";
-    AlertDialog.Builder dialogBuilder;
-    AlertDialog alertDialog;
+    private AlertDialog.Builder dialogBuilder;
+    private AlertDialog alertDialog;
     private EditText etValue;
     private boolean beginning;
-    CheckBox checkValue;
-    Button btOK;
+    private CheckBox checkValue;
+    private Button btOK;
     public static boolean checkPass= true;
 
 
@@ -66,7 +66,12 @@ public class MainActivity extends AppCompatActivity {
 
         setupUI();
         addListeners();
+        onFirstTime();
 
+
+    }
+
+    private void onFirstTime() {
         dialogBuilder = new AlertDialog.Builder(this);
         LayoutInflater layoutInflater = this.getLayoutInflater();
         View dialogView = layoutInflater.inflate(R.layout.sh_item, null);
@@ -128,8 +133,8 @@ public class MainActivity extends AppCompatActivity {
         vpOverview = (ViewPager) findViewById(R.id.vp_overview);
         vpOverview.setAdapter(new OverviewPagerAdapter(getSupportFragmentManager()));
         tvMoney = (TextView) findViewById(R.id.tv_money);
-        ivPlus = (ImageView) findViewById(R.id.iv_plus);
-        ivMinus = (ImageView) findViewById(R.id.iv_minus);
+        ivPlus = (ImageView) findViewById(R.id.iv_incomes);
+        ivMinus = (ImageView) findViewById(R.id.iv_expenses);
     }
 
     @Override
@@ -137,7 +142,8 @@ public class MainActivity extends AppCompatActivity {
         super.onStart();
         List<GhiChu> ghiChuList = BlackFundDatabase.getInstance(this).getListGhiChu();
         MainAdapter mainAdapter = new MainAdapter(this, R.layout.an_item,
-                ghiChuList);
+                ghiChuList.subList(ghiChuList.size() - 2, ghiChuList.size()));
+
         lvHistory.setAdapter(mainAdapter);
     }
 

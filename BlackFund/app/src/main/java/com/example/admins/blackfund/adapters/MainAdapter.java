@@ -52,9 +52,9 @@ public class MainAdapter extends ArrayAdapter<GhiChu> {
         TextView tvMoneyOn = convertView.findViewById(R.id.tv_money_on);
         TextView tvMoneyUnder = convertView.findViewById(R.id.tv_money_under);
 
-        tvDate.setText(list.get(position).getDate().substring(4, 6));
+        tvDate.setText(list.get(position).getDate().substring(list.get(position).getDate().lastIndexOf(" ") + 1 , list.get(position).getDate().lastIndexOf(" ") + 3));
         String monthAndYear = "";
-        switch (list.get(position).getDate().substring(7, 9)) {
+        switch (list.get(position).getDate().substring(list.get(position).getDate().lastIndexOf(" ") + 4, list.get(position).getDate().lastIndexOf("/"))) {
             case "1": {
                 monthAndYear = "January";
                 break;
@@ -115,78 +115,51 @@ public class MainAdapter extends ArrayAdapter<GhiChu> {
                 break;
             }
         }
-        switch (list.get(position).getDate().charAt(0)) {
-            case '7': {
-                tvDay.setText("Thứ bảy");
-                break;
-            }
-            case '6': {
-                tvDay.setText("Thứ sáu");
-                break;
-            }
-            case '5': {
-                tvDay.setText("Thứ năm");
-                break;
-            }
-            case '4': {
-                tvDay.setText("Thứ tư");
-                break;
-            }
-            case '3': {
-                tvDay.setText("Thứ ba");
-                break;
-            }
-            case '2': {
-                tvDay.setText("Thứ hai");
-                break;
-            }
-            case '1': {
-                tvDay.setText("Chủ nhật");
-            }
-        }
 
+        tvDay.setText(list.get(position).getDate().substring(0, list.get(position).getDate().lastIndexOf(",")));
         switch (list.get(position).getChonNhom()) {
             case "FOODS": {
-                ivReason.setBackgroundResource(R.drawable.food);
+                ivReason.setImageResource(R.drawable.food);
                 break;
             }
             case "FRIENDS": {
-                ivReason.setBackgroundResource(R.drawable.banbe);
+                ivReason.setImageResource(R.drawable.banbe);
                 break;
             }
 
             case "SHOPPING": {
-                ivReason.setBackgroundResource(R.drawable.shopping);
+                ivReason.setImageResource(R.drawable.shopping);
                 break;
             }
 
             case "ENTERTAINMENT": {
-                ivReason.setBackgroundResource(R.drawable.giaitri);
+                ivReason.setImageResource(R.drawable.giaitri);
                 break;
             }
 
             case "TRANSPORTATION": {
-                ivReason.setBackgroundResource(R.drawable.phuongtien);
+                ivReason.setImageResource(R.drawable.phuongtien);
                 break;
             }
 
             case "LOVE": {
-                ivReason.setBackgroundResource(R.drawable.love);
+                ivReason.setImageResource(R.drawable.love);
                 break;
             }
 
             case "WORKS": {
-                ivReason.setBackgroundResource(R.drawable.works);
+                ivReason.setImageResource(R.drawable.works);
                 break;
             }
 
             case "OTHERS": {
-                ivReason.setBackgroundResource(R.drawable.others);
+                ivReason.setImageResource(R.drawable.others);
                 break;
             }
         }
         tvReason.setText(list.get(position).getChonNhom());
-        tvMonthAndYear.setText(monthAndYear + ", " + list.get(position).getDate().substring(10));
+        tvMonthAndYear.setText(monthAndYear + ", " + list.get(position).getDate().substring(list.get(position).getDate().lastIndexOf("/") + 1));
+        //tvMonthAndYear.setText(list.get(position).getDate().substring(list.get(position).getDate().lastIndexOf(",") + 1));
         tvMoneyOn.setText(list.get(position).getMoney());
         tvMoneyUnder.setText(list.get(position).getMoney());
         return convertView;

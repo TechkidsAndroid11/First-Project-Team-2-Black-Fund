@@ -22,14 +22,6 @@ public class OverviewFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View overviewTab = inflater.inflate(R.layout.overview_fragment_tab, container, false);
-//        TextView tvDemo = overviewTab.findViewById(R.id.tv_demo);
-//
-//        if (getArguments().getBoolean(OVERVIEW_KEY)){
-//            tvDemo.setText("This month");
-//        } else {
-//            tvDemo.setText("Last month");
-//        }
-
         return overviewTab;
     }
 }

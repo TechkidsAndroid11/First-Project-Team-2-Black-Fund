@@ -22,13 +22,13 @@ public class BlackFundDatabase extends SQLiteOpenHelper {
     public static final String KEY_DATE = "DATE";
     private static final String KEY_CHONNHOM = "LYDO";
 
-    public static final String CREAT_TABLE_GHICHU = "CREATE TABLE " +
-            TABLE_NOTE + "(" +
-            KEY_ID_GHICHU + " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL" + ", " +
-            KEY_TIEN + " TEXT NOT NULL" + "," +
-            KEY_CHONNHOM + " TEXT NOT NULL" + "," +
-            KEY_GHICHU + " TEXT NOT NULL " + "," +
-            KEY_DATE + " TEXT NOT NULL " + ")";
+    public static final String  CREAT_TABLE_GHICHU = "CREATE TABLE " +
+                                TABLE_NOTE + "(" +
+                                KEY_ID_GHICHU + " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL" + ", " +
+                                KEY_TIEN + " TEXT NOT NULL" + "," +
+                                KEY_CHONNHOM + " TEXT NOT NULL" + "," +
+                                KEY_GHICHU + " TEXT NOT NULL " + "," +
+                                KEY_DATE + " TEXT NOT NULL " + ")";
 
     private static final String TAG = BlackFundDatabase.class.toString();
     private SQLiteDatabase db;
@@ -63,7 +63,7 @@ public class BlackFundDatabase extends SQLiteOpenHelper {
     public ArrayList<GhiChu> getListGhiChu() {
         ArrayList<GhiChu> list = new ArrayList<>();
         db = getWritableDatabase();
-        Cursor cursor = db.rawQuery("select * from TB_GHiCHU", null);
+        Cursor cursor = db.rawQuery("select * from TB_GHiCHU order by id desc limit 3", null);
         if (cursor != null) {
             cursor.moveToFirst();
             while (!cursor.isAfterLast()) {
