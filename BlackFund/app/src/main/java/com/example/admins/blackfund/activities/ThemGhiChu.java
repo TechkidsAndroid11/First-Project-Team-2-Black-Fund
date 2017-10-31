@@ -24,8 +24,8 @@ import java.util.Calendar;
 
 public class ThemGhiChu extends AppCompatActivity implements View.OnClickListener {
     private static final String TAG = ThemGhiChu.class.toString();
-    private TextView etDate;
-    private int month, year, day,dayOfWeek;
+    private TextView tvDate;
+    private int currentMonth, currentYear, currentDay,currentDayOfWeek;
     private Calendar calendar;
     private TextView tvActName;
     private TextView etGhiChu;
@@ -43,8 +43,8 @@ public class ThemGhiChu extends AppCompatActivity implements View.OnClickListene
     private ImageView ivLove;
     private ImageView ivCongViec;
     private ImageView ivAnUong;
-    AlertDialog.Builder dialogBuilder;
-    AlertDialog alertDialog;
+    private AlertDialog.Builder dialogBuilder;
+    private AlertDialog alertDialog;
     private boolean addMoney;
 
 
@@ -55,7 +55,6 @@ public class ThemGhiChu extends AppCompatActivity implements View.OnClickListene
         setupUI();
         addListeners();
         loadData();
-
     }
 
     private void loadData() {
@@ -70,50 +69,16 @@ public class ThemGhiChu extends AppCompatActivity implements View.OnClickListene
     }
 
     private void getCalendar() {
-        String textDayOfWeek = "";
-        day = calendar.get(Calendar.DAY_OF_MONTH);
-        month = calendar.get(Calendar.MONTH);
-        year = calendar.get(Calendar.YEAR);
-        dayOfWeek= calendar.get(Calendar.DAY_OF_WEEK);
-//        month = month + 1;
-        etDate.setText(dayOfWeek +" , "+day + "/" + month + "/" + year);}
-//            case 1:{
-//                textDayOfWeek = "Sunday";
-//                break;
-//            }
-//
-//            case 2:{
-//                textDayOfWeek = "Monday";
-//                break;
-//            }
-//
-//            case 3:{
-//                textDayOfWeek = "Tuesday";
-//                break;
-//            }
-//
-//            case 4:{
-//                textDayOfWeek = "Wednesday";
-//                break;
-//            }
-//
-//            case 5:{
-//                textDayOfWeek = "Thursday";
-//                break;
-//            }
-//
-//            case 6:{
-//                textDayOfWeek = "Friday";
-//                break;
-//            }
-//
-//            case 7:{
-//                textDayOfWeek = "Saturday";
-//                break;
-//            }
-//        }
-//        etDate.setText(textDayOfWeek  +", "+day + "/" + month + "/" + year);
-//    }
+        currentDay = calendar.get(Calendar.DAY_OF_MONTH);
+        currentMonth = calendar.get(Calendar.MONTH);
+        currentYear = calendar.get(Calendar.YEAR);
+        currentDayOfWeek= calendar.get(Calendar.DAY_OF_WEEK);
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("EEEE, dd/MM/yyyy");
+        String currentDateTime = simpleDateFormat.format(new Date(currentYear - 1900, currentMonth, currentDay));
+        Log.d(TAG, "getCalendar: " + currentDay + " " + currentMonth + " " + currentYear + " " + currentDayOfWeek);
+        tvDate.setText(currentDateTime);
+    }
+
 
     private void addListeners() {
         //chon ly do
@@ -151,26 +116,7 @@ public class ThemGhiChu extends AppCompatActivity implements View.OnClickListene
         });
         ivLuu.setOnClickListener(this);
         ivBack.setOnClickListener(this);
-
-
-        //chon ngay
-        etDate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                DatePickerDialog datePickerDialog = new DatePickerDialog(ThemGhiChu.this, new DatePickerDialog.OnDateSetListener() {
-                    @Override
-                    public void onDateSet(DatePicker datePicker, int year, int monthofyear, int dayofmonth) {
-                        monthofyear = monthofyear + 1;
-                        Calendar calendar = Calendar.getInstance();
-                        SimpleDateFormat sdf = new SimpleDateFormat("EEEE");
-                        Date d = new Date(year, monthofyear, dayofmonth);
-                        String dayOfTheWeek = sdf.format(d);
-                        etDate.setText(dayOfTheWeek+" , "+ dayofmonth+"/"+ monthofyear+"/"+ year);
-                    }
-                }, year, month, day );
-                datePickerDialog.show();
-            }
-        });
+        tvDate.setOnClickListener(this);
     }
 
     private void setupUI() {
@@ -181,7 +127,7 @@ public class ThemGhiChu extends AppCompatActivity implements View.OnClickListene
         ivLuu = (ImageView) findViewById(R.id.iv_luu);
         ivBack = (ImageView) findViewById(R.id.iv_back);
         ivChonNhom = (ImageView) findViewById(R.id.iv_category_logo);
-        etDate = (TextView) findViewById(R.id.et_date);
+        tvDate = (TextView) findViewById(R.id.tv_date);
         calendar = Calendar.getInstance();
     }
 
@@ -189,31 +135,13 @@ public class ThemGhiChu extends AppCompatActivity implements View.OnClickListene
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.iv_luu: {
-                //save income
-                if (addMoney) {
-                    String ghichu = etGhiChu.getText().toString();
-                    String tien = etTien.getText().toString();
-                    String date = etDate.getText().toString();
-                    String chonNhom = tvChonNhom.getText().toString();
-                    GhiChu note = new GhiChu(ghichu, tien, date, chonNhom);
+                addIncome(addMoney);
+                break;
+            }
 
-                    BlackFundDatabase.getInstance(this).addGhiChu(note, true);
-                    ThemGhiChu.this.finish();
-                    break;
-                }
-
-                //save expenses
-                else {
-                    String ghichu = etGhiChu.getText().toString();
-                    String tien = etTien.getText().toString();
-                    String date = etDate.getText().toString();
-                    String chonNhom = tvChonNhom.getText().toString();
-                    GhiChu note = new GhiChu(ghichu, tien, date, chonNhom);
-
-                    BlackFundDatabase.getInstance(this).addGhiChu(note, false);
-                    ThemGhiChu.this.finish();
-                    break;
-                }
+            case R.id.tv_date: {
+                showDatePickerDialog();
+                break;
             }
 
             case R.id.iv_back: {
@@ -258,6 +186,38 @@ public class ThemGhiChu extends AppCompatActivity implements View.OnClickListene
                 break;
             }
         }
+    }
+
+    private void addIncome(boolean addMoney) {
+        String ghichu = etGhiChu.getText().toString();
+        String tien = etTien.getText().toString();
+        String date = tvDate.getText().toString();
+        String chonNhom = tvChonNhom.getText().toString();
+        GhiChu note = new GhiChu(ghichu, tien, date, chonNhom);
+        if (addMoney) {
+            BlackFundDatabase.getInstance(this).addGhiChu(note, true);
+        } else {
+            BlackFundDatabase.getInstance(this).addGhiChu(note, false);
+        }
+        ThemGhiChu.this.finish();
+    }
+
+    private void showDatePickerDialog() {
+        DatePickerDialog datePickerDialog = new DatePickerDialog(this,
+                new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker datePicker, int year, int month, int dayOfMonth) {
+                        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("EEEE, dd/MM/yyyy");
+                        String formattedDate = simpleDateFormat.format(new Date(year - 1900, month, dayOfMonth));
+                        Log.d(TAG, "onDateSet: currentYear" + year);
+                        Log.d(TAG, "onDateSet: " + formattedDate);
+                        tvDate.setText(formattedDate);
+                    }
+                },
+                currentYear,
+                currentMonth,
+                currentDay);
+        datePickerDialog.show();
     }
 
 

@@ -20,18 +20,18 @@ public class BlackFundDatabase extends SQLiteOpenHelper {
     private static final String KEY_TIEN = "TIEN";
     private static final String KEY_ISINCOME = "PHANLOAI";
     private static final String KEY_GHICHU = "GHICHU";
-    private static final String KEY_DATE = "DATE";
+    private static final String KEY_DATE = "NGAYTHANG";
     private static final String KEY_CHONNHOM = "LYDO";
 
 
-    private static final String  CREATE_TABLE_GHICHU = "CREATE TABLE " +
+    private static final String CREATE_TABLE_GHICHU = "CREATE TABLE " +
                                 TABLE_NOTE + "(" +
                                 KEY_ID_GHICHU + " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL" + ", " +
                                 KEY_TIEN + " NUMERIC NOT NULL" + "," +
                                 KEY_ISINCOME + " INTEGER NOT NULL" + "," +
                                 KEY_CHONNHOM + " TEXT NOT NULL" + "," +
                                 KEY_GHICHU + " TEXT NOT NULL " + "," +
-                                KEY_DATE + " TEXT NOT NULL " + ")";
+                                KEY_DATE + " INTEGER NOT NULL " + ")";
 
     private static final String TAG = BlackFundDatabase.class.toString();
     private SQLiteDatabase db;
@@ -88,30 +88,19 @@ public class BlackFundDatabase extends SQLiteOpenHelper {
     }
 
     public long addGhiChu(GhiChu note, boolean isIncome) {
+            ContentValues values = new ContentValues();
+            values.put(KEY_DATE, note.getDate());
+            values.put(KEY_CHONNHOM, note.getChonNhom());
+            values.put(KEY_GHICHU, note.getGhiChu());
+            values.put(KEY_TIEN, note.getMoney());
         if (isIncome) {
-            //save incomes
-            ContentValues values = new ContentValues();
-            values.put(KEY_DATE, note.getDate());
-            values.put(KEY_CHONNHOM, note.getChonNhom());
-            values.put(KEY_GHICHU, note.getGhiChu());
-            values.put(KEY_TIEN, note.getMoney());
             values.put(KEY_ISINCOME, 1);
-            long index = db.insert(TABLE_NOTE, null, values);
-            close();
-            Log.d(TAG, "addGhiChu: isIncome");
-            return index;
-        } else {
-            //save expenses
-            ContentValues values = new ContentValues();
-            values.put(KEY_DATE, note.getDate());
-            values.put(KEY_CHONNHOM, note.getChonNhom());
-            values.put(KEY_GHICHU, note.getGhiChu());
-            values.put(KEY_TIEN, note.getMoney());
+        }
+        else {
             values.put(KEY_ISINCOME, 0);
+        }
             long index = db.insert(TABLE_NOTE, null, values);
             close();
-            Log.d(TAG, "addGhiChu: isExpense");
             return index;
         }
-    }
 }

@@ -206,7 +206,7 @@
     <!--app:layout_constraintTop_toBottomOf="@id/guideline13" />-->
 
     <TextView
-        android:id="@+id/et_date"
+        android:id="@+id/tv_date"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"

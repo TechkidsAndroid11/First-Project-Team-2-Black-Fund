@@ -17,6 +17,10 @@ public class GhiChu implements Serializable{
     private String chonNhom;
     private boolean isIncome;
 
+    public void setDate(String date) {
+        this.date = date;
+    }
+
     public boolean isIncome() {
         return isIncome;
     }
@@ -56,10 +60,6 @@ public class GhiChu implements Serializable{
 
     public String getDate() {
         return date;
-    }
-
-    public void setDate(String date) {
-        this.date = date;
     }
 
     public String getChonNhom() {
