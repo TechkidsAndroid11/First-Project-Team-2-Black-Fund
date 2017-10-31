@@ -66,8 +66,8 @@ public class ThemGhiChu extends AppCompatActivity implements View.OnClickListene
         month = calendar.get(Calendar.MONTH);
         year = calendar.get(Calendar.YEAR);
         dayOfWeek= calendar.get(Calendar.DAY_OF_WEEK);
-        month = month + 1;
-        etDate.setText(dayOfWeek +" , "+day + "/" + month + "/" + year);
+//        month = month + 1;
+//        etDate.setText(dayOfWeek +" , "+day + "/" + month + "/" + year);
         etDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

@@ -2,6 +2,7 @@ package com.example.admins.blackfund.activities;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Handler;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -15,6 +16,8 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.example.admins.blackfund.LockViewActivity.CreatPasswordActivity;
+import com.example.admins.blackfund.LockViewActivity.InputPasswordActivity;
 import com.example.admins.blackfund.R;
 import com.example.admins.blackfund.adapters.MainAdapter;
 import com.example.admins.blackfund.adapters.OverviewPagerAdapter;
@@ -38,12 +41,29 @@ public class MainActivity extends AppCompatActivity {
     private boolean beginning;
     CheckBox checkValue;
     Button btOK;
+    public static boolean checkPass= true;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+
+        if(checkPass){
+        SharedPreferences msharedPreferences = getSharedPreferences("PRESS", 0);
+        String password = msharedPreferences.getString("password", "0");
+        if (password.equals("0")) {
+            Intent intent = new Intent(getApplicationContext(), CreatPasswordActivity.class);
+            startActivity(intent);
+            finish();
+        } else {
+            Intent intent = new Intent(getApplicationContext(), InputPasswordActivity.class);
+            startActivity(intent);
+            finish();
+        }}
+
+
         setupUI();
         addListeners();
 
@@ -117,7 +137,7 @@ public class MainActivity extends AppCompatActivity {
         super.onStart();
         List<GhiChu> ghiChuList = BlackFundDatabase.getInstance(this).getListGhiChu();
         MainAdapter mainAdapter = new MainAdapter(this, R.layout.an_item,
-                ghiChuList.subList(ghiChuList.size() - 2, ghiChuList.size()));
+                ghiChuList);
         lvHistory.setAdapter(mainAdapter);
     }
 

@@ -49,7 +49,7 @@ public class BlackFundDatabase extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
         try {
             // tao blackFundDatabase
-            db.execSQL(CREAT_TABLE_GHICHU);
+            sqLiteDatabase.execSQL(CREAT_TABLE_GHICHU);
         } catch (SQLException e) {
             e.printStackTrace();
         }

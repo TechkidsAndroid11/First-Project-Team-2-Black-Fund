@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:orientation="vertical"
-    android:background="#e7e7e7"
+    android:background="@color/cardview_dark_background"
+
 
     android:padding="5dp"
 
@@ -30,27 +31,37 @@
             android:layout_width="0dp"
             android:layout_weight="4"
             android:layout_gravity="center"
-            android:text="   ADD TRANSACTION"
+            android:text="   NEW TRANSACTION"
             android:textSize="23dp"
             android:textStyle="bold"
             android:layout_height="wrap_content" />
+
         <TextView
+            android:id="@+id/tv_luu"
             android:layout_width="0dp"
-            android:layout_weight="1"
-            android:text="SAVE"
-            android:layout_gravity="center"
-            android:textSize="20dp"
-            android:textStyle="bold"
-            android:gravity="center"
             android:layout_height="wrap_content"
-            android:id="@+id/tv_luu"/>
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="SAVE"
+            android:textSize="20dp"
+            android:textStyle="bold" />
     </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
+        android:layout_height="0dp"
         android:layout_weight="3"
         android:orientation="horizontal"
-        android:weightSum="6"
-        android:layout_height="0dp"></LinearLayout>
+        android:weightSum="6">
+
+        <ImageView
+            android:id="@+id/imageView3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            app:srcCompat="@drawable/ic_logo_money_manager_ex_flat" />
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -89,7 +100,8 @@
             android:layout_weight="1"
             android:id="@+id/iv_chonNhom"
             android:layout_gravity="center"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_dehaze_black_24dp"/>
 
         <TextView
             android:id="@+id/et_chonNhom"
@@ -116,6 +128,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_weight="1"
+            android:src="@drawable/ic_note_black_24dp"
             />
 
         <EditText

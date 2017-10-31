@@ -133,7 +133,7 @@
                 android:layout_below="@+id/iv_phuongTien"
                 android:layout_centerHorizontal="true"
                 android:layout_margin="4dp"
-                android:text="TRANSPOTATION" />
+                android:text="TRANSPORTATION" />
 
         </RelativeLayout>
 
@@ -156,7 +156,7 @@
                 android:layout_below="@+id/iv_sinhHoat"
                 android:layout_centerHorizontal="true"
                 android:layout_margin="4dp"
-                android:text="Sub expenses" />
+                android:text="SUB expenses" />
 
         </RelativeLayout>
 
