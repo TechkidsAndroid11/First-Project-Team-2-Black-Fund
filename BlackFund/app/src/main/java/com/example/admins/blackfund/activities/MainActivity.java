@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -32,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView tvMoney;
     private ImageView ivMinus;
     public static String KEY = "KEY";
+    public static String KEY_EDIT = "KEY_EDIT";
     private AlertDialog.Builder dialogBuilder;
     private AlertDialog alertDialog;
     private EditText etValue;
@@ -102,7 +104,7 @@ public class MainActivity extends AppCompatActivity {
                                       @Override
                                       public void onClick(View view) {
                                           Intent intent = new Intent(MainActivity.this, ThemGhiChu.class);
-                                          intent.putExtra(KEY, true);
+                                          intent.putExtra(KEY, 1);
                                           startActivity(intent);
                                       }
                                   });
@@ -111,7 +113,17 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this, ThemGhiChu.class);
-                intent.putExtra(KEY, false);
+                intent.putExtra(KEY, 2);
+                startActivity(intent);
+            }
+        });
+
+        lvHistory.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(MainActivity.this, ThemGhiChu.class);
+                intent.putExtra(KEY, 3);
+                intent.putExtra(KEY_EDIT, BlackFundDatabase.getInstance(MainActivity.this).getListGhiChu().get(position));
                 startActivity(intent);
             }
         });
