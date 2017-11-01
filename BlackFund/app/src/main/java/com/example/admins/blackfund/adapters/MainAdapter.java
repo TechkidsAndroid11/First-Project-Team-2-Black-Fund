@@ -53,56 +53,63 @@ public class MainAdapter extends ArrayAdapter<GhiChu> {
         TextView tvReason = convertView.findViewById(R.id.tv_ly_do);
         TextView tvMoneyOn = convertView.findViewById(R.id.tv_money_on);
 
-        tvDate.setText(list.get(position).getDate().substring(list.get(position).getDate().lastIndexOf(" ") + 1 , list.get(position).getDate().lastIndexOf(" ") + 3));
+        //set day view
+        String eventDay = list.get(position).getDate().substring(8, 10);
+        Log.d(TAG, "getView: " + eventDay);
+        tvDate.setText(eventDay);
+
+        //set month view
+        String eventMonth = list.get(position).getDate().substring(5, 7);
+        Log.d(TAG, "getView: " + eventMonth);
         String monthAndYear = "";
-        switch (list.get(position).getDate().substring(list.get(position).getDate().lastIndexOf(" ") + 4, list.get(position).getDate().lastIndexOf("/"))) {
-            case "1": {
+        switch (eventMonth) {
+            case "01": {
                 monthAndYear = "January";
                 break;
             }
 
-            case "2": {
+            case "02": {
                 monthAndYear = "February";
                 break;
             }
 
-            case "3": {
+            case "03": {
                 monthAndYear = "March";
                 break;
             }
 
-            case "4": {
+            case "04": {
                 monthAndYear = "April";
                 break;
             }
 
-            case "5": {
+            case "05": {
                 monthAndYear = "May";
                 break;
             }
 
-            case "6": {
+            case "06": {
                 monthAndYear = "June";
                 break;
             }
 
-            case "7": {
+            case "07": {
                 monthAndYear = "July";
                 break;
             }
 
-            case "8": {
+            case "08": {
                 monthAndYear = "August";
                 break;
             }
 
-            case "9": {
+            case "09": {
                 monthAndYear = "September";
                 break;
             }
 
             case "10": {
-                monthAndYear = "Octorber";
+                monthAndYear = "October";
                 break;
             }
 
@@ -117,7 +124,10 @@ public class MainAdapter extends ArrayAdapter<GhiChu> {
             }
         }
 
-        tvDay.setText(list.get(position).getDate().substring(0, list.get(position).getDate().lastIndexOf(",")));
+        //set day of week view
+        tvDay.setText(list.get(position).getDayOfWeek());
+
+        //set category
         switch (list.get(position).getChonNhom()) {
             case "FOODS": {
                 ivReason.setImageResource(R.drawable.food);
@@ -159,9 +169,9 @@ public class MainAdapter extends ArrayAdapter<GhiChu> {
             }
         }
         tvReason.setText(list.get(position).getChonNhom());
-        tvMonthAndYear.setText(monthAndYear + ", " + list.get(position).getDate().substring(list.get(position).getDate().lastIndexOf("/") + 1));
+        tvMonthAndYear.setText(monthAndYear + ", " + list.get(position).getDate().substring(0, 4));
 
-        tvMoneyOn.setText(list.get(position).getMoney());
+        tvMoneyOn.setText(String.valueOf(list.get(position).getMoney()));
         if (list.get(position).isIncome()){
             tvMoneyOn.setTextColor(Color.parseColor("#008f24"));
         } else {
