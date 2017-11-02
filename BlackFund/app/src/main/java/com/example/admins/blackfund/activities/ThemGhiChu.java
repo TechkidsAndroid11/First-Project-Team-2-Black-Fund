@@ -43,24 +43,50 @@ public class ThemGhiChu extends AppCompatActivity implements View.OnClickListene
     private AlertDialog.Builder dialogBuilder;
     private AlertDialog alertDialog;
     private boolean addMoney;
-
+    private boolean edit;
+    GhiChu ghiChu;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_them_giao_dich);
         setupUI();
         addListeners();
-        loadData();
+        try {
+            loadData();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
     }
 
-    private void loadData() {
+    private void loadData() throws ParseException {
         addMoney = getIntent().getBooleanExtra(MainActivity.KEY, true);
-        if (addMoney) {
-            tvActName.setText("INCOMES");
-        } else {
-            tvActName.setText("EXPENSES");
-        }
+        edit = getIntent().getBooleanExtra(MainActivity.KEY_EDIT, false);
         getCalendar();
+        if (edit){
+            tvActName.setText("EDIT");
+            ghiChu = (GhiChu) getIntent().getSerializableExtra(MainActivity.KEY_DATA);
+            Log.d(TAG, "loadData: " + ghiChu.getDate());
+            tvChonNhom.setText(ghiChu.getChonNhom());
+            etTien.setText(String.valueOf(ghiChu.getMoney()));
+            etGhiChu.setText(ghiChu.getGhiChu());
+            Log.d(TAG, "loadData: " + tvDate.getText());
+            String date = ghiChu.getDate().toString();
+//            String subDate = date.substring(date.indexOf(",") + 2, date.length());
+            SimpleDateFormat dateParser = new SimpleDateFormat("yyyy-MM-dd");
+            java.util.Date selectedDate;
+            String formattedDate;
+            selectedDate = dateParser.parse(ghiChu.getDate());
+            SimpleDateFormat dateFormatter = new SimpleDateFormat("dd/MM/yyyy");
+            formattedDate = dateFormatter.format(selectedDate);
+            tvDate.setText(ghiChu.getDayOfWeek() +", "+ formattedDate);
+        }
+        else {
+            if (addMoney) {
+                tvActName.setText("INCOMES");
+            } else {
+                tvActName.setText("EXPENSES");
+            }
+        }
     }
 
     private void getCalendar() {
@@ -129,7 +155,12 @@ public class ThemGhiChu extends AppCompatActivity implements View.OnClickListene
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.iv_luu: {
-                addIncome(addMoney);
+                if (edit){
+                    update();
+                }
+                else {
+                    addIncome(addMoney);
+                }
                 break;
             }
 
@@ -181,17 +212,40 @@ public class ThemGhiChu extends AppCompatActivity implements View.OnClickListene
             }
         }
     }
+    private void update(){
+        String textghichu = etGhiChu.getText().toString();
+        int tien = Integer.parseInt(etTien.getText().toString());
 
+        //format date
+        String date = tvDate.getText().toString();
+        String subDate = date.substring(date.indexOf(",") + 2, date.length());
+        SimpleDateFormat dateParser = new SimpleDateFormat("dd/MM/yyyy");
+        java.util.Date selectedDate;
+        String formattedDate;
+        try {
+            selectedDate = dateParser.parse(subDate);
+            SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd");
+            formattedDate = dateFormatter.format(selectedDate);
+            Log.d(TAG, "addIncome: " + formattedDate);
+            String chonNhom = tvChonNhom.getText().toString();
+            GhiChu note = new GhiChu(textghichu, tien, formattedDate , chonNhom);
+                BlackFundDatabase.getInstance(this).updateNote(note, ghiChu.getId());
+            ThemGhiChu.this.finish();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+    }
     private void addIncome(boolean addMoney) {
         String ghichu = etGhiChu.getText().toString();
         int tien = Integer.parseInt(etTien.getText().toString());
 
         //format date
         String date = tvDate.getText().toString();
-        String subDate = date.substring(date.indexOf(", ") + 2, date.length());
+        String subDate = date.substring(date.indexOf(",") + 2, date.length());
         SimpleDateFormat dateParser = new SimpleDateFormat("dd/MM/yyyy");
         java.util.Date selectedDate;
         String formattedDate;
+
         try {
             selectedDate = dateParser.parse(subDate);
             SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd");

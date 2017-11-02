@@ -150,7 +150,7 @@ public class BlackFundDatabase extends SQLiteOpenHelper {
 
 
     public void updateNote(GhiChu ghiChu, int id){
-        db = blackFundDatabase.getWritableDatabase();
+        SQLiteDatabase db = blackFundDatabase.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put(KEY_DATE, ghiChu.getDate());
         contentValues.put(KEY_CHONNHOM, ghiChu.getChonNhom());

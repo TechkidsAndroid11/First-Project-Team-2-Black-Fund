@@ -27,6 +27,7 @@
                 android:src="@drawable/food" />
 
             <TextView
+                android:textSize="10dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/iv_food"
@@ -55,7 +56,8 @@
                 android:layout_below="@+id/iv_friend"
                 android:layout_centerHorizontal="true"
                 android:layout_margin="4dp"
-                android:text="FRIENDS" />
+                android:text="FRIENDS"
+                android:textSize="10dp"/>
 
         </RelativeLayout>
 
@@ -73,6 +75,7 @@
                 android:src="@drawable/shopping" />
 
             <TextView
+                android:textSize="10dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/iv_shopping"
@@ -105,6 +108,7 @@
                 android:src="@drawable/giaitri" />
 
             <TextView
+                android:textSize="10dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/iv_giaiTri"
@@ -128,6 +132,7 @@
                 android:src="@drawable/phuongtien" />
 
             <TextView
+                android:textSize="10dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/iv_phuongTien"
@@ -151,12 +156,13 @@
                 android:src="@drawable/sinhhoat" />
 
             <TextView
+                android:textSize="10dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/iv_sinhHoat"
                 android:layout_centerHorizontal="true"
                 android:layout_margin="4dp"
-                android:text="SUB expenses" />
+                android:text="SUBEXPENSES" />
 
         </RelativeLayout>
 
@@ -183,6 +189,7 @@
                 android:src="@drawable/love" />
 
             <TextView
+                android:textSize="10dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/iv_love"
@@ -206,6 +213,7 @@
                 android:src="@drawable/works" />
 
             <TextView
+                android:textSize="10dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/iv_viec"
@@ -229,6 +237,7 @@
                 android:src="@drawable/others" />
 
             <TextView
+                android:textSize="10dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/iv_others"
