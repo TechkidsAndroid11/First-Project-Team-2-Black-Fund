@@ -4,6 +4,7 @@ import android.app.DatePickerDialog;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Editable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -70,8 +71,9 @@ public class ThemGhiChu extends AppCompatActivity implements View.OnClickListene
             etTien.setText(String.valueOf(ghiChu.getMoney()));
             etGhiChu.setText(ghiChu.getGhiChu());
             Log.d(TAG, "loadData: " + tvDate.getText());
-            String date = ghiChu.getDate().toString();
+//            String date = ghiChu.getDate().toString();
 //            String subDate = date.substring(date.indexOf(",") + 2, date.length());
+            getEditCalendar();
             SimpleDateFormat dateParser = new SimpleDateFormat("yyyy-MM-dd");
             java.util.Date selectedDate;
             String formattedDate;
@@ -79,6 +81,49 @@ public class ThemGhiChu extends AppCompatActivity implements View.OnClickListene
             SimpleDateFormat dateFormatter = new SimpleDateFormat("dd/MM/yyyy");
             formattedDate = dateFormatter.format(selectedDate);
             tvDate.setText(ghiChu.getDayOfWeek() +", "+ formattedDate);
+            switch (ghiChu.getChonNhom()) {
+                case "FOODS": {
+                    ivChonNhom.setImageResource(R.drawable.food);
+                    break;
+                }
+                case "FRIENDS": {
+                    ivChonNhom.setImageResource(R.drawable.banbe);
+                    break;
+                }
+
+                case "SHOPPING": {
+                    ivChonNhom.setImageResource(R.drawable.shopping);
+                    break;
+                }
+
+                case "ENTERTAINMENT": {
+                    ivChonNhom.setImageResource(R.drawable.giaitri);
+                    break;
+                }
+
+                case "TRANSPORTATION": {
+                    ivChonNhom.setImageResource(R.drawable.phuongtien);
+                    break;
+                }
+
+                case "LOVE": {
+                    ivChonNhom.setImageResource(R.drawable.love);
+                    break;
+                }
+
+                case "WORKS": {
+                    ivChonNhom.setImageResource(R.drawable.works);
+                    break;
+                }
+
+                case "OTHERS": {
+                    ivChonNhom.setImageResource(R.drawable.others);
+                    break;
+                }
+                case "SUBEXPENSES":{
+                    ivChonNhom.setImageResource(R.drawable.sinhhoat);
+                }
+            }
         }
         else {
             if (addMoney) {
@@ -89,6 +134,14 @@ public class ThemGhiChu extends AppCompatActivity implements View.OnClickListene
         }
     }
 
+    private void getEditCalendar(){
+        int dayEdit = Integer.parseInt(ghiChu.getDate().substring(5, 7));
+        int monthEdit = Integer.parseInt(ghiChu.getDate().substring(8, 10));
+        int yearEdit = Integer.parseInt(ghiChu.getDate().substring(0, 4));
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("EEEE, dd/MM/yyyy");
+        String dateTimeEdit = simpleDateFormat.format(new java.util.Date(yearEdit - 1900, monthEdit, dayEdit));
+        tvDate.setText(dateTimeEdit);
+    }
     private void getCalendar() {
         currentDay = currentCalendar.get(Calendar.DAY_OF_MONTH);
         currentMonth = currentCalendar.get(Calendar.MONTH);
@@ -272,14 +325,19 @@ public class ThemGhiChu extends AppCompatActivity implements View.OnClickListene
                 String formattedDate = simpleDateFormat.format(new Date(year - 1900, month, dayOfMonth));
                 tvDate.setText(formattedDate);
                 Log.d(TAG, "onDateSet: " + formattedDate);
+
             }
         };
-
+        String dateShow = tvDate.getText().toString();
+        int date = Integer.parseInt(dateShow.substring(dateShow.lastIndexOf(",") + 2, dateShow.lastIndexOf(",") + 4));
+        int month = Integer.parseInt(dateShow.substring(dateShow.indexOf("/") + 1, dateShow.lastIndexOf("/")));
+        int year = Integer.parseInt(dateShow.substring(dateShow.lastIndexOf("/") + 1));
+        Log.d(TAG, "showDatePickerDialog: " + date + "/" + month + "/" + year);
         DatePickerDialog datePickerDialog = new DatePickerDialog(this,
                 dpdOnDateSetListener,
-                currentYear,
-                currentMonth,
-                currentDay);
+                year,
+                month - 1,
+                date);
         datePickerDialog.show();
     }
 
