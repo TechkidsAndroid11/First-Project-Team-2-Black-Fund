@@ -176,7 +176,7 @@ public class ThemGhiChu extends AppCompatActivity implements View.OnClickListene
         switch (view.getId()) {
             case R.id.iv_delete: {
                 delete();
-                this.finish();
+                break;
             }
             case R.id.iv_edit: {
                 changeMode();
@@ -188,19 +188,16 @@ public class ThemGhiChu extends AppCompatActivity implements View.OnClickListene
                     if (TextUtils.isEmpty(etTien.getText())) {
                         etTien.setError("Cannot be empty");
                         Toast.makeText(ThemGhiChu.this, "Can't not be empty", Toast.LENGTH_SHORT).show();
+                    } else {
+                        updateData();
                     }
-                    else {
-                    updateData();
-                    }
-                }
-                else {
+                } else {
                     if (TextUtils.isEmpty(etTien.getText())) {
                         etTien.setError("Cannot be empty");
                         Toast.makeText(ThemGhiChu.this, "Can't not be empty", Toast.LENGTH_SHORT).show();
+                    } else {
+                        addIncome(addMoney);
                     }
-                    else {
-                addIncome(addMoney);
-                }
                 }
                 break;
             }
@@ -254,7 +251,7 @@ public class ThemGhiChu extends AppCompatActivity implements View.OnClickListene
         }
     }
 
-    private void delete(){
+    private void delete() {
         dialogBuilder = new AlertDialog.Builder(ThemGhiChu.this);
         LayoutInflater layoutInflater = ThemGhiChu.this.getLayoutInflater();
         View dialogView = layoutInflater.inflate(R.layout.delete, null);
@@ -268,7 +265,7 @@ public class ThemGhiChu extends AppCompatActivity implements View.OnClickListene
             @Override
             public void onClick(View view) {
                 BlackFundDatabase.getInstance(ThemGhiChu.this).deleteNote(ghiChu.getId());
-				Toast.makeText(ThemGhiChu.this, "Deleted", Toast.LENGTH_SHORT).show();
+                Toast.makeText(ThemGhiChu.this, "Deleted", Toast.LENGTH_SHORT).show();
                 ThemGhiChu.this.finish();
             }
         });
@@ -281,6 +278,7 @@ public class ThemGhiChu extends AppCompatActivity implements View.OnClickListene
 
 
     }
+
     private void updateData() {
         String ghichu = etGhiChu.getText().toString();
         int tien = Integer.parseInt(etTien.getText().toString());
@@ -343,8 +341,8 @@ public class ThemGhiChu extends AppCompatActivity implements View.OnClickListene
         tvChonNhom.setText(name);
         alertDialog.dismiss();
     }
-	
-	private void changeMode() {
+
+    private void changeMode() {
         addListeners();
         ivLuu.setVisibility(View.VISIBLE);
         etTien.setFocusable(true);

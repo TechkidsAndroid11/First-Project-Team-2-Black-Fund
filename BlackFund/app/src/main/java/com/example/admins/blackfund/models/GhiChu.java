@@ -8,7 +8,7 @@ import java.io.Serializable;
  * Created by Admins on 10/23/2017.
  */
 
-public class GhiChu implements Serializable{
+public class GhiChu implements Serializable {
     private static final String TAG = GhiChu.class.toString();
     private String ghiChu;
     private int id;
@@ -18,7 +18,7 @@ public class GhiChu implements Serializable{
     private boolean isIncome;
     private String dayOfWeek;
 
-    public GhiChu( int id, int money ,boolean isIncome, String chonNhom, String ghiChu) {
+    public GhiChu(int id, int money, boolean isIncome, String chonNhom, String ghiChu) {
         this.id = id;
         this.money = money;
         this.isIncome = isIncome;
@@ -43,7 +43,7 @@ public class GhiChu implements Serializable{
     }
 
     public boolean setIsIncome(int setIsIncome) {
-        if (setIsIncome == 1){
+        if (setIsIncome == 1) {
             return isIncome = true;
         } else {
             return isIncome = false;
@@ -97,14 +97,15 @@ public class GhiChu implements Serializable{
     public GhiChu() {
     }
 
-    public int getYear(){
+    public int getYear() {
         return Integer.parseInt(getDate().substring(0, 4));
     }
 
-    public int getMonth(){
+    public int getMonth() {
         return Integer.parseInt(getDate().substring(5, 7));
+    }
 
-    public int getDay(){
-        return Integer.parseInt(getDate().substring(8,10));
+    public int getDay() {
+        return Integer.parseInt(getDate().substring(8, 10));
     }
 }

@@ -71,14 +71,14 @@ public class BlackFundDatabase extends SQLiteOpenHelper {
         ArrayList<GhiChu> list = new ArrayList<>();
         SQLiteDatabase db = getWritableDatabase();
         Cursor cursor = db.rawQuery("select *, " +
-                "case cast (strftime('%w', ngaythang) as integer)\n" +
-                "\twhen 0 then 'Sunday'\n" +
-                "\twhen 1 then 'Monday'\n" +
-                "\twhen 2 then 'Tuesday'\n" +
-                "\twhen 3 then 'Wednesday'\n" +
-                "\twhen 4 then 'Thursday'\n" +
-                "\twhen 5 then 'Friday'\n" +
-                "\telse 'Saturday' end as " + KEY_DAYOFWEEK + " from TB_GHICHU order by id desc limit 3",
+                        "case cast (strftime('%w', ngaythang) as integer)\n" +
+                        "\twhen 0 then 'Sunday'\n" +
+                        "\twhen 1 then 'Monday'\n" +
+                        "\twhen 2 then 'Tuesday'\n" +
+                        "\twhen 3 then 'Wednesday'\n" +
+                        "\twhen 4 then 'Thursday'\n" +
+                        "\twhen 5 then 'Friday'\n" +
+                        "\telse 'Saturday' end as " + KEY_DAYOFWEEK + " from TB_GHICHU order by id desc limit 3",
                 null);
         if (cursor != null) {
             cursor.moveToFirst();
@@ -99,31 +99,26 @@ public class BlackFundDatabase extends SQLiteOpenHelper {
         }
         return list;
     }
-    public ArrayList<GhiChu> getListHistorynote(String date){
-        ArrayList<GhiChu> listHistory= new ArrayList<>();
-        SQLiteDatabase db= getReadableDatabase();
-        Cursor cursor= db.rawQuery("select * from TB_GHICHU where NGAYTHANG = '" + date+"'", null);
+
+    public ArrayList<GhiChu> getListHistorynote(String date) {
+        ArrayList<GhiChu> listHistory = new ArrayList<>();
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor cursor = db.rawQuery("select * from TB_GHICHU where NGAYTHANG = '" + date + "'", null);
         cursor.moveToFirst();
         Log.d(TAG, "getListHistorynote: " + cursor.getCount());
-        Log.d(TAG, "getListHistorynote: "+ date);
+        Log.d(TAG, "getListHistorynote: " + date);
 
-        while (!cursor.isAfterLast()){
+        while (!cursor.isAfterLast()) {
             int id = cursor.getInt(0);
-            Log.d(TAG, "getListHistorynote: "+id);
+            Log.d(TAG, "getListHistorynote: " + id);
             int money = cursor.getInt(1);
             boolean isIncome = cursor.getInt(2) != 0;
             String reason = cursor.getString(3);
             String note = cursor.getString(4);
-
-
-
-            GhiChu ghiChu = new GhiChu(id,money,isIncome,reason,note );
+            GhiChu ghiChu = new GhiChu(id, money, isIncome, reason, note);
             listHistory.add(ghiChu);
-
             cursor.moveToNext();
-
         }
-
         return listHistory;
     }
 
@@ -148,11 +143,11 @@ public class BlackFundDatabase extends SQLiteOpenHelper {
         int totalIncome = 0;
         SQLiteDatabase db = getReadableDatabase();
         Cursor cursor = db.rawQuery("select sum(" +
-                KEY_TIEN + ") from " +
-                TABLE_NOTE + " where " +
-                KEY_ISINCOME + " = 1 and strftime('%m', ngaythang) = '" + calculatedMonth +"' order by id",
+                        KEY_TIEN + ") from " +
+                        TABLE_NOTE + " where " +
+                        KEY_ISINCOME + " = 1 and strftime('%m', ngaythang) = '" + calculatedMonth + "' order by id",
                 null);
-        if (cursor != null){
+        if (cursor != null) {
             cursor.moveToFirst();
             totalIncome = cursor.getInt(0);
         }
@@ -166,16 +161,16 @@ public class BlackFundDatabase extends SQLiteOpenHelper {
         Cursor cursor = db.rawQuery("select sum(" +
                         KEY_TIEN + ") from " +
                         TABLE_NOTE + " where " +
-                        KEY_ISINCOME + " = 0 and strftime('%m', ngaythang) = '" + calculatedMonth +"' order by id",
+                        KEY_ISINCOME + " = 0 and strftime('%m', ngaythang) = '" + calculatedMonth + "' order by id",
                 null);
-        if (cursor != null){
+        if (cursor != null) {
             cursor.moveToFirst();
             totalExpense = cursor.getInt(0);
         }
         return totalExpense;
     }
 
-    public void updateNote(GhiChu ghiChu, int id){
+    public void updateNote(GhiChu ghiChu, int id) {
         SQLiteDatabase db = getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put(KEY_DATE, ghiChu.getDate());
@@ -186,7 +181,7 @@ public class BlackFundDatabase extends SQLiteOpenHelper {
         Log.d(TAG, "updateNote: updated");
     }
 
-    public void deleteNote(int id){
+    public void deleteNote(int id) {
         SQLiteDatabase db = getWritableDatabase();
         db.delete(TABLE_NOTE, "id = " + id, null);
     }

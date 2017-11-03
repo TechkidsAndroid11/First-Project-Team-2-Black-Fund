@@ -32,6 +32,12 @@ public class MainAdapter extends ArrayAdapter<GhiChu> {
     private List<GhiChu> list;
     private Context context;
     private int resource;
+    private TextView tvDate;
+    private TextView tvDay;
+    private TextView tvReason;
+    private TextView tvMonthAndYear;
+    private ImageView ivReason;
+    private TextView tvMoneyOn;
 
 
     public MainAdapter(@NonNull Context context, @LayoutRes int resource, @NonNull List<GhiChu> objects) {
@@ -49,12 +55,8 @@ public class MainAdapter extends ArrayAdapter<GhiChu> {
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         LayoutInflater layoutInflater = LayoutInflater.from(context);
         convertView = layoutInflater.inflate(resource, parent, false);
-        TextView tvDate = convertView.findViewById(R.id.tv_date);
-        TextView tvDay = convertView.findViewById(R.id.tv_day);
-        TextView tvMonthAndYear = convertView.findViewById(R.id.tv_month_and_year);
-        ImageView ivReason = convertView.findViewById((R.id.iv_reason));
-        TextView tvReason = convertView.findViewById(R.id.tv_ly_do);
-        TextView tvMoneyOn = convertView.findViewById(R.id.tv_money_on);
+        setupViewUI(convertView);
+
         //set day view
         String eventDay = String.valueOf(list.get(position).getDay());
         Log.d(TAG, "getView: " + eventDay);
@@ -63,6 +65,28 @@ public class MainAdapter extends ArrayAdapter<GhiChu> {
         //set month view
         String eventMonth = String.valueOf(list.get(position).getMonth());
         Log.d(TAG, "getView: " + eventMonth);
+        String monthAndYear = monthToText(eventMonth);
+
+        //set day of week view
+        tvDay.setText(list.get(position).getDayOfWeek());
+
+        //set category
+        ReadDataUtils.getInstance().setImageResource(ivReason, list.get(position).getChonNhom());
+        tvReason.setText(list.get(position).getChonNhom());
+        tvMonthAndYear.setText(monthAndYear + ", " + list.get(position).getYear());
+
+        //format monney
+        String formattedMoney = NumberFormat.getNumberInstance(Locale.US).format(list.get(position).getMoney());
+        tvMoneyOn.setText(formattedMoney);
+        if (list.get(position).isIncome()){
+            tvMoneyOn.setTextColor(Color.parseColor("#008f24"));
+        } else {
+            tvMoneyOn.setTextColor(Color.parseColor("#dc000d"));
+        }
+        return convertView;
+    }
+
+    private String monthToText(String eventMonth) {
         String monthAndYear = "";
         switch (eventMonth) {
             case "01": {
@@ -125,24 +149,15 @@ public class MainAdapter extends ArrayAdapter<GhiChu> {
                 break;
             }
         }
+        return monthAndYear;
+    }
 
-        //set day of week view
-        tvDay.setText(list.get(position).getDayOfWeek());
-
-        //set category
-        ReadDataUtils.getInstance().setImageResource(ivReason, list.get(position).getChonNhom());
-
-        tvReason.setText(list.get(position).getChonNhom());
-        tvMonthAndYear.setText(monthAndYear + ", " + list.get(position).getYear());
-
-//        tvMoneyOn.setText(String.valueOf(list.get(position).getMoney()));
-        String moneyformatted = NumberFormat.getNumberInstance(Locale.US).format(list.get(position).getMoney());
-        tvMoneyOn.setText(moneyformatted);
-        if (list.get(position).isIncome()){
-            tvMoneyOn.setTextColor(Color.parseColor("#008f24"));
-        } else {
-            tvMoneyOn.setTextColor(Color.parseColor("#dc000d"));
-        }
-        return convertView;
+    private void setupViewUI(View convertView) {
+        tvDate = convertView.findViewById(R.id.tv_date);
+        tvDay = convertView.findViewById(R.id.tv_day);
+        tvMonthAndYear = convertView.findViewById(R.id.tv_month_and_year);
+        ivReason = convertView.findViewById((R.id.iv_reason));
+        tvReason = convertView.findViewById(R.id.tv_ly_do);
+        tvMoneyOn = convertView.findViewById(R.id.tv_money_on);
     }
 }
