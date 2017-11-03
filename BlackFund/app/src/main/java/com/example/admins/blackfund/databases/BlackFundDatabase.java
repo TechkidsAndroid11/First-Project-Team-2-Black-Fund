@@ -38,6 +38,7 @@ public class BlackFundDatabase extends SQLiteOpenHelper {
 
     private static final String TAG = BlackFundDatabase.class.toString();
     public static BlackFundDatabase blackFundDatabase;
+    private SQLiteDatabase db;
 
     public static BlackFundDatabase getInstance(Context context) {
         if (blackFundDatabase == null) {
@@ -97,6 +98,33 @@ public class BlackFundDatabase extends SQLiteOpenHelper {
             cursor.close();
         }
         return list;
+    }
+    public ArrayList<GhiChu> getListHistorynote(String date){
+        ArrayList<GhiChu> listHistory= new ArrayList<>();
+        SQLiteDatabase db= getReadableDatabase();
+        Cursor cursor= db.rawQuery("select * from TB_GHICHU where NGAYTHANG = '" + date+"'", null);
+        cursor.moveToFirst();
+        Log.d(TAG, "getListHistorynote: " + cursor.getCount());
+        Log.d(TAG, "getListHistorynote: "+ date);
+
+        while (!cursor.isAfterLast()){
+            int id = cursor.getInt(0);
+            Log.d(TAG, "getListHistorynote: "+id);
+            int money = cursor.getInt(1);
+            boolean isIncome = cursor.getInt(2) != 0;
+            String reason = cursor.getString(3);
+            String note = cursor.getString(4);
+
+
+
+            GhiChu ghiChu = new GhiChu(id,money,isIncome,reason,note );
+            listHistory.add(ghiChu);
+
+            cursor.moveToNext();
+
+        }
+
+        return listHistory;
     }
 
     public long addGhiChu(GhiChu note, boolean isIncome) {

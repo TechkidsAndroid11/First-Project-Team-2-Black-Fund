@@ -18,6 +18,14 @@ public class GhiChu implements Serializable{
     private boolean isIncome;
     private String dayOfWeek;
 
+    public GhiChu( int id, int money ,boolean isIncome, String chonNhom, String ghiChu) {
+        this.id = id;
+        this.money = money;
+        this.isIncome = isIncome;
+        this.chonNhom = chonNhom;
+        this.ghiChu = ghiChu;
+    }
+
     public String getDayOfWeek() {
         return dayOfWeek;
     }
@@ -95,7 +103,6 @@ public class GhiChu implements Serializable{
 
     public int getMonth(){
         return Integer.parseInt(getDate().substring(5, 7));
-    }
 
     public int getDay(){
         return Integer.parseInt(getDate().substring(8,10));

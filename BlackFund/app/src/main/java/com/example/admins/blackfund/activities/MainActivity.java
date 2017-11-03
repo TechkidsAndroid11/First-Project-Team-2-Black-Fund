@@ -40,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
     private EditText etValue;
     private Button btOK;
     public static boolean checkPass = true;
+    private ImageView tvMenu;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -131,6 +132,13 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        tvMenu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i= new Intent(MainActivity.this, HistoryActivity.class);
+                startActivity(i);
+            }
+        });
     }
 
 
@@ -141,6 +149,7 @@ public class MainActivity extends AppCompatActivity {
         tvMoney = (TextView) findViewById(R.id.tv_money);
         ivPlus = (ImageView) findViewById(R.id.iv_incomes);
         ivMinus = (ImageView) findViewById(R.id.iv_expenses);
+        tvMenu= findViewById(R.id.iv_menu);
     }
 
     @Override
