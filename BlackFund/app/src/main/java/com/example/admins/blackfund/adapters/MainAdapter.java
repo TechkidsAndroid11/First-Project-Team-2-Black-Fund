@@ -16,6 +16,7 @@ import android.widget.TextView;
 
 import com.example.admins.blackfund.R;
 import com.example.admins.blackfund.models.GhiChu;
+import com.example.admins.blackfund.utils.ReadDataUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,7 +34,7 @@ public class MainAdapter extends ArrayAdapter<GhiChu> {
 
     public MainAdapter(@NonNull Context context, @LayoutRes int resource, @NonNull List<GhiChu> objects) {
         super(context, resource, objects);
-        list = new ArrayList<>();
+        this.list = new ArrayList<>();
         this.context = context;
         this.resource = resource;
         this.list = objects;
@@ -52,14 +53,13 @@ public class MainAdapter extends ArrayAdapter<GhiChu> {
         ImageView ivReason = convertView.findViewById((R.id.iv_reason));
         TextView tvReason = convertView.findViewById(R.id.tv_ly_do);
         TextView tvMoneyOn = convertView.findViewById(R.id.tv_money_on);
-
         //set day view
-        String eventDay = list.get(position).getDate().substring(8, 10);
+        String eventDay = String.valueOf(list.get(position).getDay());
         Log.d(TAG, "getView: " + eventDay);
         tvDate.setText(eventDay);
 
         //set month view
-        String eventMonth = list.get(position).getDate().substring(5, 7);
+        String eventMonth = String.valueOf(list.get(position).getMonth());
         Log.d(TAG, "getView: " + eventMonth);
         String monthAndYear = "";
         switch (eventMonth) {
@@ -128,48 +128,10 @@ public class MainAdapter extends ArrayAdapter<GhiChu> {
         tvDay.setText(list.get(position).getDayOfWeek());
 
         //set category
-        switch (list.get(position).getChonNhom()) {
-            case "FOODS": {
-                ivReason.setImageResource(R.drawable.food);
-                break;
-            }
-            case "FRIENDS": {
-                ivReason.setImageResource(R.drawable.banbe);
-                break;
-            }
+        ReadDataUtils.getInstance().setImageResource(ivReason, list.get(position).getChonNhom());
 
-            case "SHOPPING": {
-                ivReason.setImageResource(R.drawable.shopping);
-                break;
-            }
-
-            case "ENTERTAINMENT": {
-                ivReason.setImageResource(R.drawable.giaitri);
-                break;
-            }
-
-            case "TRANSPORTATION": {
-                ivReason.setImageResource(R.drawable.phuongtien);
-                break;
-            }
-
-            case "LOVE": {
-                ivReason.setImageResource(R.drawable.love);
-                break;
-            }
-
-            case "WORKS": {
-                ivReason.setImageResource(R.drawable.works);
-                break;
-            }
-
-            case "OTHERS": {
-                ivReason.setImageResource(R.drawable.others);
-                break;
-            }
-        }
         tvReason.setText(list.get(position).getChonNhom());
-        tvMonthAndYear.setText(monthAndYear + ", " + list.get(position).getDate().substring(0, 4));
+        tvMonthAndYear.setText(monthAndYear + ", " + list.get(position).getYear());
 
         tvMoneyOn.setText(String.valueOf(list.get(position).getMoney()));
         if (list.get(position).isIncome()){

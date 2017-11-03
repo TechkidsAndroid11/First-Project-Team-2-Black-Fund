@@ -32,27 +32,27 @@ public class MainActivity extends AppCompatActivity {
     private ListView lvHistory;
     private TextView tvMoney;
     private ImageView ivMinus;
-    public static String KEY = "KEY";
+    public static String KEY_ISINCOME = "KEY_ISINCOME";
     public static String KEY_EDIT = "KEY_EDIT";
+    public static String EDIT_MODE = "EDIT_MODE";
     private AlertDialog.Builder dialogBuilder;
     private AlertDialog alertDialog;
     private EditText etValue;
     private Button btOK;
-    public static boolean checkPass= true;
+    public static boolean checkPass = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        checkPassword();
         setupUI();
-        addListeners();
+//        checkPassword();
         onFirstTime();
+        addListeners();
     }
 
     private void checkPassword() {
-        if(checkPass){
+        if (checkPass) {
             SharedPreferences msharedPreferences = getSharedPreferences("PRESS", 0);
             String password = msharedPreferences.getString("password", "0");
             if (password.equals("0")) {
@@ -63,7 +63,8 @@ public class MainActivity extends AppCompatActivity {
                 Intent intent = new Intent(getApplicationContext(), InputPasswordActivity.class);
                 startActivity(intent);
                 finish();
-            }}
+            }
+        }
     }
 
     private void onFirstTime() {
@@ -75,10 +76,10 @@ public class MainActivity extends AppCompatActivity {
         alertDialog = dialogBuilder.create();
 
         final SharedPreferences sharedPreferences = getSharedPreferences("my_data", MODE_PRIVATE);
-        final boolean check = sharedPreferences.getBoolean("firstTime", true);
-        String beginningValue= sharedPreferences.getString("value", "");
+        final boolean checkFirstTime = sharedPreferences.getBoolean("firstTime", true);
+        String beginningValue = sharedPreferences.getString("value", "");
         tvMoney.setText(beginningValue);
-        if (check) {
+        if (checkFirstTime) {
             alertDialog.show();
             etValue = dialogView.findViewById(R.id.et_value);
             btOK = dialogView.findViewById(R.id.bt_ok);
@@ -101,19 +102,21 @@ public class MainActivity extends AppCompatActivity {
 
     private void addListeners() {
         ivPlus.setOnClickListener(new View.OnClickListener() {
-                                      @Override
-                                      public void onClick(View view) {
-                                          Intent intent = new Intent(MainActivity.this, ThemGhiChu.class);
-                                          intent.putExtra(KEY, 1);
-                                          startActivity(intent);
-                                      }
-                                  });
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, ThemGhiChu.class);
+                intent.putExtra(KEY_ISINCOME, true);
+                intent.putExtra(EDIT_MODE, false);
+                startActivity(intent);
+            }
+        });
 
         ivMinus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this, ThemGhiChu.class);
-                intent.putExtra(KEY, 2);
+                intent.putExtra(KEY_ISINCOME, false);
+                intent.putExtra(EDIT_MODE, false);
                 startActivity(intent);
             }
         });
@@ -122,7 +125,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(MainActivity.this, ThemGhiChu.class);
-                intent.putExtra(KEY, 3);
+                intent.putExtra(EDIT_MODE, true);
                 intent.putExtra(KEY_EDIT, BlackFundDatabase.getInstance(MainActivity.this).getListGhiChu().get(position));
                 startActivity(intent);
             }

@@ -88,4 +88,16 @@ public class GhiChu implements Serializable{
 
     public GhiChu() {
     }
+
+    public int getYear(){
+        return Integer.parseInt(getDate().substring(0, 4));
+    }
+
+    public int getMonth(){
+        return Integer.parseInt(getDate().substring(5, 7));
+    }
+
+    public int getDay(){
+        return Integer.parseInt(getDate().substring(8,10));
+    }
 }
