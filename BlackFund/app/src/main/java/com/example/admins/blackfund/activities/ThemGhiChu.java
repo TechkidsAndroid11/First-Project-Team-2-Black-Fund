@@ -5,6 +5,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -209,10 +210,22 @@ public class ThemGhiChu extends AppCompatActivity implements View.OnClickListene
         switch (view.getId()) {
             case R.id.iv_luu: {
                 if (edit){
-                    update();
+                    if (TextUtils.isEmpty(etTien.getText())) {
+                        etTien.setError("Cannot be empty");
+                        Toast.makeText(ThemGhiChu.this, "Can't not be empty", Toast.LENGTH_SHORT).show();
+                    }
+                    else {
+                        update();
+                    }
                 }
                 else {
-                    addIncome(addMoney);
+                    if (TextUtils.isEmpty(etTien.getText())) {
+                        etTien.setError("Cannot be empty");
+                        Toast.makeText(ThemGhiChu.this, "Can't not be empty", Toast.LENGTH_SHORT).show();
+                    }
+                    else {
+                        addIncome(addMoney);
+                    }
                 }
                 break;
             }
