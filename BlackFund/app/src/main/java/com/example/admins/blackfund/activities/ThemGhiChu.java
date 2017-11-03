@@ -44,6 +44,9 @@ public class ThemGhiChu extends AppCompatActivity implements View.OnClickListene
     private ImageView ivAnUong;
     private AlertDialog.Builder dialogBuilder;
     private AlertDialog alertDialog;
+    private Button btYes;
+    private Button btNo;
+    private Button btDelete;
     private boolean addMoney;
     private boolean edit;
     GhiChu ghiChu;
@@ -191,6 +194,7 @@ public class ThemGhiChu extends AppCompatActivity implements View.OnClickListene
         ivLuu.setOnClickListener(this);
         ivBack.setOnClickListener(this);
         tvDate.setOnClickListener(this);
+        btDelete.setOnClickListener(this);
     }
 
     private void setupUI() {
@@ -202,7 +206,9 @@ public class ThemGhiChu extends AppCompatActivity implements View.OnClickListene
         ivBack = (ImageView) findViewById(R.id.iv_back);
         ivChonNhom = (ImageView) findViewById(R.id.iv_category_logo);
         tvDate = (TextView) findViewById(R.id.tv_date);
+        btDelete = findViewById(R.id.bt_delete);
         currentCalendar = Calendar.getInstance();
+
     }
 
     @Override
@@ -276,7 +282,37 @@ public class ThemGhiChu extends AppCompatActivity implements View.OnClickListene
                 updateCategory(R.drawable.sinhhoat, "SUBEXPENSES");
                 break;
             }
+            case R.id.bt_delete:{
+                delete();
+            }
         }
+    }
+
+    private void delete(){
+        dialogBuilder = new AlertDialog.Builder(ThemGhiChu.this);
+        LayoutInflater layoutInflater = ThemGhiChu.this.getLayoutInflater();
+        View dialogView = layoutInflater.inflate(R.layout.delete, null);
+        dialogBuilder.setView(dialogView);
+
+        alertDialog = dialogBuilder.create();
+        alertDialog.show();
+        btYes = dialogView.findViewById(R.id.yes);
+        btNo = dialogView.findViewById(R.id.no);
+        btYes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                BlackFundDatabase.getInstance(ThemGhiChu.this).deleteNote(ghiChu.getId());
+                ThemGhiChu.this.finish();
+            }
+        });
+        btNo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                alertDialog.dismiss();
+            }
+        });
+
+
     }
     private void update(){
         String textghichu = etGhiChu.getText().toString();
