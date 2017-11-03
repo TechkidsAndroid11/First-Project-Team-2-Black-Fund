@@ -17,8 +17,10 @@ import android.widget.TextView;
 import com.example.admins.blackfund.R;
 import com.example.admins.blackfund.models.GhiChu;
 
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * Created by Nguyen Duc Anh on 10/25/2017.
@@ -167,11 +169,16 @@ public class MainAdapter extends ArrayAdapter<GhiChu> {
                 ivReason.setImageResource(R.drawable.others);
                 break;
             }
+            case "SUBEXPENSES":{
+                ivReason.setImageResource(R.drawable.sinhhoat);
+            }
         }
         tvReason.setText(list.get(position).getChonNhom());
         tvMonthAndYear.setText(monthAndYear + ", " + list.get(position).getDate().substring(0, 4));
 
-        tvMoneyOn.setText(String.valueOf(list.get(position).getMoney()));
+//        tvMoneyOn.setText(String.valueOf(list.get(position).getMoney()));
+        String moneyformatted = NumberFormat.getNumberInstance(Locale.US).format(list.get(position).getMoney());
+        tvMoneyOn.setText(moneyformatted);
         if (list.get(position).isIncome()){
             tvMoneyOn.setTextColor(Color.parseColor("#008f24"));
         } else {

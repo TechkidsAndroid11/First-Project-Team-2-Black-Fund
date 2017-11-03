@@ -178,7 +178,7 @@ public class BlackFundDatabase extends SQLiteOpenHelper {
 
 
     public void updateNote(GhiChu ghiChu, int id){
-        db = blackFundDatabase.getWritableDatabase();
+        SQLiteDatabase db = blackFundDatabase.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put(KEY_DATE, ghiChu.getDate());
         contentValues.put(KEY_CHONNHOM, ghiChu.getChonNhom());
@@ -186,4 +186,10 @@ public class BlackFundDatabase extends SQLiteOpenHelper {
         contentValues.put(KEY_TIEN, ghiChu.getMoney());
         db.update(TABLE_NOTE, contentValues, "id = "+id, null);
     }
+
+    public void deleteNote(int id){
+        SQLiteDatabase db = blackFundDatabase.getWritableDatabase();
+        db.delete(TABLE_NOTE, "id =" + id, null);
+    }
+
 }

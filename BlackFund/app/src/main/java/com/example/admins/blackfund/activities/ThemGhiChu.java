@@ -4,6 +4,8 @@ import android.app.DatePickerDialog;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -42,27 +44,108 @@ public class ThemGhiChu extends AppCompatActivity implements View.OnClickListene
     private ImageView ivAnUong;
     private AlertDialog.Builder dialogBuilder;
     private AlertDialog alertDialog;
+    private Button btYes;
+    private Button btNo;
+    private Button btDelete;
     private boolean addMoney;
-
+    private boolean edit;
+    GhiChu ghiChu;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_them_giao_dich);
         setupUI();
         addListeners();
-        loadData();
-    }
-
-    private void loadData() {
-        addMoney = getIntent().getBooleanExtra(MainActivity.KEY, true);
-        if (addMoney) {
-            tvActName.setText("INCOMES");
-        } else {
-            tvActName.setText("EXPENSES");
+        try {
+            loadData();
+        } catch (ParseException e) {
+            e.printStackTrace();
         }
-        getCalendar();
     }
 
+    private void loadData() throws ParseException {
+        addMoney = getIntent().getBooleanExtra(MainActivity.KEY, true);
+        edit = getIntent().getBooleanExtra(MainActivity.KEY_EDIT, false);
+        getCalendar();
+        if (edit){
+            tvActName.setText("EDIT");
+            ghiChu = (GhiChu) getIntent().getSerializableExtra(MainActivity.KEY_DATA);
+            Log.d(TAG, "loadData: " + ghiChu.getDate());
+            tvChonNhom.setText(ghiChu.getChonNhom());
+            etTien.setText(String.valueOf(ghiChu.getMoney()));
+            etGhiChu.setText(ghiChu.getGhiChu());
+            Log.d(TAG, "loadData: " + tvDate.getText());
+//            String date = ghiChu.getDate().toString();
+//            String subDate = date.substring(date.indexOf(",") + 2, date.length());
+            getEditCalendar();
+            SimpleDateFormat dateParser = new SimpleDateFormat("yyyy-MM-dd");
+            java.util.Date selectedDate;
+            String formattedDate;
+            selectedDate = dateParser.parse(ghiChu.getDate());
+            SimpleDateFormat dateFormatter = new SimpleDateFormat("dd/MM/yyyy");
+            formattedDate = dateFormatter.format(selectedDate);
+            tvDate.setText(ghiChu.getDayOfWeek() +", "+ formattedDate);
+            switch (ghiChu.getChonNhom()) {
+                case "FOODS": {
+                    ivChonNhom.setImageResource(R.drawable.food);
+                    break;
+                }
+                case "FRIENDS": {
+                    ivChonNhom.setImageResource(R.drawable.banbe);
+                    break;
+                }
+
+                case "SHOPPING": {
+                    ivChonNhom.setImageResource(R.drawable.shopping);
+                    break;
+                }
+
+                case "ENTERTAINMENT": {
+                    ivChonNhom.setImageResource(R.drawable.giaitri);
+                    break;
+                }
+
+                case "TRANSPORTATION": {
+                    ivChonNhom.setImageResource(R.drawable.phuongtien);
+                    break;
+                }
+
+                case "LOVE": {
+                    ivChonNhom.setImageResource(R.drawable.love);
+                    break;
+                }
+
+                case "WORKS": {
+                    ivChonNhom.setImageResource(R.drawable.works);
+                    break;
+                }
+
+                case "OTHERS": {
+                    ivChonNhom.setImageResource(R.drawable.others);
+                    break;
+                }
+                case "SUBEXPENSES":{
+                    ivChonNhom.setImageResource(R.drawable.sinhhoat);
+                }
+            }
+        }
+        else {
+            if (addMoney) {
+                tvActName.setText("INCOMES");
+            } else {
+                tvActName.setText("EXPENSES");
+            }
+        }
+    }
+
+    private void getEditCalendar(){
+        int dayEdit = Integer.parseInt(ghiChu.getDate().substring(5, 7));
+        int monthEdit = Integer.parseInt(ghiChu.getDate().substring(8, 10));
+        int yearEdit = Integer.parseInt(ghiChu.getDate().substring(0, 4));
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("EEEE, dd/MM/yyyy");
+        String dateTimeEdit = simpleDateFormat.format(new java.util.Date(yearEdit - 1900, monthEdit, dayEdit));
+        tvDate.setText(dateTimeEdit);
+    }
     private void getCalendar() {
         currentDay = currentCalendar.get(Calendar.DAY_OF_MONTH);
         currentMonth = currentCalendar.get(Calendar.MONTH);
@@ -111,6 +194,7 @@ public class ThemGhiChu extends AppCompatActivity implements View.OnClickListene
         ivLuu.setOnClickListener(this);
         ivBack.setOnClickListener(this);
         tvDate.setOnClickListener(this);
+        btDelete.setOnClickListener(this);
     }
 
     private void setupUI() {
@@ -122,14 +206,33 @@ public class ThemGhiChu extends AppCompatActivity implements View.OnClickListene
         ivBack = (ImageView) findViewById(R.id.iv_back);
         ivChonNhom = (ImageView) findViewById(R.id.iv_category_logo);
         tvDate = (TextView) findViewById(R.id.tv_date);
+        btDelete = findViewById(R.id.bt_delete);
         currentCalendar = Calendar.getInstance();
+
     }
 
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.iv_luu: {
-                addIncome(addMoney);
+                if (edit){
+                    if (TextUtils.isEmpty(etTien.getText())) {
+                        etTien.setError("Cannot be empty");
+                        Toast.makeText(ThemGhiChu.this, "Can't not be empty", Toast.LENGTH_SHORT).show();
+                    }
+                    else {
+                        update();
+                    }
+                }
+                else {
+                    if (TextUtils.isEmpty(etTien.getText())) {
+                        etTien.setError("Cannot be empty");
+                        Toast.makeText(ThemGhiChu.this, "Can't not be empty", Toast.LENGTH_SHORT).show();
+                    }
+                    else {
+                        addIncome(addMoney);
+                    }
+                }
                 break;
             }
 
@@ -179,19 +282,72 @@ public class ThemGhiChu extends AppCompatActivity implements View.OnClickListene
                 updateCategory(R.drawable.sinhhoat, "SUBEXPENSES");
                 break;
             }
+            case R.id.bt_delete:{
+                delete();
+            }
         }
     }
 
+    private void delete(){
+        dialogBuilder = new AlertDialog.Builder(ThemGhiChu.this);
+        LayoutInflater layoutInflater = ThemGhiChu.this.getLayoutInflater();
+        View dialogView = layoutInflater.inflate(R.layout.delete, null);
+        dialogBuilder.setView(dialogView);
+
+        alertDialog = dialogBuilder.create();
+        alertDialog.show();
+        btYes = dialogView.findViewById(R.id.yes);
+        btNo = dialogView.findViewById(R.id.no);
+        btYes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                BlackFundDatabase.getInstance(ThemGhiChu.this).deleteNote(ghiChu.getId());
+                ThemGhiChu.this.finish();
+            }
+        });
+        btNo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                alertDialog.dismiss();
+            }
+        });
+
+
+    }
+    private void update(){
+        String textghichu = etGhiChu.getText().toString();
+        int tien = Integer.parseInt(etTien.getText().toString());
+
+        //format date
+        String date = tvDate.getText().toString();
+        String subDate = date.substring(date.indexOf(",") + 2, date.length());
+        SimpleDateFormat dateParser = new SimpleDateFormat("dd/MM/yyyy");
+        java.util.Date selectedDate;
+        String formattedDate;
+        try {
+            selectedDate = dateParser.parse(subDate);
+            SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd");
+            formattedDate = dateFormatter.format(selectedDate);
+            Log.d(TAG, "addIncome: " + formattedDate);
+            String chonNhom = tvChonNhom.getText().toString();
+            GhiChu note = new GhiChu(textghichu, tien, formattedDate , chonNhom);
+                BlackFundDatabase.getInstance(this).updateNote(note, ghiChu.getId());
+            ThemGhiChu.this.finish();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+    }
     private void addIncome(boolean addMoney) {
         String ghichu = etGhiChu.getText().toString();
         int tien = Integer.parseInt(etTien.getText().toString());
 
         //format date
         String date = tvDate.getText().toString();
-        String subDate = date.substring(date.indexOf(", ") + 2, date.length());
+        String subDate = date.substring(date.indexOf(",") + 2, date.length());
         SimpleDateFormat dateParser = new SimpleDateFormat("dd/MM/yyyy");
         java.util.Date selectedDate;
         String formattedDate;
+
         try {
             selectedDate = dateParser.parse(subDate);
             SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd");
@@ -218,14 +374,19 @@ public class ThemGhiChu extends AppCompatActivity implements View.OnClickListene
                 String formattedDate = simpleDateFormat.format(new Date(year - 1900, month, dayOfMonth));
                 tvDate.setText(formattedDate);
                 Log.d(TAG, "onDateSet: " + formattedDate);
+
             }
         };
-
+        String dateShow = tvDate.getText().toString();
+        int date = Integer.parseInt(dateShow.substring(dateShow.lastIndexOf(",") + 2, dateShow.lastIndexOf(",") + 4));
+        int month = Integer.parseInt(dateShow.substring(dateShow.indexOf("/") + 1, dateShow.lastIndexOf("/")));
+        int year = Integer.parseInt(dateShow.substring(dateShow.lastIndexOf("/") + 1));
+        Log.d(TAG, "showDatePickerDialog: " + date + "/" + month + "/" + year);
         DatePickerDialog datePickerDialog = new DatePickerDialog(this,
                 dpdOnDateSetListener,
-                currentYear,
-                currentMonth,
-                currentDay);
+                year,
+                month - 1,
+                date);
         datePickerDialog.show();
     }
 

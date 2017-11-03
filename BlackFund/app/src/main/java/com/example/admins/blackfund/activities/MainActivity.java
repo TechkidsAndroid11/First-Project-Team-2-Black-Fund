@@ -34,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
     private ImageView ivMinus;
     public static String KEY = "KEY";
     public static String KEY_EDIT = "KEY_EDIT";
+    public static String KEY_DATA = "KEY_DATA";
     private AlertDialog.Builder dialogBuilder;
     private AlertDialog alertDialog;
     private EditText etValue;
@@ -105,7 +106,7 @@ public class MainActivity extends AppCompatActivity {
                                       @Override
                                       public void onClick(View view) {
                                           Intent intent = new Intent(MainActivity.this, ThemGhiChu.class);
-                                          intent.putExtra(KEY, 1);
+                                          intent.putExtra(KEY, true);
                                           startActivity(intent);
                                       }
                                   });
@@ -114,7 +115,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this, ThemGhiChu.class);
-                intent.putExtra(KEY, 2);
+                intent.putExtra(KEY, false);
                 startActivity(intent);
             }
         });
@@ -123,8 +124,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(MainActivity.this, ThemGhiChu.class);
-                intent.putExtra(KEY, 3);
-                intent.putExtra(KEY_EDIT, BlackFundDatabase.getInstance(MainActivity.this).getListGhiChu().get(position));
+                intent.putExtra(KEY_EDIT, true);
+                intent.putExtra(KEY_DATA, BlackFundDatabase.getInstance(MainActivity.this).getListGhiChu().get(position));
                 startActivity(intent);
             }
         });
