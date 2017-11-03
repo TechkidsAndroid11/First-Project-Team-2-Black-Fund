@@ -4,6 +4,8 @@ import android.app.DatePickerDialog;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -43,6 +45,8 @@ public class ThemGhiChu extends AppCompatActivity implements View.OnClickListene
     private ImageView ivAnUong;
     private AlertDialog.Builder dialogBuilder;
     private AlertDialog alertDialog;
+    private Button btYes;
+    private Button btNo;
     private ImageView ivDelete;
     private boolean addMoney;
     private boolean editMode;
@@ -126,6 +130,7 @@ public class ThemGhiChu extends AppCompatActivity implements View.OnClickListene
         ivLuu.setOnClickListener(this);
         ivBack.setOnClickListener(this);
         tvDate.setOnClickListener(this);
+        ivDelete.setOnClickListener(this);
     }
 
     private void setupUI() {
@@ -170,8 +175,7 @@ public class ThemGhiChu extends AppCompatActivity implements View.OnClickListene
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.iv_delete: {
-                BlackFundDatabase.getInstance(this).deleteNote(ghiChu.getId());
-                Toast.makeText(this, "Deleted", Toast.LENGTH_SHORT).show();
+                delete();
                 this.finish();
             }
             case R.id.iv_edit: {
@@ -181,19 +185,28 @@ public class ThemGhiChu extends AppCompatActivity implements View.OnClickListene
             }
             case R.id.iv_luu: {
                 if (editMode) {
+                    if (TextUtils.isEmpty(etTien.getText())) {
+                        etTien.setError("Cannot be empty");
+                        Toast.makeText(ThemGhiChu.this, "Can't not be empty", Toast.LENGTH_SHORT).show();
+                    }
+                    else {
                     updateData();
-                } else {
-                    addIncome(addMoney);
+                    }
+                }
+                else {
+                    if (TextUtils.isEmpty(etTien.getText())) {
+                        etTien.setError("Cannot be empty");
+                        Toast.makeText(ThemGhiChu.this, "Can't not be empty", Toast.LENGTH_SHORT).show();
+                    }
+                    else {
+                addIncome(addMoney);
+                }
                 }
                 break;
             }
 
             case R.id.tv_date: {
-                if (editMode){
-                    showDatePickerDialog(ghiChu.getYear(), ghiChu.getMonth() - 1, ghiChu.getDay());
-                } else {
-                    showDatePickerDialog(currentYear, currentMonth, currentDay);
-                }
+                showDatePickerDialog();
                 break;
             }
 
@@ -241,26 +254,45 @@ public class ThemGhiChu extends AppCompatActivity implements View.OnClickListene
         }
     }
 
-    private void changeMode() {
-        addListeners();
-        ivLuu.setVisibility(View.VISIBLE);
-        etTien.setFocusable(true);
-        etTien.setFocusableInTouchMode(true);
-        etGhiChu.setFocusable(true);
-        etGhiChu.setFocusableInTouchMode(true);
-    }
+    private void delete(){
+        dialogBuilder = new AlertDialog.Builder(ThemGhiChu.this);
+        LayoutInflater layoutInflater = ThemGhiChu.this.getLayoutInflater();
+        View dialogView = layoutInflater.inflate(R.layout.delete, null);
+        dialogBuilder.setView(dialogView);
 
+        alertDialog = dialogBuilder.create();
+        alertDialog.show();
+        btYes = dialogView.findViewById(R.id.yes);
+        btNo = dialogView.findViewById(R.id.no);
+        btYes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                BlackFundDatabase.getInstance(ThemGhiChu.this).deleteNote(ghiChu.getId());
+				Toast.makeText(ThemGhiChu.this, "Deleted", Toast.LENGTH_SHORT).show();
+                ThemGhiChu.this.finish();
+            }
+        });
+        btNo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                alertDialog.dismiss();
+            }
+        });
+
+
+    }
     private void updateData() {
         String ghichu = etGhiChu.getText().toString();
         int tien = Integer.parseInt(etTien.getText().toString());
+
+        //format date
         String date = tvDate.getText().toString();
         String subDate = date.substring(date.indexOf(", ") + 2, date.length());
         String formattedDate = ReadDataUtils.getInstance().formatDatabaseDate(subDate);
         Log.d(TAG, "addIncome: " + formattedDate);
         String chonNhom = tvChonNhom.getText().toString();
         GhiChu note = new GhiChu(ghichu, tien, formattedDate, chonNhom);
-        BlackFundDatabase.getInstance(this).updateNote(note, note.getId());
-        Log.d(TAG, "updateData: noteID" + note.getId());
+        BlackFundDatabase.getInstance(this).updateNote(note, ghiChu.getId());
         ThemGhiChu.this.finish();
     }
 
@@ -268,7 +300,8 @@ public class ThemGhiChu extends AppCompatActivity implements View.OnClickListene
         String ghichu = etGhiChu.getText().toString();
         int tien = Integer.parseInt(etTien.getText().toString());
         String date = tvDate.getText().toString();
-        String subDate = date.substring(date.indexOf(", ") + 2, date.length());
+        String subDate = date.substring(date.indexOf(",") + 2, date.length());
+
         String formattedDate = ReadDataUtils.getInstance().formatDatabaseDate(subDate);
         Log.d(TAG, "addIncome: " + formattedDate);
         String chonNhom = tvChonNhom.getText().toString();
@@ -281,7 +314,7 @@ public class ThemGhiChu extends AppCompatActivity implements View.OnClickListene
         ThemGhiChu.this.finish();
     }
 
-    private void showDatePickerDialog(int firstYear, int firstMonth, int firstDay) {
+    private void showDatePickerDialog() {
         DatePickerDialog.OnDateSetListener dpdOnDateSetListener = new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker datePicker, int year, int month, int dayOfMonth) {
@@ -292,11 +325,16 @@ public class ThemGhiChu extends AppCompatActivity implements View.OnClickListene
             }
         };
 
+        String dateShow = tvDate.getText().toString();
+        int date = Integer.parseInt(dateShow.substring(dateShow.lastIndexOf(",") + 2, dateShow.lastIndexOf(",") + 4));
+        int month = Integer.parseInt(dateShow.substring(dateShow.indexOf("/") + 1, dateShow.lastIndexOf("/")));
+        int year = Integer.parseInt(dateShow.substring(dateShow.lastIndexOf("/") + 1));
+        Log.d(TAG, "showDatePickerDialog: " + date + "/" + month + "/" + year);
         DatePickerDialog datePickerDialog = new DatePickerDialog(this,
                 dpdOnDateSetListener,
-                firstYear,
-                firstMonth,
-                firstDay);
+                year,
+                month - 1,
+                date);
         datePickerDialog.show();
     }
 
@@ -304,5 +342,14 @@ public class ThemGhiChu extends AppCompatActivity implements View.OnClickListene
         ivChonNhom.setImageResource(drawable);
         tvChonNhom.setText(name);
         alertDialog.dismiss();
+    }
+	
+	private void changeMode() {
+        addListeners();
+        ivLuu.setVisibility(View.VISIBLE);
+        etTien.setFocusable(true);
+        etTien.setFocusableInTouchMode(true);
+        etGhiChu.setFocusable(true);
+        etGhiChu.setFocusableInTouchMode(true);
     }
 }

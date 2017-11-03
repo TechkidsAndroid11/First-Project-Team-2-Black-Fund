@@ -25,8 +25,6 @@ public class BlackFundDatabase extends SQLiteOpenHelper {
     private static final String KEY_DATE = "NGAYTHANG";
     private static final String KEY_CHONNHOM = "LYDO";
     private static final String KEY_DAYOFWEEK = "DAYOFWEEK";
-    private SQLiteDatabase blackFundDB;
-    private SQLiteOpenHelper openHelper;
 
 
     private static final String CREATE_TABLE_GHICHU = "CREATE TABLE " +

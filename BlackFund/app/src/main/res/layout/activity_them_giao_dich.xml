@@ -192,19 +192,6 @@
         app:layout_constraintStart_toStartOf="@+id/guideline18"
         app:layout_constraintTop_toTopOf="@+id/guideline19" />
 
-    <!--<ImageView-->
-    <!--android:id="@+id/iv_date_range_logo"-->
-    <!--android:layout_width="0dp"-->
-    <!--android:layout_height="0dp"-->
-    <!--android:layout_marginBottom="8dp"-->
-    <!--android:layout_marginEnd="8dp"-->
-    <!--android:layout_marginStart="8dp"-->
-    <!--android:layout_marginTop="8dp"-->
-    <!--android:src="@drawable/ic_date_range_black_24dp"-->
-    <!--app:layout_constraintBottom_toTopOf="@id/guideline17"-->
-    <!--app:layout_constraintEnd_toStartOf="@id/guideline18"-->
-    <!--app:layout_constraintStart_toEndOf="@id/guideline14"-->
-    <!--app:layout_constraintTop_toBottomOf="@id/guideline13" />-->
 
     <TextView
         android:id="@+id/tv_date"
@@ -309,18 +296,15 @@
         app:srcCompat="@drawable/ic_delete_black_24dp" />
 
     <ImageView
+        android:layout_height="0dp"
+        android:layout_width="0dp"
         android:id="@+id/iv_edit"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
         android:visibility="invisible"
         app:layout_constraintBottom_toTopOf="@+id/guideline13"
         app:layout_constraintEnd_toStartOf="@+id/iv_delete"
         app:layout_constraintStart_toStartOf="@+id/guideline20"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_edit_black_24dp" />
+
 
 </android.support.constraint.ConstraintLayout>
