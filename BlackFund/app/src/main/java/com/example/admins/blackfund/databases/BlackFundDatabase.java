@@ -159,6 +159,22 @@ public class BlackFundDatabase extends SQLiteOpenHelper {
         return totalIncome;
     }
 
+    public int calculateIncome() {
+        int totalIncome = 0;
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor cursor = db.rawQuery("select sum(" +
+                        KEY_TIEN + ") from " +
+                        TABLE_NOTE + " where " +
+                        KEY_ISINCOME + " = 1 order by id",
+                null);
+        if (cursor != null) {
+            cursor.moveToFirst();
+            totalIncome = cursor.getInt(0);
+        }
+        Log.d(TAG, "calculateIncome: " + DatabaseUtils.dumpCursorToString(cursor));
+        return totalIncome;
+    }
+
     public int calculateExpense(int calculatedMonth) {
         int totalExpense = 0;
         SQLiteDatabase db = getReadableDatabase();
@@ -166,6 +182,21 @@ public class BlackFundDatabase extends SQLiteOpenHelper {
                         KEY_TIEN + ") from " +
                         TABLE_NOTE + " where " +
                         KEY_ISINCOME + " = 0 and strftime('%m', ngaythang) = '" + calculatedMonth + "' order by id",
+                null);
+        if (cursor != null) {
+            cursor.moveToFirst();
+            totalExpense = cursor.getInt(0);
+        }
+        return totalExpense;
+    }
+
+    public int calculateExpense() {
+        int totalExpense = 0;
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor cursor = db.rawQuery("select sum(" +
+                        KEY_TIEN + ") from " +
+                        TABLE_NOTE + " where " +
+                        KEY_ISINCOME + " = 0 order by id",
                 null);
         if (cursor != null) {
             cursor.moveToFirst();

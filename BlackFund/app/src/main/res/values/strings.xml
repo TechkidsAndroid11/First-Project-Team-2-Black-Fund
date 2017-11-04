@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">BlackFund</string>
     <string name="transaction_history">HISTORY</string>
+    <string name="menu_action">menu_action</string>
 </resources>

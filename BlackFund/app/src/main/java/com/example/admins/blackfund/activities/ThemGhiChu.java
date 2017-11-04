@@ -161,7 +161,7 @@ public class ThemGhiChu extends AppCompatActivity implements View.OnClickListene
         //set read only
         ivDelete.setVisibility(View.VISIBLE);
         ivEdit.setVisibility(View.VISIBLE);
-        ivLuu.setVisibility(View.INVISIBLE);
+        ivLuu.setVisibility(View.GONE);
         etTien.setFocusable(false);
         etGhiChu.setFocusable(false);
         tvChonNhom.setOnClickListener(null);
@@ -266,6 +266,7 @@ public class ThemGhiChu extends AppCompatActivity implements View.OnClickListene
             public void onClick(View view) {
                 BlackFundDatabase.getInstance(ThemGhiChu.this).deleteNote(ghiChu.getId());
                 Toast.makeText(ThemGhiChu.this, "Deleted", Toast.LENGTH_SHORT).show();
+                alertDialog.dismiss();
                 ThemGhiChu.this.finish();
             }
         });

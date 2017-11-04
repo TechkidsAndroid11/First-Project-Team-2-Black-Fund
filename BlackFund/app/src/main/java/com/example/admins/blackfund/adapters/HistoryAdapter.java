@@ -49,7 +49,7 @@ public class HistoryAdapter extends ArrayAdapter<GhiChu> {
         TextView tvNote = convertView.findViewById(R.id.tv_note);
 
 
-        tvMoney.setText(list.get(position).getMoney());
+        tvMoney.setText(String.valueOf(list.get(position).getMoney()));
         tvNote.setText(list.get(position).getGhiChu());
         ReadDataUtils.getInstance().setImageResource(ivCategoryImage, list.get(position).getChonNhom());
         tvReason.setText(list.get(position).getChonNhom());
