@@ -158,4 +158,7 @@ public class MainActivity extends AppCompatActivity {
         List<GhiChu> ghiChuList = BlackFundDatabase.getInstance(this).getListGhiChu();
         lvHistory.setAdapter(new MainAdapter(this, R.layout.an_item, ghiChuList));
     }
+    //TODO: calculate balance
+    //TODO: adjust balance
+    //TODO: menu drawer
 }

@@ -36,6 +36,15 @@ public class BlackFundDatabase extends SQLiteOpenHelper {
             KEY_GHICHU + " TEXT NOT NULL " + "," +
             KEY_DATE + " TEXT NOT NULL " + ")";
 
+    private static final String READ_DAYOFWEEK = "case cast (strftime('%w', ngaythang) as integer)\n" +
+            "\twhen 0 then 'Sunday'\n" +
+            "\twhen 1 then 'Monday'\n" +
+            "\twhen 2 then 'Tuesday'\n" +
+            "\twhen 3 then 'Wednesday'\n" +
+            "\twhen 4 then 'Thursday'\n" +
+            "\twhen 5 then 'Friday'\n" +
+            "\telse 'Saturday' end as " + KEY_DAYOFWEEK;
+
     private static final String TAG = BlackFundDatabase.class.toString();
     public static BlackFundDatabase blackFundDatabase;
     private SQLiteDatabase db;
@@ -71,14 +80,7 @@ public class BlackFundDatabase extends SQLiteOpenHelper {
         ArrayList<GhiChu> list = new ArrayList<>();
         SQLiteDatabase db = getWritableDatabase();
         Cursor cursor = db.rawQuery("select *, " +
-                        "case cast (strftime('%w', ngaythang) as integer)\n" +
-                        "\twhen 0 then 'Sunday'\n" +
-                        "\twhen 1 then 'Monday'\n" +
-                        "\twhen 2 then 'Tuesday'\n" +
-                        "\twhen 3 then 'Wednesday'\n" +
-                        "\twhen 4 then 'Thursday'\n" +
-                        "\twhen 5 then 'Friday'\n" +
-                        "\telse 'Saturday' end as " + KEY_DAYOFWEEK + " from TB_GHICHU order by id desc limit 3",
+                        READ_DAYOFWEEK + " from TB_GHICHU order by id desc limit 3",
                 null);
         if (cursor != null) {
             cursor.moveToFirst();
@@ -103,19 +105,21 @@ public class BlackFundDatabase extends SQLiteOpenHelper {
     public ArrayList<GhiChu> getListHistorynote(String date) {
         ArrayList<GhiChu> listHistory = new ArrayList<>();
         SQLiteDatabase db = getReadableDatabase();
-        Cursor cursor = db.rawQuery("select * from TB_GHICHU where NGAYTHANG = '" + date + "'", null);
+        Cursor cursor = db.rawQuery("select *, " + READ_DAYOFWEEK + " from TB_GHICHU where NGAYTHANG = '" + date + "' order by id", null);
         cursor.moveToFirst();
         Log.d(TAG, "getListHistorynote: " + cursor.getCount());
         Log.d(TAG, "getListHistorynote: " + date);
 
         while (!cursor.isAfterLast()) {
-            int id = cursor.getInt(0);
-            Log.d(TAG, "getListHistorynote: " + id);
-            int money = cursor.getInt(1);
-            boolean isIncome = cursor.getInt(2) != 0;
-            String reason = cursor.getString(3);
-            String note = cursor.getString(4);
-            GhiChu ghiChu = new GhiChu(id, money, isIncome, reason, note);
+            GhiChu ghiChu = new GhiChu();
+            ghiChu.setId(cursor.getInt(cursor.getColumnIndex(KEY_ID_GHICHU)));
+            ghiChu.setMoney(cursor.getInt(cursor.getColumnIndex(KEY_TIEN)));
+            ghiChu.setChonNhom(cursor.getString(cursor.getColumnIndex(KEY_CHONNHOM)));
+            ghiChu.setGhiChu(cursor.getString(cursor.getColumnIndex(KEY_GHICHU)));
+            ghiChu.setDate(cursor.getString(cursor.getColumnIndex(KEY_DATE)));
+            ghiChu.setIsIncome(cursor.getInt(cursor.getColumnIndex(KEY_ISINCOME)));
+            ghiChu.setDayOfWeek(cursor.getString(cursor.getColumnIndex(KEY_DAYOFWEEK)));
+
             listHistory.add(ghiChu);
             cursor.moveToNext();
         }

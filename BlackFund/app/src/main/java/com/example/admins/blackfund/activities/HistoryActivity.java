@@ -8,29 +8,31 @@ import android.widget.ListView;
 
 import com.example.admins.blackfund.R;
 import com.example.admins.blackfund.adapters.HistoryAdapter;
+import com.example.admins.blackfund.adapters.MainAdapter;
 import com.example.admins.blackfund.databases.BlackFundDatabase;
 import com.example.admins.blackfund.models.GhiChu;
+import com.example.admins.blackfund.utils.ReadDataUtils;
 import com.prolificinteractive.materialcalendarview.CalendarDay;
 import com.prolificinteractive.materialcalendarview.CalendarMode;
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
 import com.prolificinteractive.materialcalendarview.OnDateSelectedListener;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 
 public class HistoryActivity extends AppCompatActivity {
     private ListView lvCalendar;
     private static final String TAG = HistoryAdapter.class.toString();
-    ArrayList<GhiChu> listHistory = new ArrayList<>();
+    private ArrayList<GhiChu> listHistory = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_history);
 
-
         final MaterialCalendarView materialCalendarView = findViewById(R.id.calendarView);
-
         materialCalendarView.state().edit()
                 .setFirstDayOfWeek(Calendar.MONDAY)
                 .setMinimumDate(CalendarDay.from(1900, 1, 1))
@@ -41,37 +43,17 @@ public class HistoryActivity extends AppCompatActivity {
         materialCalendarView.setOnDateChangedListener(new OnDateSelectedListener() {
             @Override
             public void onDateSelected(@NonNull MaterialCalendarView widget, @NonNull CalendarDay date, boolean selected) {
-//                listHistory= BlackFundDatabase.getInstance(HistoryActivity.this).getListHistorynote(date.toString().substring(12,date.toString().length()-1));
+                int seletedDay = date.getDay();
+                int selectedMonth = date.getMonth();
+                int seletedYear = date.getYear();
+                Date seletedDate = new Date(seletedYear - 1900, selectedMonth, seletedDay);
 
-                int day = date.getDay();
-                String day1;
-                if (day < 10) {
-                    day1 = "0" + day;
-
-                } else {
-                    day1 = "" + day;
-                }
-                int month = date.getMonth() + 1;
-                int year = date.getYear();
-                String date1 = year + "-" + month + "-" + day1;
-
-                Log.d(TAG, "onDateSelected: " + listHistory.size());
-                Log.d(TAG, "onDateSelected: " + date1.toString());
-//                String day= date.toString().substring(20,date.toString().length()-1);
-//                String month=date.toString().substring(17,date.toString().length()-3);
-//
-//
-//                int monthV= Integer.parseInt(month.replaceAll("[\\D]", ""));
-//                String year= date.toString().substring(12,date.toString().length()-6);
-//                int month1= monthV+1;
-//                String date1 =year+"-"+month1+"-"+day;
-                Log.d(TAG, "onDateSelected: ");
-                listHistory = BlackFundDatabase.getInstance(HistoryActivity.this).getListHistorynote(date1.toString());
+                Log.d(TAG, "onDateSelected: " + ReadDataUtils.getInstance().formatDatabaseDate(seletedDate));
+                listHistory = BlackFundDatabase.getInstance(HistoryActivity.this).getListHistorynote(ReadDataUtils.getInstance().formatDatabaseDate(seletedDate));
 
                 HistoryAdapter historyAdapter = new HistoryAdapter(HistoryActivity.this, R.layout.item_history_activity, listHistory);
                 lvCalendar = findViewById(R.id.lv_calendar);
                 lvCalendar.setAdapter(historyAdapter);
-
             }
         });
 

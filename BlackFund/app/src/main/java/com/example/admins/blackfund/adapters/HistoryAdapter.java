@@ -15,6 +15,7 @@ import android.widget.TextView;
 import com.example.admins.blackfund.R;
 import com.example.admins.blackfund.activities.HistoryActivity;
 import com.example.admins.blackfund.models.GhiChu;
+import com.example.admins.blackfund.utils.ReadDataUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,8 +26,7 @@ import java.util.List;
 
 public class HistoryAdapter extends ArrayAdapter<GhiChu> {
     private static final String TAG = HistoryActivity.class.toString();
-    private List<GhiChu> list=new ArrayList<>();
-
+    private List<GhiChu> list = new ArrayList<>();
     private Context context;
     private int resource;
 
@@ -43,62 +43,20 @@ public class HistoryAdapter extends ArrayAdapter<GhiChu> {
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         LayoutInflater layoutInflater = LayoutInflater.from(context);
         convertView = layoutInflater.inflate(resource, parent, false);
-        ImageView ivMoney = convertView.findViewById(R.id.iv_image1);
-        TextView tvReason = convertView.findViewById(R.id.tv_reason1);
-        TextView tvMoney1 = convertView.findViewById(R.id.tv_money1);
-        TextView tvNote1 = convertView.findViewById(R.id.tv_note1);
+        ImageView ivCategoryImage = convertView.findViewById(R.id.iv_category_image);
+        TextView tvReason = convertView.findViewById(R.id.tv_category);
+        TextView tvMoney = convertView.findViewById(R.id.tv_money);
+        TextView tvNote = convertView.findViewById(R.id.tv_note);
 
 
-        tvMoney1.setText(list.get(position).getMoney()+"");
-        tvNote1.setText(list.get(position).getGhiChu());
-        switch (list.get(position).getChonNhom()) {
-            case "FOODS": {
-                ivMoney.setImageResource(R.drawable.food);
-                break;
-            }
-            case "FRIENDS": {
-                ivMoney.setImageResource(R.drawable.banbe);
-                break;
-            }
-
-            case "SHOPPING": {
-                ivMoney.setImageResource(R.drawable.shopping);
-                break;
-            }
-
-            case "ENTERTAINMENT": {
-                ivMoney.setImageResource(R.drawable.giaitri);
-                break;
-            }
-
-            case "TRANSPORTATION": {
-                ivMoney.setImageResource(R.drawable.phuongtien);
-                break;
-            }
-
-            case "LOVE": {
-                ivMoney.setImageResource(R.drawable.love);
-                break;
-            }
-
-            case "WORKS": {
-                ivMoney.setImageResource(R.drawable.works);
-                break;
-            }
-
-            case "OTHERS": {
-                ivMoney.setImageResource(R.drawable.others);
-                break;
-            }
-            case "sub EXPENSES": {
-                ivMoney.setImageResource(R.drawable.sinhhoat);
-            }
-        }
+        tvMoney.setText(list.get(position).getMoney());
+        tvNote.setText(list.get(position).getGhiChu());
+        ReadDataUtils.getInstance().setImageResource(ivCategoryImage, list.get(position).getChonNhom());
         tvReason.setText(list.get(position).getChonNhom());
         if (list.get(position).isIncome()) {
-            tvMoney1.setTextColor(Color.parseColor("#008f24"));
+            tvMoney.setTextColor(Color.parseColor("#008f24"));
         } else {
-            tvMoney1.setTextColor(Color.parseColor("#dc000d"));
+            tvMoney.setTextColor(Color.parseColor("#dc000d"));
         }
         Log.d(TAG, "getView: "+list.toString());
 

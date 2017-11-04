@@ -3,62 +3,102 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="#a9ffffff">
+    android:layout_height="match_parent">
 
-    <!--<ImageButton-->
-    <!--android:id="@+id/imageButton"-->
-    <!--android:layout_width="wrap_content"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--app:srcCompat="@drawable/leaf"-->
-    <!--tools:ignore="MissingConstraints"-->
-    <!--tools:layout_editor_absoluteX="0dp"-->
-    <!--tools:layout_editor_absoluteY="0dp" />-->
-
-    <TextView
-        android:id="@+id/textView4"
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline22"
         android:layout_width="wrap_content"
-        android:layout_height="26dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:text="@string/transaction_history"
-        android:textColor="#1b1a1a"
-        android:textSize="21sp"
-        android:textStyle="bold"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.1" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline23"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.1" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline24"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.7" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline25"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.6" />
+
+    <View
+        android:id="@+id/v_appbar_background"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@color/colorPrimaryDark"
+        app:layout_constraintBottom_toBottomOf="@id/guideline22"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <com.prolificinteractive.materialcalendarview.MaterialCalendarView
-        android:id="@+id/calendarView"
-        android:layout_width="355dp"
-        android:layout_height="335dp"
+    <TextView
+        android:id="@+id/tv_activity_name"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView4"
-        app:mcv_selectionColor="#00F"
-        app:mcv_showOtherDates="all">
-
-
-    </com.prolificinteractive.materialcalendarview.MaterialCalendarView>
+        android:gravity="center|left"
+        android:text="@string/transaction_history"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/guideline22"
+        app:layout_constraintEnd_toStartOf="@+id/guideline24"
+        app:layout_constraintStart_toStartOf="@+id/guideline23"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ListView
-        android:id="@+id/lv_calendar"
+    android:id="@+id/lv_calendar"
+    android:layout_width="0dp"
+    android:layout_height="0dp"
+    android:layout_marginBottom="8dp"
+    android:layout_marginEnd="8dp"
+    android:layout_marginStart="8dp"
+    android:layout_marginTop="8dp"
+    android:dividerHeight="4dp"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/calendarView">
+    </ListView>
+
+    <ImageView
+        android:id="@+id/iv_menu_drawer"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginStart="14dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/guideline22"
+        app:layout_constraintEnd_toStartOf="@+id/guideline23"
+        app:layout_constraintStart_toStartOf="@+id/view"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_add_black_24dp" />
+
+    <com.prolificinteractive.materialcalendarview.MaterialCalendarView
+        android:id="@+id/calendarView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/guideline25"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/calendarView"
-        app:layout_constraintBottom_toBottomOf="parent">
-
-
-    </ListView>
+        app:layout_constraintTop_toTopOf="@+id/guideline22"
+        app:mcv_selectionColor="@color/colorPrimary"
+        app:mcv_showOtherDates="all">
+    </com.prolificinteractive.materialcalendarview.MaterialCalendarView>
 
 </android.support.constraint.ConstraintLayout>

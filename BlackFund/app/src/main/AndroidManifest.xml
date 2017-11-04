@@ -19,13 +19,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activities.lockviewactivities.CreatPasswordActivity" />
-        <activity android:name=".activities.lockviewactivities.InputPasswordActivity" />
+        <activity android:name=".activities.lockviewactivities.CreatPasswordActivity" android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
+        <activity android:name=".activities.lockviewactivities.InputPasswordActivity" android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
 
         <activity
             android:name=".activities.ThemGhiChu"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
-        <activity android:name=".activities.HistoryActivity"></activity>
+        <activity android:name=".activities.HistoryActivity" android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity>
     </application>
 
 </manifest>

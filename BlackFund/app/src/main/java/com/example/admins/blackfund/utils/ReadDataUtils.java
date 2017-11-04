@@ -7,6 +7,7 @@ import com.example.admins.blackfund.models.GhiChu;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -99,4 +100,10 @@ public class ReadDataUtils {
         }
         return formattedDate;
     }
+
+    public String formatDatabaseDate(Date date) {
+        SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd");
+        return dateFormatter.format(date);
+    }
+
 }
