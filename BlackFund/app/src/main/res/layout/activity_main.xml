@@ -43,9 +43,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.1"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="66dp" />
+        app:layout_constraintGuide_begin="56dp" />
 
     <android.support.constraint.Guideline
         android:id="@+id/guideline9"
@@ -99,19 +97,20 @@
         android:id="@+id/v_overview_background"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginBottom="8dp"
         android:background="@color/colorPrimary"
         app:layout_constraintBottom_toTopOf="@+id/guideline34"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_app_name" />
+        app:layout_constraintTop_toTopOf="@+id/guideline8" />
 
     <ListView
         android:id="@+id/lv_recent_history"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:divider="#B1BCBE"
+
+        android:dividerHeight="1dp"
+        android:elevation="5dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -196,19 +195,19 @@
 
     </android.support.v4.view.ViewPager>
 
-    <ImageView
-        android:id="@+id/iv_minus"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        app:layout_constraintBottom_toBottomOf="@+id/iv_expenses"
-        app:layout_constraintEnd_toEndOf="@+id/iv_expenses"
-        app:layout_constraintStart_toStartOf="@+id/iv_expenses"
-        app:layout_constraintTop_toTopOf="@+id/iv_expenses"
-        app:srcCompat="@drawable/ic_remove_black_24dp" />
+    <!--<ImageView-->
+        <!--android:id="@+id/iv_minus"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginBottom="8dp"-->
+        <!--android:layout_marginEnd="8dp"-->
+        <!--android:layout_marginStart="8dp"-->
+        <!--android:layout_marginTop="8dp"-->
+        <!--app:layout_constraintBottom_toBottomOf="@+id/iv_expenses"-->
+        <!--app:layout_constraintEnd_toEndOf="@+id/iv_expenses"-->
+        <!--app:layout_constraintStart_toStartOf="@+id/iv_expenses"-->
+        <!--app:layout_constraintTop_toTopOf="@+id/iv_expenses"-->
+        <!--app:srcCompat="@drawable/ic_remove_black_24dp" />-->
 
     <ImageView
         android:id="@+id/iv_incomes"
@@ -222,17 +221,17 @@
         app:layout_constraintTop_toTopOf="@+id/guideline8"
         app:srcCompat="@drawable/circle_view_incomes" />
 
-    <ImageView
-        android:id="@+id/iv_plus"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginRight="8dp"
-        app:layout_constraintBottom_toBottomOf="@+id/iv_incomes"
-        app:layout_constraintEnd_toEndOf="@+id/iv_incomes"
-        app:layout_constraintRight_toRightOf="@+id/iv_money_content"
-        app:layout_constraintStart_toStartOf="@+id/iv_incomes"
-        app:layout_constraintTop_toTopOf="@+id/iv_incomes"
-        app:srcCompat="@drawable/ic_add_black_24dp" />
+    <!--<ImageView-->
+        <!--android:id="@+id/iv_plus"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginRight="8dp"-->
+        <!--app:layout_constraintBottom_toBottomOf="@+id/iv_incomes"-->
+        <!--app:layout_constraintEnd_toEndOf="@+id/iv_incomes"-->
+        <!--app:layout_constraintRight_toRightOf="@+id/iv_money_content"-->
+        <!--app:layout_constraintStart_toStartOf="@+id/iv_incomes"-->
+        <!--app:layout_constraintTop_toTopOf="@+id/iv_incomes"-->
+        <!--app:srcCompat="@drawable/ic_add_black_24dp" />-->
 
     <android.support.constraint.Guideline
         android:id="@+id/guideline27"
@@ -270,13 +269,14 @@
             android:layout_marginBottom="8dp"
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="16dp"
             android:text="Balance"
-            android:textSize="20sp"
+            android:textColor="@color/white"
+            android:textSize="16sp"
             app:layout_constraintBottom_toTopOf="@+id/tv_money"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/iv_money_content" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/tv_money"
@@ -288,9 +288,10 @@
             android:layout_marginRight="8dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
+            android:gravity="center"
             android:text="1.000"
             android:textColor="@color/white"
-            android:textSize="40sp"
+            android:textSize="45sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintLeft_toLeftOf="@+id/iv_money_content"
@@ -302,11 +303,14 @@
             android:id="@+id/tv_vnd"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
             android:layout_marginStart="8dp"
             android:text="VND"
+            android:textColor="@color/white"
             android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@+id/tv_money"
-            tools:layout_editor_absoluteY="8dp" />
+            app:layout_constraintTop_toTopOf="parent" />
 
     </android.support.constraint.ConstraintLayout>
 
