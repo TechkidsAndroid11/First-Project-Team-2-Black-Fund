@@ -25,7 +25,9 @@ import com.example.admins.blackfund.adapters.OverviewPagerAdapter;
 import com.example.admins.blackfund.databases.BlackFundDatabase;
 import com.example.admins.blackfund.models.GhiChu;
 
+import java.text.NumberFormat;
 import java.util.List;
+import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
     private ImageView ivPlus;
@@ -165,15 +167,17 @@ public class MainActivity extends AppCompatActivity {
         int totalIncome = BlackFundDatabase.getInstance(this).calculateIncome();
         int totalExpense = BlackFundDatabase.getInstance(this).calculateExpense();
         final SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFERENCES, MODE_PRIVATE);
-        final int moneyBalance = Integer.parseInt(sharedPreferences.getString(MONEY_BALANCE, ""));
-        int newMoneyBalance = moneyBalance + totalIncome - totalExpense;
-        if (newMoneyBalance <= 0){
-            newMoneyBalance = 0;
+        String strMoneyBalance = sharedPreferences.getString(MONEY_BALANCE, "");
+        if (strMoneyBalance == "") {
+//            onFirstTime();
+        } else {
+            int intMoneyBalance = Integer.parseInt(strMoneyBalance);
+            int newMoneyBalance = intMoneyBalance + totalIncome - totalExpense;
+            if (newMoneyBalance <= 0) {
+                newMoneyBalance = 0;
+            }
+            tvMoney.setText(NumberFormat.getNumberInstance(Locale.US).format(newMoneyBalance));
         }
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString(MONEY_BALANCE, String.valueOf(moneyBalance));
-        editor.commit();
-        tvMoney.setText(String.valueOf(newMoneyBalance));
     }
 
     public void showPopUp(){

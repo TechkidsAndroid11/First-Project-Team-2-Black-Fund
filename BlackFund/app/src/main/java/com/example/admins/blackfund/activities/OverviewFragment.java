@@ -13,7 +13,9 @@ import android.widget.TextView;
 import com.example.admins.blackfund.R;
 import com.example.admins.blackfund.databases.BlackFundDatabase;
 
+import java.text.NumberFormat;
 import java.util.Calendar;
+import java.util.Locale;
 
 import static com.example.admins.blackfund.adapters.OverviewPagerAdapter.OVERVIEW_KEY;
 
@@ -45,22 +47,22 @@ public class OverviewFragment extends Fragment {
 
         //set total income
         int intTotalIncome = BlackFundDatabase.getInstance(getActivity()).calculateIncome(currentMonth);
-        String totalIncome = String.valueOf(intTotalIncome);
-        tvTotalIncome.setText(totalIncome);
+  //      String totalIncome = String.valueOf(intTotalIncome);
+        tvTotalIncome.setText(NumberFormat.getNumberInstance(Locale.US).format(intTotalIncome));
 
         //set total expense
         int intTotalExpense = BlackFundDatabase.getInstance(getActivity()).calculateExpense(currentMonth);
-        String totalExpense = String.valueOf(intTotalExpense);
-        tvTotalExpense.setText(totalExpense);
+     //   String totalExpense = String.valueOf(intTotalExpense);
+        tvTotalExpense.setText(NumberFormat.getNumberInstance(Locale.US).format(intTotalExpense));
 
         //set difference
         int intTotalDifference = intTotalIncome - intTotalExpense;
-        String totalDifference = String.valueOf(intTotalDifference);
+     //   String totalDifference = String.valueOf(intTotalDifference);
         if (intTotalDifference <= 0){
             tvDifference.setTextColor(Color.parseColor("#dc000d"));
         } else {
             tvDifference.setTextColor(Color.parseColor("#008f24"));
         }
-        tvDifference.setText(totalDifference);
+        tvDifference.setText(NumberFormat.getNumberInstance(Locale.US).format(intTotalDifference));
     }
 }

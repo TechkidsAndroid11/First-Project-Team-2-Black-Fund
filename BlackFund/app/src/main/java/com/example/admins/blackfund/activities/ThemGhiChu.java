@@ -13,6 +13,7 @@ import android.widget.*;
 import android.widget.DatePicker;
 
 import com.example.admins.blackfund.R;
+import com.example.admins.blackfund.activities.lockviewactivities.NumberTextWatcher;
 import com.example.admins.blackfund.databases.BlackFundDatabase;
 import com.example.admins.blackfund.models.GhiChu;
 import com.example.admins.blackfund.utils.ReadDataUtils;
@@ -138,6 +139,7 @@ public class ThemGhiChu extends AppCompatActivity implements View.OnClickListene
         etGhiChu = findViewById(R.id.et_ghiChu);
         tvChonNhom = (TextView) findViewById(R.id.tv_chonNhom);
         etTien = (EditText) findViewById(R.id.et_tien);
+        etTien.addTextChangedListener(new NumberTextWatcher(etTien));
         ivLuu = (ImageView) findViewById(R.id.iv_luu);
         ivBack = (ImageView) findViewById(R.id.iv_back);
         ivChonNhom = (ImageView) findViewById(R.id.iv_category_logo);
