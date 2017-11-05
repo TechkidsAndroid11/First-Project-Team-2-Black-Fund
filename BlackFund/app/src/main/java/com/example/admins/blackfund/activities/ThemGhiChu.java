@@ -64,7 +64,7 @@ public class ThemGhiChu extends AppCompatActivity implements View.OnClickListene
 
     private void readOnlyActivity() {
         //set data
-        tvActName.setText("ACTIVITY");
+        tvActName.setText("");
         ghiChu = (GhiChu) getIntent().getSerializableExtra(MainActivity.KEY_EDIT);
         etTien.setText(String.valueOf(ghiChu.getMoney()));
         etGhiChu.setText(ghiChu.getGhiChu());
@@ -284,9 +284,15 @@ public class ThemGhiChu extends AppCompatActivity implements View.OnClickListene
 
     private void updateData() {
         String ghichu = etGhiChu.getText().toString();
-        int tien = Integer.parseInt(etTien.getText().toString());
+//        int tien = Integer.parseInt(etTien.getText().toString());
 
         //format date
+        StringBuilder stringBuilder = new StringBuilder(etTien.getText().toString());
+        while (stringBuilder.indexOf(".")>0){
+            stringBuilder.deleteCharAt(stringBuilder.indexOf("."));
+        }
+        String money = stringBuilder.toString();
+        int tien = Integer.parseInt(money);
         String date = tvDate.getText().toString();
         String subDate = date.substring(date.indexOf(", ") + 2, date.length());
         String formattedDate = ReadDataUtils.getInstance().formatDatabaseDate(subDate);
@@ -299,7 +305,12 @@ public class ThemGhiChu extends AppCompatActivity implements View.OnClickListene
 
     private void addIncome(boolean addMoney) {
         String ghichu = etGhiChu.getText().toString();
-        int tien = Integer.parseInt(etTien.getText().toString());
+        StringBuilder stringBuilder = new StringBuilder(etTien.getText().toString());
+        while (stringBuilder.indexOf(".")>0){
+            stringBuilder.deleteCharAt(stringBuilder.indexOf("."));
+        }
+        String money = stringBuilder.toString();
+        int tien = Integer.parseInt(money);
         String date = tvDate.getText().toString();
         String subDate = date.substring(date.indexOf(",") + 2, date.length());
 
@@ -347,6 +358,7 @@ public class ThemGhiChu extends AppCompatActivity implements View.OnClickListene
 
     private void changeMode() {
         addListeners();
+        tvActName.setText("Edit");
         ivLuu.setVisibility(View.VISIBLE);
         etTien.setFocusable(true);
         etTien.setFocusableInTouchMode(true);
