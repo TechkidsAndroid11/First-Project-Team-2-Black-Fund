@@ -1,5 +1,6 @@
 package com.example.admins.blackfund.activities;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v4.view.ViewPager;
@@ -24,17 +25,19 @@ import com.example.admins.blackfund.adapters.MainAdapter;
 import com.example.admins.blackfund.adapters.OverviewPagerAdapter;
 import com.example.admins.blackfund.databases.BlackFundDatabase;
 import com.example.admins.blackfund.models.GhiChu;
+import com.getbase.floatingactionbutton.FloatingActionButton;
+import com.getbase.floatingactionbutton.FloatingActionsMenu;
+
+
 
 import java.text.NumberFormat;
 import java.util.List;
 import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
-    private ImageView ivPlus;
     private ViewPager vpOverview;
     private ListView lvHistory;
     private TextView tvMoney;
-    private ImageView ivMinus;
     public static String KEY_ISINCOME = "KEY_ISINCOME";
     public static String KEY_EDIT = "KEY_EDIT";
     public static String EDIT_MODE = "EDIT_MODE";
@@ -45,14 +48,18 @@ public class MainActivity extends AppCompatActivity {
     private EditText etValue;
     private Button btOK;
     public static boolean checkPass = true;
-    private ImageView ivMenu;
+    private FloatingActionsMenu fbActionMenu;
+    private FloatingActionButton btAddIncome;
+    private FloatingActionButton btAddExpense;
+    private FloatingActionButton btHistory;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        checkPassword();
+//        checkPassword();
         setupUI();
         addListeners();
         onFirstTime();
@@ -106,23 +113,32 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void addListeners() {
-        ivPlus.setOnClickListener(new View.OnClickListener() {
+        btAddIncome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this, ThemGhiChu.class);
                 intent.putExtra(KEY_ISINCOME, true);
                 intent.putExtra(EDIT_MODE, false);
                 startActivity(intent);
+                fbActionMenu.collapse();
             }
         });
 
-        ivMinus.setOnClickListener(new View.OnClickListener() {
+        btAddExpense.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this, ThemGhiChu.class);
                 intent.putExtra(KEY_ISINCOME, false);
                 intent.putExtra(EDIT_MODE, false);
                 startActivity(intent);
+                fbActionMenu.collapse();
+            }
+        });
+
+        btHistory.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(MainActivity.this, HistoryActivity.class));
             }
         });
 
@@ -133,12 +149,7 @@ public class MainActivity extends AppCompatActivity {
                 intent.putExtra(EDIT_MODE, true);
                 intent.putExtra(KEY_EDIT, BlackFundDatabase.getInstance(MainActivity.this).getListGhiChu().get(position));
                 startActivity(intent);
-            }
-        });
-        ivMenu.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                showPopUp();
+                fbActionMenu.collapse();
             }
         });
     }
@@ -149,11 +160,37 @@ public class MainActivity extends AppCompatActivity {
         vpOverview = (ViewPager) findViewById(R.id.vp_overview);
         vpOverview.setAdapter(new OverviewPagerAdapter(getSupportFragmentManager()));
         tvMoney = (TextView) findViewById(R.id.tv_money);
-        ivPlus = (ImageView) findViewById(R.id.iv_incomes);
-        ivMinus = (ImageView) findViewById(R.id.iv_expenses);
-        ivMenu= findViewById(R.id.iv_menu);
-
+        fbActionMenu = findViewById(R.id.fb_add_button);
+        setupActionMenu();
     }
+
+    private void setupActionMenu() {
+        btAddIncome = new FloatingActionButton(this);
+        btAddIncome.setTitle("Income");
+        btAddIncome.setIcon(R.drawable.ic_add_black_24dp);
+        btAddIncome.setSize(FloatingActionButton.SIZE_MINI);
+        btAddIncome.setColorNormalResId(R.color.colorPrimary);
+        btAddIncome.setColorPressedResId(R.color.colorPrimaryDark);
+        fbActionMenu.addButton(btAddIncome);
+
+        btAddExpense = new FloatingActionButton(this);
+        btAddExpense.setTitle("Expense");
+        btAddExpense.setIcon(R.drawable.ic_remove_black_24dp);
+        btAddExpense.setSize(FloatingActionButton.SIZE_MINI);
+        btAddExpense.setColorNormalResId(R.color.colorPrimary);
+        btAddExpense.setColorPressedResId(R.color.colorPrimaryDark);
+        fbActionMenu.addButton(btAddExpense);
+
+        btHistory = new FloatingActionButton(this);
+        btHistory.setTitle("History");
+        btHistory.setIcon(R.drawable.ic_history_black_24dp);
+        btHistory.setSize(FloatingActionButton.SIZE_MINI);
+        btHistory.setColorNormalResId(R.color.colorPrimary);
+        btHistory.setColorPressedResId(R.color.colorPrimaryDark);
+        fbActionMenu.addButton(btHistory);
+    }
+
+
 
     @Override
     protected void onStart() {
@@ -180,32 +217,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void showPopUp(){
-        final PopupMenu popupMenu = new PopupMenu(MainActivity.this, ivMenu);
-        popupMenu.getMenuInflater().inflate(R.menu.menu_trans, popupMenu.getMenu());
 
-        popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem menuItem) {
-                switch (menuItem.getItemId()){
-                    case R.id.menu_overview:{
-//                        startActivity(new Intent(HistoryActivity.class, MainActivity.class));
-                        popupMenu.dismiss();
-                        break;
-                    }
-
-                    case R.id.menu_history:{
-                        startActivity(new Intent(MainActivity.this, HistoryActivity.class));
-                        break;
-                    }
-
-                    default: break;
-                }
-                return false;
-            }
-        });
-        popupMenu.show();
-    }
-
+    //TODO: history UI
     //TODO: adjust balance
 }

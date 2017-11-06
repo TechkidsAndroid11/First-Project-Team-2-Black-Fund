@@ -64,7 +64,7 @@ public class ThemGhiChu extends AppCompatActivity implements View.OnClickListene
 
     private void readOnlyActivity() {
         //set data
-        tvActName.setText("");
+        tvActName.setText("Activity");
         ghiChu = (GhiChu) getIntent().getSerializableExtra(MainActivity.KEY_EDIT);
         etTien.setText(String.valueOf(ghiChu.getMoney()));
         etGhiChu.setText(ghiChu.getGhiChu());
@@ -163,9 +163,10 @@ public class ThemGhiChu extends AppCompatActivity implements View.OnClickListene
         //set read only
         ivDelete.setVisibility(View.VISIBLE);
         ivEdit.setVisibility(View.VISIBLE);
-        ivLuu.setVisibility(View.GONE);
+        ivLuu.setVisibility(View.INVISIBLE);
         etTien.setFocusable(false);
         etGhiChu.setFocusable(false);
+        tvChonNhom.setFocusable(false);
         tvChonNhom.setOnClickListener(null);
         tvDate.setOnClickListener(null);
         ivEdit.setOnClickListener(this);
@@ -284,12 +285,10 @@ public class ThemGhiChu extends AppCompatActivity implements View.OnClickListene
 
     private void updateData() {
         String ghichu = etGhiChu.getText().toString();
-//        int tien = Integer.parseInt(etTien.getText().toString());
-
         //format date
         StringBuilder stringBuilder = new StringBuilder(etTien.getText().toString());
-        while (stringBuilder.indexOf(".")>0){
-            stringBuilder.deleteCharAt(stringBuilder.indexOf("."));
+        while (stringBuilder.indexOf(",")>0){
+            stringBuilder.deleteCharAt(stringBuilder.indexOf(","));
         }
         String money = stringBuilder.toString();
         int tien = Integer.parseInt(money);
@@ -306,8 +305,8 @@ public class ThemGhiChu extends AppCompatActivity implements View.OnClickListene
     private void addIncome(boolean addMoney) {
         String ghichu = etGhiChu.getText().toString();
         StringBuilder stringBuilder = new StringBuilder(etTien.getText().toString());
-        while (stringBuilder.indexOf(".")>0){
-            stringBuilder.deleteCharAt(stringBuilder.indexOf("."));
+        while (stringBuilder.indexOf(",")>0){
+            stringBuilder.deleteCharAt(stringBuilder.indexOf(","));
         }
         String money = stringBuilder.toString();
         int tien = Integer.parseInt(money);

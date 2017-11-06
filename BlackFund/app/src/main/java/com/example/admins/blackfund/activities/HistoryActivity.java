@@ -32,7 +32,8 @@ public class HistoryActivity extends AppCompatActivity {
     private static final String TAG = HistoryAdapter.class.toString();
     private ArrayList<GhiChu> listHistory = new ArrayList<>();
     private MaterialCalendarView materialCalendarView;
-    private ImageView ivMenu;
+    private ImageView ivBack;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,17 +42,8 @@ public class HistoryActivity extends AppCompatActivity {
 
         setupUI();
         setupCalendar();
-        addListerners();
     }
 
-    private void addListerners() {
-        ivMenu.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                showPopUp();
-            }
-        });
-    }
 
     private void setupCalendar() {
         materialCalendarView.state().edit()
@@ -81,33 +73,13 @@ public class HistoryActivity extends AppCompatActivity {
 
     private void setupUI() {
         materialCalendarView = findViewById(R.id.calendarView);
-        ivMenu = findViewById(R.id.iv_menu_drawer);
-    }
-
-    private void showPopUp() {
-        final PopupMenu popupMenu = new PopupMenu(HistoryActivity.this, ivMenu);
-        popupMenu.getMenuInflater().inflate(R.menu.menu_trans, popupMenu.getMenu());
-
-        popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+        ivBack = findViewById(R.id.iv_back);
+        ivBack.setOnClickListener(new View.OnClickListener() {
             @Override
-            public boolean onMenuItemClick(MenuItem menuItem) {
-                switch (menuItem.getItemId()) {
-                    case R.id.menu_overview: {
-                        startActivity(new Intent(HistoryActivity.this, MainActivity.class));
-                        break;
-                    }
-
-                    case R.id.menu_history: {
-                        popupMenu.dismiss();
-                        break;
-                    }
-
-                    default:
-                        break;
-                }
-                return false;
+            public void onClick(View view) {
+                startActivity(new Intent(HistoryActivity.this, MainActivity.class));
             }
         });
-        popupMenu.show();
     }
+
 }

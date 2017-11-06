@@ -80,7 +80,7 @@ public class BlackFundDatabase extends SQLiteOpenHelper {
         ArrayList<GhiChu> list = new ArrayList<>();
         SQLiteDatabase db = getWritableDatabase();
         Cursor cursor = db.rawQuery("select *, " +
-                        READ_DAYOFWEEK + " from TB_GHICHU order by id desc limit 3",
+                        READ_DAYOFWEEK + " from TB_GHICHU order by id desc",
                 null);
         if (cursor != null) {
             cursor.moveToFirst();
