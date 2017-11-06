@@ -51,7 +51,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.66" />
+        app:layout_constraintGuide_percent="0.66003317" />
 
     <TextView
         android:id="@+id/tv_difference"
@@ -78,13 +78,14 @@
         android:id="@+id/textView2"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
+        android:gravity="center"
         android:text="INCOMES"
         android:textColor="@color/colorPrimaryDarker"
         android:textSize="16sp"
-        android:gravity="center"
         app:layout_constraintBottom_toTopOf="@+id/guideline3"
         app:layout_constraintEnd_toStartOf="@+id/guideline33"
         app:layout_constraintStart_toStartOf="parent"

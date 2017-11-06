@@ -36,7 +36,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.55" />
+            app:layout_constraintGuide_percent="0.64" />
 
         <TextView
             android:id="@+id/tv_date"
@@ -78,8 +78,8 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:gravity="left|center"
-            android:text="CATEGORY"
-            android:textSize="20sp"
+            android:text="ENTERTAINMENT"
+            android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/gl_70_percent_vertical"
             app:layout_constraintStart_toStartOf="@+id/gl_20_percent_vertical"
@@ -91,12 +91,11 @@
             android:layout_height="0dp"
             android:layout_marginBottom="8dp"
             android:layout_marginEnd="16dp"
-            android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
             android:gravity="right|center"
             android:padding="8dp"
             android:text="8000"
-            android:textSize="24sp"
+            android:textSize="20sp"
             app:layout_constraintBottom_toTopOf="@+id/gl_50_percent_horizontal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.529"
@@ -120,7 +119,7 @@
                 android:layout_marginTop="16dp"
                 android:gravity="start"
                 android:text="Saturday"
-                android:textSize="16sp" />
+                android:textSize="14sp" />
 
             <TextView
                 android:id="@+id/tv_month_and_year"

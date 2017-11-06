@@ -217,7 +217,6 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-
-    //TODO: history UI
+    //TODO main activity overview fragment
     //TODO: adjust balance
 }
