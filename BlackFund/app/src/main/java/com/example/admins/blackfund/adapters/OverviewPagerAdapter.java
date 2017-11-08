@@ -24,9 +24,9 @@ public class OverviewPagerAdapter extends FragmentPagerAdapter {
     public Fragment getItem(int position) {
         switch (position){
             case 0:
-                return setOverviewTabData(false);
-            case 1:
                 return setOverviewTabData(true);
+            case 1:
+                return setOverviewTabData(false);
         }
         return null;
     }
@@ -37,6 +37,17 @@ public class OverviewPagerAdapter extends FragmentPagerAdapter {
         OverviewFragment overviewFragment = new OverviewFragment();
         overviewFragment.setArguments(bundle);
         return overviewFragment;
+    }
+
+    @Override
+    public CharSequence getPageTitle(int position) {
+        switch (position){
+            case 0:
+                default:
+                return "This month";
+            case 1:
+                return "Last month";
+        }
     }
 
     @Override

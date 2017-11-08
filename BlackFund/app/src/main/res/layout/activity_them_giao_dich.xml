@@ -191,10 +191,10 @@
         android:layout_height="0dp"
         android:elevation="2dp"
         android:padding="16dp"
-        app:layout_constraintBottom_toTopOf="@+id/guideline19"
+        app:layout_constraintBottom_toTopOf="@+id/guideline12"
         app:layout_constraintEnd_toStartOf="@+id/guideline14"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline16"
+        app:layout_constraintTop_toTopOf="@+id/guideline19"
         app:srcCompat="@drawable/ic_help_black_24dp" />
 
     <android.support.constraint.Guideline
@@ -210,10 +210,10 @@
         android:layout_height="0dp"
         android:elevation="2dp"
         android:padding="16dp"
-        app:layout_constraintBottom_toTopOf="@+id/guideline12"
+        app:layout_constraintBottom_toTopOf="@+id/guideline19"
         app:layout_constraintEnd_toStartOf="@+id/guideline14"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline19"
+        app:layout_constraintTop_toBottomOf="@+id/iv_money_logo"
         app:srcCompat="@drawable/ic_note_black_24dp" />
 
     <ImageView

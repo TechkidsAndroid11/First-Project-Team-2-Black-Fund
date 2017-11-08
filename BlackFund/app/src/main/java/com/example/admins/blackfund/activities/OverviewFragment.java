@@ -34,7 +34,7 @@ public class OverviewFragment extends Fragment {
         View overviewTab = inflater.inflate(R.layout.overview_fragment_tab, container, false);
         tvTotalIncome = overviewTab.findViewById(R.id.tv_total_income);
         tvTotalExpense = overviewTab.findViewById(R.id.tv_total_expense);
-        tvDifference = overviewTab.findViewById(R.id.tv_difference);
+//        tvDifference = overviewTab.findViewById(R.id.tv_difference);
 
         return overviewTab;
     }
@@ -43,7 +43,13 @@ public class OverviewFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-        int currentMonth = Calendar.getInstance().get(Calendar.MONTH) + 1;
+        int currentMonth;
+        Bundle bundle = getArguments();
+        if (bundle.getBoolean(OVERVIEW_KEY, true)) {
+            currentMonth = Calendar.getInstance().get(Calendar.MONTH) + 1;
+        } else {
+            currentMonth = Calendar.getInstance().get(Calendar.MONTH);
+        }
 
         //set total income
         int intTotalIncome = BlackFundDatabase.getInstance(getActivity()).calculateIncome(currentMonth);
@@ -58,11 +64,11 @@ public class OverviewFragment extends Fragment {
         //set difference
         int intTotalDifference = intTotalIncome - intTotalExpense;
      //   String totalDifference = String.valueOf(intTotalDifference);
-        if (intTotalDifference <= 0){
-            tvDifference.setTextColor(Color.parseColor("#dc000d"));
-        } else {
-            tvDifference.setTextColor(Color.parseColor("#008f24"));
-        }
-        tvDifference.setText(NumberFormat.getNumberInstance(Locale.US).format(intTotalDifference));
+//        if (intTotalDifference <= 0){
+//            tvDifference.setTextColor(Color.parseColor("#dc000d"));
+//        } else {
+//            tvDifference.setTextColor(Color.parseColor("#008f24"));
+//        }
+//        tvDifference.setText(NumberFormat.getNumberInstance(Locale.US).format(intTotalDifference));
     }
 }

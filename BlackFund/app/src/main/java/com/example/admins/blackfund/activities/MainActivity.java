@@ -3,6 +3,8 @@ package com.example.admins.blackfund.activities;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -47,6 +49,7 @@ public class MainActivity extends AppCompatActivity {
     private AlertDialog alertDialog;
     private EditText etValue;
     private Button btOK;
+    private TabLayout tlOverviewTab;
     public static boolean checkPass = true;
     private FloatingActionsMenu fbActionMenu;
     private FloatingActionButton btAddIncome;
@@ -105,7 +108,7 @@ public class MainActivity extends AppCompatActivity {
                     editor.putString(MONEY_BALANCE, beginningValue);
                     editor.putBoolean("firstTime", false);
                     editor.commit();
-                    tvMoney.setText(beginningValue);
+                    tvMoney.setText(NumberFormat.getNumberInstance(Locale.US).format(Integer.parseInt(beginningValue)));
                     alertDialog.dismiss();
                 }
             });
@@ -161,6 +164,8 @@ public class MainActivity extends AppCompatActivity {
         vpOverview.setAdapter(new OverviewPagerAdapter(getSupportFragmentManager()));
         tvMoney = (TextView) findViewById(R.id.tv_money);
         fbActionMenu = findViewById(R.id.fb_add_button);
+        tlOverviewTab = findViewById(R.id.tl_overview_tab);
+        tlOverviewTab.setupWithViewPager(vpOverview);
         setupActionMenu();
     }
 
@@ -218,5 +223,4 @@ public class MainActivity extends AppCompatActivity {
     }
 
     //TODO main activity overview fragment
-    //TODO: adjust balance
 }
